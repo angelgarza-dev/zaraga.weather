@@ -7,7 +7,7 @@
 
     <maui:ProgressBar
         x:Name="AnimatedProgressBar"
-        Margin="15,0"
+        Margin="0"
         HeightRequest="5"
         RoundCaps="True"
         UseRange="True" />
