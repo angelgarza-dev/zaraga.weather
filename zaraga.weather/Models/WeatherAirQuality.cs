@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-
-namespace zaraga.weather.Models
+﻿namespace zaraga.weather.Models
 {
-    public class WeatherAirQuality
+    internal class WeatherAirQuality
     {
         /// <summary>
         /// Carbon Monoxide (μg/m3)
@@ -36,7 +34,6 @@ namespace zaraga.weather.Models
         /// 5 means Very Unhealthy
         /// 6 means Hazardous
         /// </summary>
-        [JsonProperty("us-epa-index")]
         public int usepaindex { get; set; }
         /// <summary>
         /// 0-11 low
@@ -50,19 +47,6 @@ namespace zaraga.weather.Models
         /// 65-70 High
         /// >=71 Very High
         /// </summary>
-        [JsonProperty("gb-defra-index")]
         public int gbdefraindex { get; set; }
-
-        public WeatherAirQuality()
-        {
-            co = 0.0f;
-            o3 = 0.0f;
-            no2 = 0.0f;
-            so2 = 0.0f;
-            pm2_5 = 0.0f;
-            pm10 = 0.0f;
-            usepaindex = 0;
-            gbdefraindex = 0;
-        }
     }
 }

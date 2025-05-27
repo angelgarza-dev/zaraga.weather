@@ -1,14 +1,8 @@
 ﻿namespace zaraga.weather.Models
 {
-    public class WeatherCurrentLocation
+    internal class WeatherCurrentLocation
     {
-        public WeatherLocation location { get; set; }
-        public WeatherRealTime current { get; set; }
-        
-        public WeatherCurrentLocation()
-        {
-            location = new();
-            current = new();
-        }
+        public WeatherLocation? location { get; set; }
+        public WeatherRealTime? current { get; set; }
     }
 }
