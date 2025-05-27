@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace zaraga.weather.Models
 {
-    internal class ErrorResponse
+    internal class WeatherError
     {
         public int code { get; set; }
         public string? message { get; set; }

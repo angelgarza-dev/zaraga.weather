@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Net;
 using System.Threading.Tasks;
+using zaraga.weather.Models;
 
 namespace zaraga.weather.Services
 {
@@ -35,7 +35,10 @@ namespace zaraga.weather.Services
             _apiClient = new zaraga.api.Client(BuildMetadata.BaseWeatherapiUrl);
         }
 
-        internal async Task<T> GetRequest<T>(string url, T? handleResp) where T : new()
+        /// <summary>
+        /// Llamada HTTP GET de un endopint
+        /// </summary>
+        private async Task<T> GetRequest<T>(string url, T? handleResp) where T : new()
         {
             App.Log("Start call");
             App.Log($"GET : {url}");
@@ -76,6 +79,15 @@ namespace zaraga.weather.Services
                     throw;
                 }
             }
+        }
+
+        /// <summary>
+        /// Obtiene el clima de la ubicacion actual por coordenadas
+        /// </summary>
+        public async Task<WeatherCurrentLocation> GetCurrentLocationWeather(double latitude, double longitude)
+        {
+            var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherCurrentLocation());
+            return resp;
         }
 
     }

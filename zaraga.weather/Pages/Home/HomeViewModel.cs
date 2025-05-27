@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using zaraga.weather.Models;
@@ -29,9 +30,8 @@ internal class HomeViewModel : SharedViewModel
             var location = await GetDeviceLocation();
             if (location != null)
             {
-                var resp = await ApiService.Instance.GetRequest<ErrorResponse>($"current.json?key={App.WeatherApikey}&q={location.Latitude},{location.Longitude}&aqi=no", new ErrorResponse());
-                CurrentCity = "Mexico";
-                Debug.WriteLine(resp.message);
+                var resp = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
+                CurrentCity = resp.location?.name ?? "";
                 IsLoading = false;
                 await Shell.Current.DisplayAlert("Exito", "Ubicacion obtenida", "OK");
             }
