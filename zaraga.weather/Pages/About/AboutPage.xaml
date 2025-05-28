@@ -4,57 +4,18 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
-    xmlns:local="clr-namespace:zaraga.weather.Pages.About"
     x:Name="page"
+    Title="AboutPage"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
-    <layouts:LoadingContentPage.BindingContext>
-        <local:AboutViewModel />
-    </layouts:LoadingContentPage.BindingContext>
-
-    <VerticalStackLayout
+    <Grid
         Margin="5"
         Padding="5"
-        Spacing="10">
-        <HorizontalStackLayout Spacing="5">
-            <Label
-                Grid.Row="0"
-                Grid.Column="0"
-                FontSize="Title"
-                Text="Version:" />
-            <Label
-                Grid.Row="0"
-                Grid.Column="1"
-                FontSize="Title"
-                Text="1.0.0.0" />
-        </HorizontalStackLayout>
+        ColumnDefinitions="Auto,*"
+        ColumnSpacing="5"
+        RowDefinitions="Auto"
+        RowSpacing="5">
+        <Label FontSize="Title" Text="Version:" Grid.Row="0" Grid.Column="0" />
+        <Label FontSize="Title" Text="1.0.0.0" Grid.Row="0" Grid.Column="1"/>
 
-        <HorizontalStackLayout VerticalOptions="End">
-            <HorizontalStackLayout.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OpenBrowserCommand}" />
-            </HorizontalStackLayout.GestureRecognizers>
-            <Label
-                FontSize="Title"
-                Text="Powered by"
-                VerticalOptions="Center" />
-            <Image
-                HorizontalOptions="Start"
-                Source="weather_api_logo.png"
-                WidthRequest="140" />
-        </HorizontalStackLayout>
-
-        <HorizontalStackLayout VerticalOptions="End">
-            <HorizontalStackLayout.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OpenBassDevCommand}" />
-            </HorizontalStackLayout.GestureRecognizers>
-            <Label
-                FontSize="Title"
-                Text="Meteocons by"
-                VerticalOptions="Center" />
-            <Image
-                HeightRequest="70"
-                HorizontalOptions="Start"
-                Source="bass_dev_logo.png" />
-        </HorizontalStackLayout>
-
-    </VerticalStackLayout>
+    </Grid>
 </layouts:LoadingContentPage>

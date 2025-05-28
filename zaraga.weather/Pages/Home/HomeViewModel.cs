@@ -33,7 +33,6 @@ internal class HomeViewModel : SharedViewModel
                 var resp = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
                 CurrentCity = resp.location?.name ?? "";
                 IsLoading = false;
-                await Shell.Current.DisplayAlert("Exito", "Ubicacion obtenida", "OK");
             }
             else
             {

@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
     x:Name="page"
-    Title="Favoritos"
+    Title="FavoritesPage"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
     <VerticalStackLayout>
         <Label

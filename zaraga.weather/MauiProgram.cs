@@ -2,11 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
-using Plugin.Maui.BottomSheet.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using zaraga.weather.Pages.Home;
-using zaraga.weather.Pages.Search;
-using zaraga.weather.Pages.Settings;
+using System.ComponentModel;
 
 namespace zaraga.weather;
 
@@ -18,8 +15,6 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseSkiaSharp()
-            .UseBottomSheet()
-            .AddBottomPages()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -33,10 +28,4 @@ public static class MauiProgram
         return builder.Build();
     }
 
-    private static MauiAppBuilder AddBottomPages(this MauiAppBuilder builder)
-    {
-        builder.Services.AddBottomSheet<SearchPage>(nameof(SearchPage));
-
-        return builder;
-    }
 }
