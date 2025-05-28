@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="zaraga.weather.Pages.About.AboutPage"
-             Title="AboutPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+<layouts:LoadingContentPage
+    x:Class="zaraga.weather.Pages.About.AboutPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
+    x:Name="page"
+    Title="AboutPage"
+    ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
+    <Grid
+        Margin="5"
+        Padding="5"
+        ColumnDefinitions="Auto,*"
+        ColumnSpacing="5"
+        RowDefinitions="Auto"
+        RowSpacing="5">
+        <Label FontSize="Title" Text="Version:" Grid.Row="0" Grid.Column="0" />
+        <Label FontSize="Title" Text="1.0.0.0" Grid.Row="0" Grid.Column="1"/>
 
-        <Label Text="Apikey"></Label>
-        <Label x:Name="lblApikey" Text="xxx"></Label>
-    </VerticalStackLayout>
-</ContentPage>
+    </Grid>
+</layouts:LoadingContentPage>

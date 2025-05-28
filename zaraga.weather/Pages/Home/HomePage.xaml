@@ -10,6 +10,10 @@
     Title="HomePage"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
 
+    <layouts:LoadingContentPage.BindingContext>
+        <local:HomeViewModel />
+    </layouts:LoadingContentPage.BindingContext>
+
     <VerticalStackLayout Padding="30" Spacing="20">
         <Image
             Aspect="AspectFit"

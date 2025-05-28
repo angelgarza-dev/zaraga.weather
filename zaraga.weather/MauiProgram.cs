@@ -1,8 +1,9 @@
-﻿using epj.ProgressBar.Maui;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using System.ComponentModel;
 
 namespace zaraga.weather;
 
@@ -26,4 +27,5 @@ public static class MauiProgram
 
         return builder.Build();
     }
+
 }

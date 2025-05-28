@@ -11,18 +11,19 @@ namespace zaraga.weather.Pages.Home;
 
 public partial class HomePage : LoadingContentPage
 {
-    HomeViewModel? viewModel;
+    HomeViewModel? _viewModel;
 
     public HomePage()
     {
         InitializeComponent();
-        BindingContext = viewModel = new HomeViewModel();
+        //BindingContext = _viewModel = new HomeViewModel();
+        _viewModel = BindingContext as HomeViewModel;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        viewModel?.GetGurrentWeatherCommand.Execute(null);
+        _viewModel?.GetGurrentWeatherCommand.Execute(null);
     }
 
 }
