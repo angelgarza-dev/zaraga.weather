@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
     xmlns:local="clr-namespace:zaraga.weather.Pages.Home"
-    xmlns:views="clr-namespace:zaraga.weather.Views"
     x:Name="page"
     Title="HomePage"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">

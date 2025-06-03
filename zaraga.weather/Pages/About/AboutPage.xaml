@@ -14,8 +14,16 @@
         ColumnSpacing="5"
         RowDefinitions="Auto"
         RowSpacing="5">
-        <Label FontSize="Title" Text="Version:" Grid.Row="0" Grid.Column="0" />
-        <Label FontSize="Title" Text="1.0.0.0" Grid.Row="0" Grid.Column="1"/>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            FontSize="Title"
+            Text="Version:" />
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            FontSize="Title"
+            Text="1.0.0.0" />
 
     </Grid>
 </layouts:LoadingContentPage>
