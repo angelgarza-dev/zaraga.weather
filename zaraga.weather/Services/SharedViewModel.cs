@@ -8,7 +8,7 @@ using System;
 
 namespace zaraga.weather;
 
-internal class SharedViewModel : PropertyChangedViewModel
+public class SharedViewModel : PropertyChangedViewModel
 {
     private bool _isLoading = false;
 
@@ -18,7 +18,7 @@ internal class SharedViewModel : PropertyChangedViewModel
     private readonly DeviceSensors _devicefeatures;
 
 
-    internal SharedViewModel()
+    public SharedViewModel()
     {
         _devicefeatures = new DeviceSensors();
     }

@@ -2,12 +2,13 @@
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using zaraga.weather.Models;
 using zaraga.weather.Services;
 
 namespace zaraga.weather.Pages.Home;
 
-internal class HomeViewModel : SharedViewModel
+public class HomeViewModel : SharedViewModel
 {
     private string _currentCity = "";
     public string CurrentCity { get => _currentCity; set { _currentCity = value; OnPropertyChanged(); } }
@@ -16,7 +17,7 @@ internal class HomeViewModel : SharedViewModel
     internal Command GetGurrentWeatherCommand => new Command(GetCurrentWeather);
 
 
-    internal HomeViewModel()
+    public HomeViewModel()
     {
         CurrentCity = "Cargando...";
     }
