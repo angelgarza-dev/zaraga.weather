@@ -24,20 +24,21 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 
 		<!--msbuild properties-->
-		<WeatherApiKey>7d848ee5e8d34b84bf1211825250205</WeatherApiKey>
-	
+		<WeatherApiKey>Aqui_Pont_Tu_Llave_WeatherApi</WeatherApiKey>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\weather_logo.png" Resize="true" BaseSize="124,124"></MauiIcon>
-		
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\logo_no_background.png" Resize="true" BaseSize="124,124" Color="#fcfcfc" />
-		
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Include="Resources\Images\icons\*" />
+		<MauiImage Include="Resources\Images\Static\Fill\*" />
+		<MauiImage Include="Resources\Images\Static\Outline\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -47,12 +48,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="epj.Expander.Maui" Version="1.0.3" />
 		<PackageReference Include="epj.ProgressBar.Maui" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.6" />
-		<PackageReference Include="Plugin.Maui.BottomSheet" Version="9.1.8" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Condition="$([MSBuild]::IsOSPlatform('android'))" Include="zaraga.logger" Version="1.3.0" />
 		<PackageReference Condition="$([MSBuild]::IsOSPlatform('windows'))" Include="zaraga.logger" Version="1.3.0" />
@@ -80,17 +79,8 @@
 		<MauiXaml Update="Pages\Home\HomePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Pages\Icons\IconsPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Pages\Search\SearchPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
 		<MauiXaml Update="Pages\Settings\SettingsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
-		</MauiXaml>
-		<MauiXaml Update="Views\IconView.xaml">
-		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\LoadingView.xaml">
 			<Generator>MSBuild:Compile</Generator>

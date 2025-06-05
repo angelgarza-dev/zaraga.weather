@@ -6,43 +6,22 @@
     xmlns:about="clr-namespace:zaraga.weather.Pages.About"
     xmlns:favorites="clr-namespace:zaraga.weather.Pages.Favorites"
     xmlns:home="clr-namespace:zaraga.weather.Pages.Home"
-    xmlns:icons="clr-namespace:zaraga.weather.Pages.Icons"
     xmlns:local="clr-namespace:zaraga.weather"
     xmlns:settings="clr-namespace:zaraga.weather.Pages.Settings"
     Title="zaraga.weather"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Inicio"
-        ContentTemplate="{DataTemplate home:HomePage}"
-        Icon="ic_pin_white.png"
-        Route="HomePage"
-        Shell.NavBarIsVisible="False" />
-
-    <ShellContent
-        Title="Favoritos"
-        ContentTemplate="{DataTemplate favorites:FavoritesPage}"
-        Icon="ic_favorite_white.png"
-        Route="FavoritesPage"
-        Shell.NavBarIsVisible="False" />
-
-    <ShellContent
-        Title="Ajustes"
-        ContentTemplate="{DataTemplate settings:SettingsPage}"
-        Route="SettingsPage"
-        Shell.NavBarIsVisible="False" />
-
-    <ShellContent
-        Title="Acerca De"
-        ContentTemplate="{DataTemplate about:AboutPage}"
-        Route="AboutPage"
-        Shell.NavBarIsVisible="False" />
-
-    <ShellContent
-        Title="Iconos"
-        ContentTemplate="{DataTemplate icons:IconsPage}"
-        Route="IconsPage"
-        Shell.NavBarIsVisible="False" />
-
+    <TabBar>
+        <Tab Title="Inicio">
+            <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+        </Tab>
+        <Tab Title="Favoritos">
+            <ShellContent ContentTemplate="{DataTemplate favorites:FavoritesPage}" />
+        </Tab>
+        <Tab Title="App">
+            <ShellContent Title="Acerca De" ContentTemplate="{DataTemplate about:AboutPage}" />
+            <ShellContent Title="Ajustes" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+        </Tab>
+    </TabBar>
 
 </Shell>
