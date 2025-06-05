@@ -39,7 +39,7 @@
             <Image
                 HorizontalOptions="Start"
                 Source="weather_api_logo.png"
-                WidthRequest="150" />
+                WidthRequest="140" />
         </HorizontalStackLayout>
 
         <HorizontalStackLayout VerticalOptions="End">
@@ -51,10 +51,10 @@
                 Text="Meteocons by"
                 VerticalOptions="Center" />
             <Image
-                HeightRequest="100"
+                HeightRequest="70"
                 HorizontalOptions="Start"
                 Source="bass_dev_logo.png"
-                WidthRequest="100" />
+                 />
         </HorizontalStackLayout>
 
     </VerticalStackLayout>
