@@ -13,6 +13,7 @@ public class AboutViewModel : SharedViewModel
 {
 
     public Command OpenBrowserCommand => new Command(OpenBrowser);
+    public Command OpenBassDevCommand => new Command(OpenBassDev);
 
 
     /// <summary>
@@ -21,6 +22,17 @@ public class AboutViewModel : SharedViewModel
     private async void OpenBrowser()
     {
         await Browser.Default.OpenAsync(new Uri("https://www.weatherapi.com"), new BrowserLaunchOptions
+        {
+            LaunchMode = BrowserLaunchMode.SystemPreferred,
+            TitleMode = BrowserTitleMode.Show,
+            PreferredToolbarColor = Color.FromArgb("#2B0B98"),
+            PreferredControlColor = Colors.SandyBrown
+        });
+    }
+
+    private async void OpenBassDev()
+    {
+        await Browser.Default.OpenAsync(new Uri("https://bas.dev/work/meteocons"), new BrowserLaunchOptions
         {
             LaunchMode = BrowserLaunchMode.SystemPreferred,
             TitleMode = BrowserTitleMode.Show,
