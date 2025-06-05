@@ -30,7 +30,7 @@
 
         <HorizontalStackLayout VerticalOptions="End">
             <HorizontalStackLayout.GestureRecognizers>
-                <TapGestureRecognizer x:Name="btnpowered" Command="{Binding OpenBrowserCommand}" />
+                <TapGestureRecognizer Command="{Binding OpenBrowserCommand}" />
             </HorizontalStackLayout.GestureRecognizers>
             <Label
                 FontSize="Title"
@@ -40,6 +40,21 @@
                 HorizontalOptions="Start"
                 Source="weather_api_logo.png"
                 WidthRequest="150" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout VerticalOptions="End">
+            <HorizontalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenBassDevCommand}" />
+            </HorizontalStackLayout.GestureRecognizers>
+            <Label
+                FontSize="Title"
+                Text="Meteocons by"
+                VerticalOptions="Center" />
+            <Image
+                HeightRequest="100"
+                HorizontalOptions="Start"
+                Source="bass_dev_logo.png"
+                WidthRequest="100" />
         </HorizontalStackLayout>
 
     </VerticalStackLayout>
