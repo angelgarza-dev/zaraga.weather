@@ -6,6 +6,7 @@
     xmlns:about="clr-namespace:zaraga.weather.Pages.About"
     xmlns:favorites="clr-namespace:zaraga.weather.Pages.Favorites"
     xmlns:home="clr-namespace:zaraga.weather.Pages.Home"
+    xmlns:icons="clr-namespace:zaraga.weather.Pages.Icons"
     xmlns:local="clr-namespace:zaraga.weather"
     xmlns:settings="clr-namespace:zaraga.weather.Pages.Settings"
     Title="zaraga.weather"
@@ -21,6 +22,7 @@
         <Tab Title="App">
             <ShellContent Title="Acerca De" ContentTemplate="{DataTemplate about:AboutPage}" />
             <ShellContent Title="Ajustes" ContentTemplate="{DataTemplate settings:SettingsPage}" />
+            <ShellContent Title="Iconos" ContentTemplate="{DataTemplate icons:IconsPage}" />
         </Tab>
     </TabBar>
 
