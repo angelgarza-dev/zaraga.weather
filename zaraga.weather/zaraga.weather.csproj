@@ -24,7 +24,9 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 
 		<!--msbuild properties-->
-		<WeatherApiKey>Aqui_Pont_Tu_Llave_WeatherApi</WeatherApiKey>
+		<WeatherApiKey>7d848ee5e8d34b84bf1211825250205</WeatherApiKey>
+		<Configurations>Debug;Release;Dual</Configurations>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -78,6 +80,9 @@
 		</MauiXaml>
 		<MauiXaml Update="Pages\Home\HomePage.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Pages\Icons\IconsPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Pages\Settings\SettingsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>

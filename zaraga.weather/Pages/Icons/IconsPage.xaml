@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="zaraga.weather.Pages.Icons.IconsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:zaraga.weather.Pages.Icons"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    xmlns:views="clr-namespace:zaraga.weather.Views">
+
+    <ContentPage.BindingContext>
+        <local:IconViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
+        <views:LoadingView
+            Grid.Row="0"
+            Grid.Column="0"
+            IsVisible="{Binding IsLoading}" />
+        <CollectionView
+            Grid.Row="1"
+            Grid.Column="0"
+            ItemsLayout="VerticalGrid, 2"
+            ItemsSource="{Binding IconsCollection}"
+            RemainingItemsThreshold="1"
+            RemainingItemsThresholdReachedCommand="{Binding AddListPageCommand}"
+            VerticalScrollBarVisibility="Always" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Margin="5"
+                        StrokeShape="RoundRectangle 10">
+                        <VerticalStackLayout Padding="5">
+                            <Image Source="{Binding Source}" />
+                            <Border StrokeShape="RoundRectangle 5">
+                                <Label
+                                    Padding="5"
+                                    BackgroundColor="{AppThemeBinding Light=WhiteSmoke,
+                                                                      Dark=DarkSlateBlue}"
+                                    HeightRequest="50"
+                                    HorizontalOptions="Fill"
+                                    HorizontalTextAlignment="Center"
+                                    MaxLines="2"
+                                    Text="{Binding Name}"
+                                    VerticalTextAlignment="Center" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

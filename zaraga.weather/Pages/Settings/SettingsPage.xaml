@@ -4,13 +4,126 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
+    xmlns:local="clr-namespace:zaraga.weather.Pages.Settings"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     x:Name="page"
-    Title="SettingsPage"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+
+    <layouts:LoadingContentPage.BindingContext>
+        <local:SettingsViewModel />
+    </layouts:LoadingContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="RadioButtonTemplate">
+            <Border
+                BackgroundColor="#F3F2F1"
+                HorizontalOptions="Start"
+                Stroke="#F3F2F1"
+                StrokeShape="RoundRectangle 5"
+                StrokeThickness="2"
+                VerticalOptions="Start">
+                <Grid Margin="4">
+                    <Grid
+                        Margin="0,0,4,0"
+                        HeightRequest="18"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        WidthRequest="18">
+                        <Ellipse
+                            Fill="White"
+                            HeightRequest="16"
+                            HorizontalOptions="Center"
+                            Stroke="{StaticResource Primary}"
+                            VerticalOptions="Center"
+                            WidthRequest="16" />
+                        <Ellipse
+                            x:Name="check"
+                            Fill="{StaticResource Primary}"
+                            HeightRequest="8"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="8" />
+                    </Grid>
+                    <ContentPresenter />
+                </Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="Stroke" Value="#FF3300" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#F3F2F1" />
+                                    <Setter Property="Stroke" Value="#F3F2F1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+        </ControlTemplate>
+
+        <Style TargetType="RadioButton">
+            <Setter Property="ControlTemplate" Value="{DynamicResource RadioButtonTemplate}" />
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Padding="2" Spacing="5">
+        <Label FontSize="Title" Text="Estilo de iconos" />
+
+        <Grid
+            Padding="5,0"
+            ColumnDefinitions="*,*,*"
+            ColumnSpacing="2"
+            RadioButtonGroup.GroupName="IconType"
+            RadioButtonGroup.SelectedValue="{Binding SelectedIConStyle}"
+            RowDefinitions="Auto">
+
+            <RadioButton
+                x:Name="btnAnimated"
+                Grid.Row="0"
+                Grid.Column="0"
+                Value="0">
+                <RadioButton.Content>
+                    <skia:SKLottieView
+                        BackgroundColor="Transparent"
+                        HeightRequest="100"
+                        RepeatCount="-1"
+                        Source="Dynamic/Fill/dynamic_fill_clear_day.json"
+                        WidthRequest="100" />
+                </RadioButton.Content>
+            </RadioButton>
+
+            <RadioButton
+                x:Name="btnSolid"
+                Grid.Row="0"
+                Grid.Column="1"
+                Value="1">
+                <RadioButton.Content>
+                    <Image
+                        HeightRequest="100"
+                        Source="static_fill_clear_day.png"
+                        WidthRequest="100" />
+                </RadioButton.Content>
+            </RadioButton>
+
+            <RadioButton
+                x:Name="btnLine"
+                Grid.Row="0"
+                Grid.Column="2"
+                Value="2">
+                <RadioButton.Content>
+                    <Image
+                        HeightRequest="100"
+                        Source="static_line_clear_day.png"
+                        WidthRequest="100" />
+                </RadioButton.Content>
+            </RadioButton>
+        </Grid>
+
     </VerticalStackLayout>
+
 </layouts:LoadingContentPage>

@@ -7,7 +7,8 @@
     xmlns:local="clr-namespace:zaraga.weather.Pages.Home"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     x:Name="page"
-    Title="HomePage"
+    Title="Inicio"
+    Shell.NavBarIsVisible="False"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
 
     <layouts:LoadingContentPage.BindingContext>

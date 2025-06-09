@@ -53,8 +53,7 @@
             <Image
                 HeightRequest="70"
                 HorizontalOptions="Start"
-                Source="bass_dev_logo.png"
-                 />
+                Source="bass_dev_logo.png" />
         </HorizontalStackLayout>
 
     </VerticalStackLayout>
