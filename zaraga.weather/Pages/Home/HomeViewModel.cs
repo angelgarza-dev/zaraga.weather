@@ -50,7 +50,7 @@ public class HomeViewModel : SharedViewModel
             {
                 CurrentWeather = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
                 CompleteJson = Newtonsoft.Json.JsonConvert.SerializeObject(CurrentWeather, Newtonsoft.Json.Formatting.Indented);
-                string icon = CurrentWeather.current?.condition?.text?.ToLower().Replace(' ', '_') ?? App.NotAvailableIcon;
+                string icon = CurrentWeather.current?.condition?.code.ToString() ?? "0";
                 CurrentCondition = icon;
                 IsLoading = false;
             }
@@ -63,6 +63,7 @@ public class HomeViewModel : SharedViewModel
         catch (Exception ex)
         {
             IsLoading = false;
+            App.Log(ex);
             await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
         }
     }

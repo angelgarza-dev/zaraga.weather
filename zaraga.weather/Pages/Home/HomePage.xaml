@@ -31,17 +31,8 @@
                     Text="{Binding CurrentWeather.location.name}"
                     VerticalOptions="Center" />
 
-                <Grid>
-                    <Image
-                        HeightRequest="100"
-                        Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
-                        WidthRequest="100" />
-
-
-                    <!--  binding con la referencia por nombre  -->
-
-                    <views:IconView BackgroundColor="Transparent" IconBindable="{Binding BindingContext.CurrentCondition, Source={x:Reference page}}" />
-                </Grid>
+                <!--  binding con la referencia por nombre  -->
+                <views:IconView IconBindable="{Binding BindingContext.CurrentCondition, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}" />
 
                 <Label Text="{Binding CompleteJson}" />
 

@@ -16,6 +16,7 @@
 
             <!--  converters  -->
             <converters:WebImageConverter x:Key="WebImageConverter" />
+            <converters:IconCodeConverter x:Key="IconCodeConverter" />
 
             <!--  layouts  -->
             <ControlTemplate x:Key="LoadingContentPage">
