@@ -1,6 +1,6 @@
 ﻿namespace zaraga.weather.Models
 {
-    internal class WeatherRealTime
+    public class WeatherRealTime
     {
         /// <summary>
         /// Local time when the real time data was updated
@@ -40,5 +40,9 @@
         public decimal gust_mph { get; set; }
         public decimal gust_kph { get; set; }
 
+        public WeatherRealTime()
+        {
+            condition = new WeatherCondition();
+        }
     }
 }

@@ -8,7 +8,9 @@ namespace zaraga.weather;
 
 public partial class App : Application
 {
+    internal static string NotAvailableIcon => "not_available";
     internal static string WeatherApikey => Assembly.GetExecutingAssembly()?.GetCustomAttribute<WeatherApiKeyAttribute>()?.WeatherKey.ToString() ?? "";
+
 
     //Log Manager 
     private static zaraga.logger.Manager? _console;

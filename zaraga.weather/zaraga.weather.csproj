@@ -87,6 +87,9 @@
 		<MauiXaml Update="Pages\Settings\SettingsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Views\IconView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Views\LoadingView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

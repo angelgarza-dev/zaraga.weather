@@ -1,8 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
-using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using zaraga.weather.Models;
 using zaraga.weather.Services;
 
@@ -10,29 +7,51 @@ namespace zaraga.weather.Pages.Home;
 
 public class HomeViewModel : SharedViewModel
 {
-    private string _currentCity = "";
-    public string CurrentCity { get => _currentCity; set { _currentCity = value; OnPropertyChanged(); } }
+    private string _completeJson = "";
+    private WeatherCurrentLocation _currentWeather = new();
+    private string _currentCondition = "";
 
 
-    internal Command GetGurrentWeatherCommand => new Command(GetCurrentWeather);
+    public string CompleteJson { get => _completeJson; set { _completeJson = value; OnPropertyChanged(); } }
+    public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
+    public string CurrentCondition { get => _currentCondition; set { _currentCondition = value; OnPropertyChanged(); } }
+
+
+
+    public Command GetGurrentWeatherCommand => new Command(GetCurrentWeather);
+    public Command OnDisapearingCommand => new Command(OnDisapearing);
 
 
     public HomeViewModel()
     {
-        CurrentCity = "Cargando...";
+
+    }
+
+    private void OnDisapearing()
+    {
+        CurrentCondition = "";
     }
 
     private async void GetCurrentWeather()
     {
         IsLoading = true;
+        CurrentWeather = new WeatherCurrentLocation();
+        if (CurrentWeather.location != null)
+        {
+            CurrentWeather.location.name = "Cargando...";
+        }
+
         await GetAppPermissions();
+
         try
         {
             var location = await GetDeviceLocation();
             if (location != null)
             {
-                var resp = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
-                CurrentCity = resp.location?.name ?? "";
+                CurrentWeather = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
+                CompleteJson = Newtonsoft.Json.JsonConvert.SerializeObject(CurrentWeather, Newtonsoft.Json.Formatting.Indented);
+                string icon = CurrentWeather.current?.condition?.text?.ToLower().Replace(' ', '_') ?? App.NotAvailableIcon;
+                CurrentCondition = icon;
                 IsLoading = false;
             }
             else
@@ -47,4 +66,5 @@ public class HomeViewModel : SharedViewModel
             await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
         }
     }
+
 }

@@ -3,21 +3,33 @@
     x:Class="zaraga.weather.App"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:zaraga.weather.Converters"
     xmlns:local="clr-namespace:zaraga.weather"
     xmlns:views="clr-namespace:zaraga.weather.Views">
     <Application.Resources>
         <ResourceDictionary>
-
+            <!--  dictionaries  -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!--  converters  -->
+            <converters:WebImageConverter x:Key="WebImageConverter" />
+
+            <!--  layouts  -->
             <ControlTemplate x:Key="LoadingContentPage">
-                <VerticalStackLayout VerticalOptions="Fill">
-                    <views:LoadingView IsVisible="{TemplateBinding ShowLoadingBar}" />
-                    <ContentPresenter HorizontalOptions="Fill" VerticalOptions="Fill" />
-                </VerticalStackLayout>
+                <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
+                    <views:LoadingView
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        IsVisible="{TemplateBinding ShowLoadingBar}" />
+                    <ContentPresenter
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill" />
+                </Grid>
             </ControlTemplate>
 
         </ResourceDictionary>

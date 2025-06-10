@@ -81,12 +81,13 @@ internal class ApiService
         }
     }
 
+
     /// <summary>
     /// Obtiene el clima de la ubicacion actual por coordenadas
     /// </summary>
     public async Task<WeatherCurrentLocation> GetCurrentLocationWeather(double latitude, double longitude)
     {
-        var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherCurrentLocation());
+        var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=en", new WeatherCurrentLocation());
         return resp;
     }
 
