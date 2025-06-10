@@ -24,7 +24,7 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 
 		<!--msbuild properties-->
-		<WeatherApiKey>7d848ee5e8d34b84bf1211825250205</WeatherApiKey>
+		<WeatherApiKey>Aqui_Va_Tu_apikey</WeatherApiKey>
 	
 	</PropertyGroup>
 
