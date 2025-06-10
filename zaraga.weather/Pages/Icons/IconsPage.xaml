@@ -22,8 +22,7 @@
             ItemsLayout="VerticalGrid, 2"
             ItemsSource="{Binding IconsCollection}"
             RemainingItemsThreshold="1"
-            RemainingItemsThresholdReachedCommand="{Binding AddListPageCommand}"
-            VerticalScrollBarVisibility="Always" >
+            RemainingItemsThresholdReachedCommand="{Binding AddListPageCommand}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border
@@ -32,9 +31,10 @@
                         Margin="5"
                         StrokeShape="RoundRectangle 10">
                         <VerticalStackLayout Padding="5">
-                            <Image Source="{Binding Source}" />
+                            <views:IconView IconBindable="{Binding Path=Text, Source={x:Reference lblIconName}}" />
                             <Border StrokeShape="RoundRectangle 5">
                                 <Label
+                                    x:Name="lblIconName"
                                     Padding="5"
                                     BackgroundColor="{AppThemeBinding Light=WhiteSmoke,
                                                                       Dark=DarkSlateBlue}"

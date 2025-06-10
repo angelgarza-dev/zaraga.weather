@@ -1,8 +1,5 @@
-﻿using Android.Print;
-using Microsoft.Maui.ApplicationModel;
+﻿using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Storage;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -271,31 +268,33 @@ public class IconViewModel : SharedViewModel
 
     }
 
-    //carga la lista de imagenes disponibles para los iconos
+    /// <summary>
+    /// Carga la lista de imagenes disponibles para los iconos
+    /// </summary>
     private void LoadImages()
     {
         IsLoading = true;
         IconsCollection.Clear();
         _currentPage = 0;
-        string sourcePrefix = GetImageSourcePrefix();
 
         string[] initialPage = completeIcon.Skip(_currentPage).Take(_pageSize).ToArray();
         foreach (var icon in initialPage)
         {
-            IconsCollection.Add(new IconModel(icon, sourcePrefix + icon));
+            IconsCollection.Add(new IconModel(icon));
         }
 
         _currentPage++;
         IsLoading = false;
     }
 
+    /// <summary>
+    /// Agrega la sigueinte pagina de iconos a la lista actual
+    /// </summary>
     private void AddListPage()
     {
         if (_addingPage) { return; }
         _addingPage = true;
         IsLoading = true;
-
-        string sourcePrefix = GetImageSourcePrefix();
 
         Task.Run(async () =>
         {
@@ -304,7 +303,7 @@ public class IconViewModel : SharedViewModel
             {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    IconsCollection.Add(new IconModel(icon, sourcePrefix + icon));
+                    IconsCollection.Add(new IconModel(icon));
                 });
                 await Task.Delay(100);
             }
@@ -314,42 +313,21 @@ public class IconViewModel : SharedViewModel
         IsLoading = false;
         _addingPage = false;
     }
-
-    private string GetImageSourcePrefix()
-    {
-        string sourcePrefix = "static_fill_";
-        int iconStyle = Preferences.Default.Get("SelectedIconStyle", 0);
-        switch (iconStyle)
-        {
-            case 0:
-            default:
-                sourcePrefix = "Raw/Dynamic/Fill/dynamic_fill_";
-                break;
-            case 1:
-                sourcePrefix = "static_fill_";
-                break;
-            case 2:
-                sourcePrefix = "static_line_";
-                break;
-
-
-        }
-
-        return sourcePrefix;
-    }
-
 }
-
 
 public class IconModel : PropertyChangedViewModel
 {
-    public string Name { get; set; }
-    public string Source { get; set; }
+    //private string _name = "";
+    public string Name
+    {
+        get; set;
+        //get => _name;
+        //set { _name = value; }
+    }
 
-    public IconModel(string name, string source)
+    public IconModel(string name)
     {
         Name = name;
-        Source = source;
     }
 
 }

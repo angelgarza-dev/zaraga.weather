@@ -16,20 +16,10 @@
 
             <!--  converters  -->
             <converters:WebImageConverter x:Key="WebImageConverter" />
-            <converters:IconCodeConverter x:Key="IconCodeConverter" />
-            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
-            <converters:MoonPhaseLangConverter x:Key="MoonPhaseLangConverter" />
-            <converters:MoonPhaseIconConverter x:Key="MoonPhaseIconConverter" />
-            <converters:WindDirConverter x:Key="WindDirConverter" />
-            <converters:EpaIndexIconConverter x:Key="EpaIndexIconConverter" />
-            <converters:DefraIconConverter x:Key="DefraIconConverter" />
 
             <!--  layouts  -->
             <ControlTemplate x:Key="LoadingContentPage">
-                <Grid
-                    BackgroundColor="{AppThemeBinding Light=WhiteSmoke}"
-                    ColumnDefinitions="*"
-                    RowDefinitions="Auto,*">
+                <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
                     <views:LoadingView
                         Grid.Row="0"
                         Grid.Column="0"
@@ -41,61 +31,6 @@
                         VerticalOptions="Fill" />
                 </Grid>
             </ControlTemplate>
-
-            <!--  radio button template  -->
-            <ControlTemplate x:Key="RadioButtonTemplate">
-                <Border
-                    BackgroundColor="Transparent"
-                    HorizontalOptions="Start"
-                    Stroke="Transparent"
-                    StrokeShape="RoundRectangle 5"
-                    StrokeThickness="2"
-                    VerticalOptions="Start">
-                    <Grid>
-                        <Grid
-                            HeightRequest="18"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Start"
-                            WidthRequest="18">
-                            <Ellipse
-                                Fill="White"
-                                HeightRequest="16"
-                                HorizontalOptions="Center"
-                                Stroke="{StaticResource Primary}"
-                                VerticalOptions="Center"
-                                WidthRequest="16" />
-                            <Ellipse
-                                x:Name="check"
-                                Fill="{StaticResource Primary}"
-                                HeightRequest="8"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                WidthRequest="8" />
-                        </Grid>
-                        <ContentPresenter />
-                    </Grid>
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroupList>
-                            <VisualStateGroup x:Name="CheckedStates">
-                                <VisualState x:Name="Checked">
-                                    <VisualState.Setters>
-                                        <Setter Property="Stroke" Value="{DynamicResource Primary}" />
-                                        <Setter TargetName="check" Property="Opacity" Value="1" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                                <VisualState x:Name="Unchecked">
-                                    <VisualState.Setters>
-                                        <Setter Property="BackgroundColor" Value="#F3F2F1" />
-                                        <Setter Property="Stroke" Value="#F3F2F1" />
-                                        <Setter TargetName="check" Property="Opacity" Value="0" />
-                                    </VisualState.Setters>
-                                </VisualState>
-                            </VisualStateGroup>
-                        </VisualStateGroupList>
-                    </VisualStateManager.VisualStateGroups>
-                </Border>
-            </ControlTemplate>
-
 
         </ResourceDictionary>
     </Application.Resources>

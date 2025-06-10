@@ -1,6 +1,6 @@
 ﻿namespace zaraga.weather.Models
 {
-    internal class WeatherLocation
+    public class WeatherLocation
     {
         public decimal lat { get; set; }
         public decimal lon { get; set; }

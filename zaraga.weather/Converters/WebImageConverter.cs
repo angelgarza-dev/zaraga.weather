@@ -8,8 +8,8 @@ namespace zaraga.weather.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            string convert = "https:" + value?.ToString()?.Replace("64x64", "128x128");
-            return convert;
+
+            return "https:" + value?.ToString();
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

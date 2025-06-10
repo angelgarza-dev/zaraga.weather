@@ -15,6 +15,7 @@ public partial class App : Application
     internal static string WeatherApikey => Assembly.GetExecutingAssembly()?.GetCustomAttribute<WeatherApiKeyAttribute>()?.WeatherKey.ToString() ?? "";
     internal static IBottomSheetNavigationService? BottomSheetNavigationService;
 
+
     //Log Manager 
     private static zaraga.logger.Manager? _console;
     private static zaraga.logger.Manager Console

@@ -6,6 +6,7 @@
     xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
     xmlns:local="clr-namespace:zaraga.weather.Pages.Home"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    xmlns:views="clr-namespace:zaraga.weather.Views"
     x:Name="page"
     Title="Inicio"
     Shell.NavBarIsVisible="False"
@@ -15,32 +16,38 @@
         <local:HomeViewModel />
     </layouts:LoadingContentPage.BindingContext>
 
-    <VerticalStackLayout Padding="30" Spacing="20">
-        <Label
-            HorizontalOptions="Center"
-            Text="{Binding CurrentCity}"
-            VerticalOptions="Center">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GetGurrentWeatherCommand}" />
-            </Label.GestureRecognizers>
-        </Label>
+    <RefreshView Command="{Binding GetGurrentWeatherCommand}" IsRefreshing="{Binding IsLoading}">
+        <ScrollView
+            Grid.Row="1"
+            Grid.Column="0"
+            Orientation="Vertical"
+            VerticalScrollBarVisibility="Always">
+            <StackLayout Padding="30" Spacing="10">
 
-        <skia:SKLottieView
-            BackgroundColor="Transparent"
-            HeightRequest="150"
-            RepeatCount="-1"
-            Source="Dynamic/Fill/dynamic_fill_clear_day.json"
-            WidthRequest="150" />
+                <Label
+                    HorizontalOptions="Center"
+                    MinimumHeightRequest="20"
+                    MinimumWidthRequest="50"
+                    Text="{Binding CurrentWeather.location.name}"
+                    VerticalOptions="Center" />
 
-        <Image
-            HeightRequest="150"
-            Source="static_fill_clear_day.png"
-            WidthRequest="150" />
+                <Grid>
+                    <Image
+                        HeightRequest="100"
+                        Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
+                        WidthRequest="100" />
 
-        <Image
-            HeightRequest="150"
-            Source="Static/Outline/static_line_clear_day.png"
-            WidthRequest="150" />
 
-    </VerticalStackLayout>
+                    <!--  binding con la referencia por nombre  -->
+
+                    <views:IconView BackgroundColor="Transparent" IconBindable="{Binding BindingContext.CurrentCondition, Source={x:Reference page}}" />
+                </Grid>
+
+                <Label Text="{Binding CompleteJson}" />
+
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
+
+
 </layouts:LoadingContentPage>
