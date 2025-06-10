@@ -16,6 +16,18 @@ public partial class IconsPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _viewModel?.LoadImagesCommand.Execute(null);
+        if (txtSearch.Text == string.Empty)
+        {
+            _viewModel?.LoadImagesCommand.Execute(null);
+        }
+        else
+        {
+            txtSearch.Text = string.Empty;
+        }
+    }
+
+    private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        _viewModel?.FilterIconsCommand.Execute(e.NewTextValue);
     }
 }

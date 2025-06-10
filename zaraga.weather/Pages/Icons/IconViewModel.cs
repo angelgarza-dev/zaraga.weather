@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ public class IconViewModel : SharedViewModel
     private int _currentPage = 0;
     private int _pageSize = 15;
     private bool _addingPage = false;
+    private bool _filtered = false;
 
     public int PageSize { get => _pageSize; set { _pageSize = value; OnPropertyChanged(); } }
 
@@ -22,6 +24,7 @@ public class IconViewModel : SharedViewModel
 
     public Command LoadImagesCommand => new Command(LoadImages);
     public Command AddListPageCommand => new Command(AddListPage);
+    public Command FilterIconsCommand => new Command<string>(FilterIcons);
 
 
     public IconViewModel()
@@ -50,27 +53,28 @@ public class IconViewModel : SharedViewModel
             "dust_wind",
             "extreme",
             "extreme_day",
-            "extreme_day_drizzle",
-            "extreme_day_fog",
-            "extreme_day_hail",
-            "extreme_day_haze",
-            "extreme_day_rain",
-            "extreme_day_sleet",
-            "extreme_day_smoke",
-            "extreme_day_snow",
+            "extreme_drizzle_day",
+            "extreme_fog_day",
+            "extreme_hail_day",
+            "extreme_haze_day",
+            "extreme_rain_day",
+            "extreme_sleet_day",
+            "extreme_smoke_day",
+            "extreme_snow_day",
+
             "extreme_drizzle",
             "extreme_fog",
             "extreme_hail",
             "extreme_haze",
             "extreme_night",
-            "extreme_night_drizzle",
-            "extreme_night_fog",
-            "extreme_night_hail",
-            "extreme_night_haze",
-            "extreme_night_rain",
-            "extreme_night_sleet",
-            "extreme_night_smoke",
-            "extreme_night_snow",
+            "extreme_drizzle_night",
+            "extreme_fog_night",
+            "extreme_hail_night",
+            "extreme_haze_night",
+            "extreme_rain_night",
+            "extreme_sleet_night",
+            "extreme_smoke_night",
+            "extreme_snow_night",
             "extreme_rain",
             "extreme_sleet",
             "extreme_smoke",
@@ -107,49 +111,49 @@ public class IconViewModel : SharedViewModel
             "not_available",
             "overcast",
             "overcast_day",
-            "overcast_day_drizzle",
-            "overcast_day_fog",
-            "overcast_day_hail",
-            "overcast_day_haze",
-            "overcast_day_rain",
-            "overcast_day_sleet",
-            "overcast_day_smoke",
-            "overcast_day_snow",
+            "overcast_drizzle_day",
+            "overcast_fog_day",
+            "overcast_hail_day",
+            "overcast_haze_day",
+            "overcast_rain_day",
+            "overcast_sleet_day",
+            "overcast_smoke_day",
+            "overcast_snow_day",
             "overcast_drizzle",
             "overcast_fog",
             "overcast_hail",
             "overcast_haze",
             "overcast_night",
-            "overcast_night_drizzle",
-            "overcast_night_fog",
-            "overcast_night_hail",
-            "overcast_night_haze",
-            "overcast_night_rain",
-            "overcast_night_sleet",
-            "overcast_night_smoke",
-            "overcast_night_snow",
+            "overcast_drizzle_night",
+            "overcast_fog_night",
+            "overcast_hail_night",
+            "overcast_haze_night",
+            "overcast_rain_night",
+            "overcast_sleet_night",
+            "overcast_smoke_night",
+            "overcast_snow_night",
             "overcast_rain",
             "overcast_sleet",
             "overcast_smoke",
             "overcast_snow",
             "partly_cloudy_day",
-            "partly_cloudy_day_drizzle",
-            "partly_cloudy_day_fog",
-            "partly_cloudy_day_hail",
-            "partly_cloudy_day_haze",
-            "partly_cloudy_day_rain",
-            "partly_cloudy_day_sleet",
-            "partly_cloudy_day_smoke",
-            "partly_cloudy_day_snow",
+            "partly_cloudy_drizzle_day",
+            "partly_cloudy_fog_day",
+            "partly_cloudy_hail_day",
+            "partly_cloudy_haze_day",
+            "partly_cloudy_rain_day",
+            "partly_cloudy_sleet_day",
+            "partly_cloudy_smoke_day",
+            "partly_cloudy_snow_day",
             "partly_cloudy_night",
-            "partly_cloudy_night_drizzle",
-            "partly_cloudy_night_fog",
-            "partly_cloudy_night_hail",
-            "partly_cloudy_night_haze",
-            "partly_cloudy_night_rain",
-            "partly_cloudy_night_sleet",
-            "partly_cloudy_night_smoke",
-            "partly_cloudy_night_snow",
+            "partly_cloudy_drizzle_night",
+            "partly_cloudy_fog_night",
+            "partly_cloudy_hail_night",
+            "partly_cloudy_haze_night",
+            "partly_cloudy_rain_night",
+            "partly_cloudy_sleet_night",
+            "partly_cloudy_smoke_night",
+            "partly_cloudy_snow_night",
             "pollen",
             "pollen_flower",
             "pollen_grass",
@@ -193,26 +197,26 @@ public class IconViewModel : SharedViewModel
             "thermometer_water",
             "thunderstorms",
             "thunderstorms_day",
-            "thunderstorms_day_extreme",
-            "thunderstorms_day_extreme_rain",
-            "thunderstorms_day_extreme_snow",
-            "thunderstorms_day_overcast",
-            "thunderstorms_day_overcast_rain",
-            "thunderstorms_day_overcast_snow",
-            "thunderstorms_day_rain",
-            "thunderstorms_day_snow",
+            "thunderstorms_extreme_day",
+            "thunderstorms_extreme_rain_day",
+            "thunderstorms_extreme_snow_day",
+            "thunderstorms_overcast_day",
+            "thunderstorms_overcast_rain_day",
+            "thunderstorms_overcast_snow_day",
+            "thunderstorms_rain_day",
+            "thunderstorms_snow_day",
             "thunderstorms_extreme",
             "thunderstorms_extreme_rain",
             "thunderstorms_extreme_snow",
             "thunderstorms_night",
-            "thunderstorms_night_extreme",
-            "thunderstorms_night_extreme_rain",
-            "thunderstorms_night_extreme_snow",
-            "thunderstorms_night_overcast",
-            "thunderstorms_night_overcast_rain",
-            "thunderstorms_night_overcast_snow",
-            "thunderstorms_night_rain",
-            "thunderstorms_night_snow",
+            "thunderstorms_extreme_night",
+            "thunderstorms_extreme_rain_night",
+            "thunderstorms_extreme_snow_night",
+            "thunderstorms_overcast_night",
+            "thunderstorms_overcast_rain_night",
+            "thunderstorms_overcast_snow_night",
+            "thunderstorms_rain_night",
+            "thunderstorms_snow_night",
             "thunderstorms_overcast",
             "thunderstorms_overcast_rain",
             "thunderstorms_overcast_snow",
@@ -274,8 +278,9 @@ public class IconViewModel : SharedViewModel
     private void LoadImages()
     {
         IsLoading = true;
-        IconsCollection.Clear();
+        _filtered = false;
         _currentPage = 0;
+        IconsCollection.Clear();
 
         string[] initialPage = completeIcon.Skip(_currentPage).Take(_pageSize).ToArray();
         foreach (var icon in initialPage)
@@ -292,7 +297,8 @@ public class IconViewModel : SharedViewModel
     /// </summary>
     private void AddListPage()
     {
-        if (_addingPage) { return; }
+        if (_addingPage || _filtered) { return; }
+
         _addingPage = true;
         IsLoading = true;
 
@@ -312,6 +318,28 @@ public class IconViewModel : SharedViewModel
         _currentPage++;
         IsLoading = false;
         _addingPage = false;
+    }
+
+    private void FilterIcons(string? searchText)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            _filtered = false;
+            LoadImages();
+            return;
+        }
+
+        _filtered = true;
+        IsLoading = true;
+        IconsCollection.Clear();
+        
+        var filteredIcons = completeIcon.Where(icon => icon.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToArray();
+        foreach (var icon in filteredIcons)
+        {
+            IconsCollection.Add(new IconModel(icon));
+            //await Task.Delay(100);
+        }
+        IsLoading = false;
     }
 }
 

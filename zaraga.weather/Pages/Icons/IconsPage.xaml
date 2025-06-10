@@ -16,6 +16,7 @@
             Grid.Row="0"
             Grid.Column="0"
             IsVisible="{Binding IsLoading}" />
+        <SearchBar x:Name="txtSearch" TextChanged="txtSearch_TextChanged" />
         <CollectionView
             Grid.Row="1"
             Grid.Column="0"
