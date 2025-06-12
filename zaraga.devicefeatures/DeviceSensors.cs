@@ -114,7 +114,7 @@ namespace zaraga.devicefeatures
 
                 _isGettingLocation = true;
                 _locationCancelTokenSource = new CancellationTokenSource();
-                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
                 Location? location = await Geolocation.Default.GetLocationAsync(request, _locationCancelTokenSource.Token);
 
                 if (location != null)

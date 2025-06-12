@@ -22,17 +22,40 @@
             Grid.Column="0"
             Orientation="Vertical"
             VerticalScrollBarVisibility="Always">
-            <StackLayout Padding="30" Spacing="10">
+            <StackLayout Padding="30" Spacing="2">
 
-                <Label
-                    HorizontalOptions="Center"
-                    MinimumHeightRequest="20"
-                    MinimumWidthRequest="50"
-                    Text="{Binding CurrentWeather.location.name}"
-                    VerticalOptions="Center" />
+                <Label FontSize="Title" Text="Ubicación actual" />
+                <Border Padding="10,5" StrokeShape="RoundRectangle 10">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding CurrentWeather.location.name}" />
+                        <Label Text="{Binding CurrentWeather.location.region}" />
+                        <Label Text="{Binding CurrentWeather.location.country}" />
+                        <Label Text="{Binding CurrentWeather.location.localtime, StringFormat='{0}: yyyy-MM-dd'}" />
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding CurrentWeather.location.lat}" />
+                            <Label Text=" , " />
+                            <Label Text="{Binding CurrentWeather.location.lon}" />
+                        </HorizontalStackLayout>
+                        <Label Text="{Binding CurrentWeather.current.is_day}" />
 
-                <!--  binding con la referencia por nombre  -->
-                <views:IconView IconBindable="{Binding BindingContext.CurrentCondition, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}" />
+                        <Image
+                            HeightRequest="128"
+                            Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
+                            WidthRequest="128" />
+                        <!--  binding con la referencia por nombre  -->
+                        <views:IconView
+                            HeightRequest="128"
+                            IconBindable="{Binding BindingContext.CurrentCondition, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
+                            IsVisible="False"
+                            WidthRequest="128" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <Label FontSize="Title" Text="Viento" />
+                <Border Padding="10,5" StrokeShape="RoundRectangle 10">
+                    <Label Text="Viento"></Label>
+                </Border>
 
                 <Label Text="{Binding CompleteJson}" />
 
