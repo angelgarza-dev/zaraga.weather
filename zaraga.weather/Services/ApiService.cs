@@ -81,6 +81,23 @@ internal class ApiService
         }
     }
 
+    /// <summary>
+    /// Obtiene la zona horaria de una ubicacion por coordenadas
+    /// </summary>
+    public async Task<WeatherTimeZone> GetLocationTimeZone(double latitude, double longitude)
+    {
+        var resp = await GetRequest($"timezone.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherTimeZone());
+        return resp;
+    }
+
+    /// <summary>
+    /// Obtiene las horas de amanecer y atardecer de una ubicacion por coordenadas
+    /// </summary>
+    public async Task<WeatherForecastAstro> GetLocationAstronomy(double latitude, double longitude)
+    {
+        var resp = await GetRequest($"astronomy.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherForecastAstro());
+        return resp;
+    }
 
     /// <summary>
     /// Obtiene el clima de la ubicacion actual por coordenadas
