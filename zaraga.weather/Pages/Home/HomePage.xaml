@@ -24,19 +24,24 @@
             VerticalScrollBarVisibility="Always">
             <StackLayout Padding="30" Spacing="2">
 
-                <Label FontSize="Title" Text="Ubicación actual" />
-                <Border Padding="10,5" StrokeShape="RoundRectangle 10">
+                <Label Style="{DynamicResource Headline}" Text="Ubicación actual" />
+                <Border>
                     <VerticalStackLayout>
                         <Label Text="{Binding CurrentWeather.location.name}" />
                         <Label Text="{Binding CurrentWeather.location.region}" />
                         <Label Text="{Binding CurrentWeather.location.country}" />
-                        <Label Text="{Binding CurrentWeather.location.localtime, StringFormat='{0}: yyyy-MM-dd'}" />
+                        <Label Style="{DynamicResource SubHeadline}" Text="Tiempo local" />
+                        <Label Text="{Binding CurrentWeather.location.localtime}" />
+                        <Label Text="Ubicación" />
                         <HorizontalStackLayout>
                             <Label Text="{Binding CurrentWeather.location.lat}" />
                             <Label Text=" , " />
                             <Label Text="{Binding CurrentWeather.location.lon}" />
                         </HorizontalStackLayout>
                         <Label Text="{Binding CurrentWeather.current.is_day}" />
+
+                        <Label Style="{DynamicResource SubHeadline}" Text="Ultima actualizacion" />
+                        <Label Text="{Binding CurrentWeather.current.last_updated}" />
 
                         <Image
                             HeightRequest="128"
@@ -52,10 +57,100 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <Label FontSize="Title" Text="Viento" />
-                <Border Padding="10,5" StrokeShape="RoundRectangle 10">
-                    <Label Text="Viento"></Label>
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="Temperatura" />
+                <Border>
+                    <VerticalStackLayout>
+                        <Label Text="{Binding CurrentWeather.current.temp_c, StringFormat='°c {0}'}" />
+                        <Label Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />
+
+                        <Label Text="Precipitacion en milimetros" />
+                        <Label Text="{Binding CurrentWeather.current.precip_mm}" />
+                        <Label Text="Precipitacion en pulgadas" />
+                        <Label Text="{Binding CurrentWeather.current.precip_in}" />
+                        <Label Text="Humedad" />
+                        <Label Text="{Binding CurrentWeather.current.humidity, StringFormat='{0}%'}" />
+                    </VerticalStackLayout>
                 </Border>
+
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="Viento" />
+                <Border>
+                    <VerticalStackLayout>
+                        <Label Text="velocidad" />
+                        <Label Text="{Binding CurrentWeather.current.wind_kph, StringFormat='{0} Km'}" />
+                        <Label Text="{Binding CurrentWeather.current.wind_mph, StringFormat='{0} mill'}" />
+                        <Label Text="direccion en grados de inclinacion" />
+                        <Label Text="{Binding CurrentWeather.current.wind_degree}" />
+                        <Label Text="direccion del viento" />
+                        <Label Text="{Binding CurrentWeather.current.wind_dir}" />
+
+                        <Label Text="velocidad gust" />
+                        <Label Text="{Binding CurrentWeather.current.gust_kph, StringFormat='{0} Km'}" />
+                        <Label Text="{Binding CurrentWeather.current.gust_mph, StringFormat='{0} mill'}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="Condicion atmosferica" />
+                <Border>
+                    <VerticalStackLayout>
+                        <Label Text="presion del aire en milibares" />
+                        <Label Text="{Binding CurrentWeather.current.pressure_mb}" />
+                        <Label Text="presion del aire en pulgadas" />
+                        <Label Text="{Binding CurrentWeather.current.pressure_in}" />
+                        <Label Text="Cobertura de Nubes" />
+                        <Label Text="{Binding CurrentWeather.current.cloud, StringFormat='{0}%'}" />
+
+                        <Label Text="Indice UV" />
+                        <Label Text="{Binding CurrentWeather.current.uv, StringFormat='{0}'}" />
+
+
+                        <Label Text="calidad del aire" />
+                    </VerticalStackLayout>
+                </Border>
+
+
+
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="Pronostico por hora" />
+                <Border>
+                    <Label Text="Viento" />
+                </Border>
+
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="Pronostico semanal" />
+                <Border>
+                    <Label Text="Viento" />
+                </Border>
+
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="atardecer" />
+                <Border>
+                    <Label Text="Viento" />
+                </Border>
+
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="fases de la luna" />
+                <Border>
+                    <Label Text="Viento" />
+                </Border>
+
+
 
                 <Label Text="{Binding CompleteJson}" />
 

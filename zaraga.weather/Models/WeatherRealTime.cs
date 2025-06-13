@@ -1,13 +1,15 @@
-﻿namespace zaraga.weather.Models
+﻿using System;
+
+namespace zaraga.weather.Models
 {
     public class WeatherRealTime
     {
         /// <summary>
-        /// Local time when the real time data was updated
+        /// Hora local de la ultima actualización de los datos en tiempo real
         /// </summary>
-        public string? last_updated { get; set; }
+        public DateTime? last_updated { get; set; }
         /// <summary>
-        /// Local time when the real time data was updated in unix time
+        /// Hora local de la ultima actualización de los datos en horario Unix
         /// </summary>
         public int last_updated_epoch { get; set; }
         public decimal temp_c { get; set; }
@@ -25,7 +27,13 @@
         public decimal wind_kph { get; set; }
         public int wind_degree { get; set; }
         public string? wind_dir { get; set; }
+        /// <summary>
+        /// Presión en milibares
+        /// </summary>
         public decimal pressure_mb { get; set; }
+        /// <summary>
+        /// Presión en pulgadas
+        /// </summary>
         public decimal pressure_in { get; set; }
         public decimal precip_mm { get; set; }
         public decimal precip_in { get; set; }

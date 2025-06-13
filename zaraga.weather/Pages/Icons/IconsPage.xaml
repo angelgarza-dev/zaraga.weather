@@ -30,10 +30,10 @@
                         Grid.Row="0"
                         Grid.Column="2"
                         Margin="5"
-                        StrokeShape="RoundRectangle 10">
+                        Padding="0">
                         <VerticalStackLayout Padding="5">
                             <views:IconView IconBindable="{Binding Path=Text, Source={x:Reference lblIconName}}" />
-                            <Border StrokeShape="RoundRectangle 5">
+                            <Border Padding="0" StrokeShape="RoundRectangle 5">
                                 <Label
                                     x:Name="lblIconName"
                                     Padding="5"
