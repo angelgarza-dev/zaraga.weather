@@ -9,12 +9,7 @@
     xmlns:icons="clr-namespace:zaraga.weather.Pages.Icons"
     xmlns:local="clr-namespace:zaraga.weather"
     xmlns:settings="clr-namespace:zaraga.weather.Pages.Settings"
-    Title="zaraga.weather" 
-    
-    Shell.TabBarUnselectedColor="{DynamicResource Gray300}"
-    Shell.TabBarTitleColor="Gold"
-    Shell.TabBarBackgroundColor="{StaticResource Primary}"
-    Shell.TabBarForegroundColor="Gold"
+    Title="zaraga.weather"
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>

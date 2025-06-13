@@ -1,4 +1,6 @@
-﻿namespace zaraga.weather.Models
+﻿using System;
+
+namespace zaraga.weather.Models
 {
     public class WeatherLocation
     {
@@ -9,6 +11,6 @@
         public string? country { get; set; }
         public string? tz_id { get; set; }
         public int localtime_epoch { get; set; }
-        public string? localtime { get; set; }
+        public DateTime? localtime { get; set; }
     }
 }

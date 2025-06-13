@@ -35,7 +35,6 @@ public class HomeViewModel : SharedViewModel
     private async void GetCurrentWeather()
     {
         IsLoading = true;
-        CurrentWeather = new WeatherCurrentLocation();
         if (CurrentWeather.location != null)
         {
             CurrentWeather.location.name = "Cargando...";
@@ -49,7 +48,6 @@ public class HomeViewModel : SharedViewModel
             if (location != null)
             {
                 CurrentWeather = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
-                CompleteJson = Newtonsoft.Json.JsonConvert.SerializeObject(CurrentWeather, Newtonsoft.Json.Formatting.Indented);
                 string icon = CurrentWeather.current?.condition?.code.ToString() ?? "0";
                 CurrentCondition = icon;
                 IsLoading = false;

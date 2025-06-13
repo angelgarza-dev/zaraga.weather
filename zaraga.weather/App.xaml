@@ -33,6 +33,60 @@
                 </Grid>
             </ControlTemplate>
 
+            <!--  radio button template  -->
+            <ControlTemplate x:Key="RadioButtonTemplate">
+                <Border
+                    BackgroundColor="#F3F2F1"
+                    HorizontalOptions="Start"
+                    Stroke="#F3F2F1"
+                    StrokeShape="RoundRectangle 5"
+                    StrokeThickness="2"
+                    VerticalOptions="Start">
+                    <Grid Margin="4">
+                        <Grid
+                            Margin="0,0,4,0"
+                            HeightRequest="18"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            WidthRequest="18">
+                            <Ellipse
+                                Fill="White"
+                                HeightRequest="16"
+                                HorizontalOptions="Center"
+                                Stroke="{StaticResource Primary}"
+                                VerticalOptions="Center"
+                                WidthRequest="16" />
+                            <Ellipse
+                                x:Name="check"
+                                Fill="{StaticResource Primary}"
+                                HeightRequest="8"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="8" />
+                        </Grid>
+                        <ContentPresenter />
+                    </Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="Stroke" Value="{DynamicResource Primary}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#F3F2F1" />
+                                        <Setter Property="Stroke" Value="#F3F2F1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Border>
+            </ControlTemplate>
+
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
