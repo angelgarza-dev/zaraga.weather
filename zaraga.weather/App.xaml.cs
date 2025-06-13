@@ -1,10 +1,8 @@
 ﻿using epj.Expander.Maui;
 using Microsoft.Maui.Controls;
-using Plugin.Maui.BottomSheet.Navigation;
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using System.Threading.Tasks;
 using zaraga.weather.Attributes;
 
 namespace zaraga.weather;
@@ -13,7 +11,6 @@ public partial class App : Application
 {
     internal static string NotAvailableIcon => "not_available";
     internal static string WeatherApikey => Assembly.GetExecutingAssembly()?.GetCustomAttribute<WeatherApiKeyAttribute>()?.WeatherKey.ToString() ?? "";
-    internal static IBottomSheetNavigationService? BottomSheetNavigationService;
 
 
     //Log Manager 
@@ -30,10 +27,9 @@ public partial class App : Application
         }
     }
 
-    public App(IBottomSheetNavigationService _bottomSheetNavigationService)
+    public App()
     {
         InitializeComponent();
-        BottomSheetNavigationService = _bottomSheetNavigationService;
 
         Console.Init(filePath: BuildMetadata.LogPath, daysToRecord: 3);
         Expander.EnableAnimations();
@@ -49,7 +45,7 @@ public partial class App : Application
 #endif
     }
 
-    internal static async Task Log(Exception exception)
+    internal static void Log(Exception exception)
     {
         Console.Write(exception);
 #if DEBUG
@@ -58,6 +54,5 @@ public partial class App : Application
         Debug.WriteLine("InnerException message:");
         Debug.WriteLine("{0} - {1}", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"), exception?.InnerException?.Message);
 #endif
-        await Shell.Current.DisplayAlert("Error", exception?.Message ?? "Ops por favor vuelva a intentar.", "OK");
     }
 }
