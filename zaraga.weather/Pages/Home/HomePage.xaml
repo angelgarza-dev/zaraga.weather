@@ -66,7 +66,7 @@
                         <Label Text="{Binding CurrentWeather.current.temp_c, StringFormat='°c {0}'}" />
                         <Label Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />
 
-                        <Label Text="Precipitacion en milimetros" />
+                        <Label Text="Precipitacion en mililitros" />
                         <Label Text="{Binding CurrentWeather.current.precip_mm}" />
                         <Label Text="Precipitacion en pulgadas" />
                         <Label Text="{Binding CurrentWeather.current.precip_in}" />

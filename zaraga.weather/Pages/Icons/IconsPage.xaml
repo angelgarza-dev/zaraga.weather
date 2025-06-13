@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:zaraga.weather.Pages.Icons"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-    xmlns:views="clr-namespace:zaraga.weather.Views">
+    xmlns:views="clr-namespace:zaraga.weather.Views"
+    BackgroundColor="WhiteSmoke">
 
     <ContentPage.BindingContext>
         <local:IconViewModel />
@@ -30,7 +31,8 @@
                         Grid.Row="0"
                         Grid.Column="2"
                         Margin="5"
-                        Padding="0">
+                        Padding="0"
+                        BackgroundColor="White">
                         <VerticalStackLayout Padding="5">
                             <views:IconView IconBindable="{Binding Path=Text, Source={x:Reference lblIconName}}" />
                             <Border Padding="0" StrokeShape="RoundRectangle 5">

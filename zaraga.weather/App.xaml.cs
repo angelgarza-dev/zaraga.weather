@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using epj.Expander.Maui;
+using Microsoft.Maui.Controls;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -31,6 +32,7 @@ public partial class App : Application
         InitializeComponent();
 
         Console.Init(filePath: BuildMetadata.LogPath, daysToRecord: 3);
+        Expander.EnableAnimations();
 
         MainPage = new AppShell();
     }

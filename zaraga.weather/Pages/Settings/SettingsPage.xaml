@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
     xmlns:local="clr-namespace:zaraga.weather.Pages.Settings"
+    xmlns:maui="clr-namespace:epj.Expander.Maui;assembly=epj.Expander.Maui"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     x:Name="page"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
@@ -14,60 +15,157 @@
     </layouts:LoadingContentPage.BindingContext>
 
     <VerticalStackLayout Padding="2" Spacing="5">
-        <Label FontSize="Title" Text="Estilo de iconos" />
 
-        <Grid
-            Padding="5,0"
-            ColumnDefinitions="*,*,*"
-            ColumnSpacing="2"
-            RadioButtonGroup.GroupName="IconType"
-            RadioButtonGroup.SelectedValue="{Binding SelectedIConStyle}"
-            RowDefinitions="Auto">
+        <VerticalStackLayout x:Name="AccordionLayout" Spacing="6">
 
-            <RadioButton
-                x:Name="btnAnimated"
-                Grid.Row="0"
-                Grid.Column="0"
-                ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                Value="0">
-                <RadioButton.Content>
-                    <skia:SKLottieView
-                        BackgroundColor="Transparent"
-                        HeightRequest="100"
-                        RepeatCount="-1"
-                        Source="Dynamic/Fill/dynamic_fill_clear_day.json"
-                        WidthRequest="100" />
-                </RadioButton.Content>
-            </RadioButton>
+            <!--  estilo de iconos  -->
+            <maui:Expander Animated="True" HeaderTapped="Expander_HeaderTapped">
+                <maui:Expander.HeaderContent>
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Headline}"
+                            Text="Estilo de iconos"
+                            VerticalTextAlignment="Center" />
 
-            <RadioButton
-                x:Name="btnSolid"
-                Grid.Row="0"
-                Grid.Column="1"
-                ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                Value="1">
-                <RadioButton.Content>
-                    <Image
-                        HeightRequest="100"
-                        Source="static_fill_clear_day.png"
-                        WidthRequest="100" />
-                </RadioButton.Content>
-            </RadioButton>
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="10"
+                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
+                            Source="arrow_down_outline.png" />
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="10"
+                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}}"
+                            Source="arrow_up_outline.png" />
+                    </Grid>
+                </maui:Expander.HeaderContent>
+                <Grid
+                    Padding="5,0"
+                    ColumnDefinitions="*,*,*"
+                    ColumnSpacing="2"
+                    RadioButtonGroup.GroupName="IconType"
+                    RadioButtonGroup.SelectedValue="{Binding SelectedIConStyle}"
+                    RowDefinitions="Auto">
 
-            <RadioButton
-                x:Name="btnLine"
-                Grid.Row="0"
-                Grid.Column="2"
-                ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                Value="2">
-                <RadioButton.Content>
-                    <Image
-                        HeightRequest="100"
-                        Source="static_line_clear_day.png"
-                        WidthRequest="100" />
-                </RadioButton.Content>
-            </RadioButton>
-        </Grid>
+                    <RadioButton
+                        x:Name="btnAnimated"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                        Value="0">
+                        <RadioButton.Content>
+                            <skia:SKLottieView
+                                BackgroundColor="Transparent"
+                                HeightRequest="100"
+                                RepeatCount="-1"
+                                Source="Dynamic/Fill/dynamic_fill_clear_day.json"
+                                WidthRequest="100" />
+                        </RadioButton.Content>
+                    </RadioButton>
+
+                    <RadioButton
+                        x:Name="btnSolid"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                        Value="1">
+                        <RadioButton.Content>
+                            <Image
+                                HeightRequest="100"
+                                Source="static_fill_clear_day.png"
+                                WidthRequest="100" />
+                        </RadioButton.Content>
+                    </RadioButton>
+
+                    <RadioButton
+                        x:Name="btnLine"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                        Value="2">
+                        <RadioButton.Content>
+                            <Image
+                                HeightRequest="100"
+                                Source="static_line_clear_day.png"
+                                WidthRequest="100" />
+                        </RadioButton.Content>
+                    </RadioButton>
+                </Grid>
+
+            </maui:Expander>
+
+            <!--  medidas  -->
+            <maui:Expander Animated="True" HeaderTapped="Expander_HeaderTapped">
+                <maui:Expander.HeaderContent>
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
+                        <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Headline}"
+                            Text="Medidas"
+                            VerticalTextAlignment="Center" />
+
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="10"
+                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
+                            Source="arrow_down_outline.png" />
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="10"
+                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}}"
+                            Source="arrow_up_outline.png" />
+                    </Grid>
+                </maui:Expander.HeaderContent>
+                <VerticalStackLayout Padding="5" Spacing="5">
+                    <Border BackgroundColor="White">
+                        <VerticalStackLayout>
+                            <Label Style="{DynamicResource SubHeadline}" Text="Temperatura" />
+                            <BoxView />
+                            <RadioButton Content="Celcius" />
+                            <RadioButton Content="Farenheig" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border BackgroundColor="White">
+                        <VerticalStackLayout>
+                            <Label Style="{DynamicResource SubHeadline}" Text="Velocidad" />
+                            <BoxView />
+                            <RadioButton Content="Kilometro / Hora" />
+                            <RadioButton Content="Millas / Hora" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border BackgroundColor="White">
+                        <VerticalStackLayout>
+                            <Label Style="{DynamicResource SubHeadline}" Text="Liquidos" />
+                            <BoxView />
+                            <RadioButton Content="Mililitros" />
+                            <RadioButton Content="Pulgadas" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border BackgroundColor="White">
+                        <VerticalStackLayout>
+                            <Label Style="{DynamicResource SubHeadline}" Text="Presion atmosferica" />
+                            <BoxView />
+                            <RadioButton Content="Milibares" />
+                            <RadioButton Content="Pulgadas" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </maui:Expander>
+
+        </VerticalStackLayout>
+
 
     </VerticalStackLayout>
 
