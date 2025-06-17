@@ -1,6 +1,28 @@
 ﻿namespace zaraga.weather.Models
 {
-    internal class WeatherForecastAstro
+    public class WeatherForecastAstro
+    {
+        public WeatherForecastAstro()
+        {
+            //location = new();
+            astronomy = new();
+        }
+
+        //public WeatherLocation location { get; set; }
+        public LocationAstronomy astronomy { get; set; }
+    }
+
+    public class LocationAstronomy
+    {
+        public LocationAstronomy()
+        {
+            astro = new LocationAstro();
+        }
+
+        public LocationAstro astro { get; set; }
+    }
+
+    public class LocationAstro
     {
         public string? sunrise { get; set; }
         public string? sunset { get; set; }
@@ -16,11 +38,11 @@
         /// Last Quarter
         /// Waning Crescent
         /// </summary>
-        public decimal moon_phase { get; set; }
+        public string? moon_phase { get; set; }
         /// <summary>
         /// Moon illumination as percentage
         /// </summary>
-        public string? moon_illumination { get; set; }
+        public int moon_illumination { get; set; }
         /// <summary>
         /// 1 = Yes 
         /// 0 = No

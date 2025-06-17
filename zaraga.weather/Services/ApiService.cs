@@ -93,9 +93,9 @@ internal class ApiService
     /// <summary>
     /// Obtiene las horas de amanecer y atardecer de una ubicacion por coordenadas
     /// </summary>
-    public async Task<WeatherForecastAstro> GetLocationAstronomy(double latitude, double longitude)
+    public async Task<WeatherForecastAstro> GetLocationAstronomy(double latitude, double longitude, DateTime date)
     {
-        var resp = await GetRequest($"astronomy.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherForecastAstro());
+        var resp = await GetRequest($"astronomy.json?key={App.WeatherApikey}&q={latitude},{longitude}&dt={date:yyyy-MM-dd}&lang=es", new WeatherForecastAstro());
         return resp;
     }
 

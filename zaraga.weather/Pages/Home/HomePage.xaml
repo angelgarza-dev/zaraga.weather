@@ -16,7 +16,7 @@
         <local:HomeViewModel />
     </layouts:LoadingContentPage.BindingContext>
 
-    <RefreshView Command="{Binding GetGurrentWeatherCommand}" IsRefreshing="{Binding IsLoading}">
+    <RefreshView Command="{Binding LoadDataCommand}" IsRefreshing="{Binding IsLoading}">
         <ScrollView
             Grid.Row="1"
             Grid.Column="0"
@@ -50,7 +50,7 @@
                         <!--  binding con la referencia por nombre  -->
                         <views:IconView
                             HeightRequest="128"
-                            IconBindable="{Binding BindingContext.CurrentCondition, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
+                            IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
                             IsVisible="False"
                             WidthRequest="128" />
 
@@ -123,7 +123,9 @@
                     Style="{DynamicResource SubHeadline}"
                     Text="Pronostico por hora" />
                 <Border>
-                    <Label Text="Viento" />
+                    <VerticalStackLayout>
+                        <Label Text="Elemento" />
+                    </VerticalStackLayout>
                 </Border>
 
                 <Label
@@ -131,15 +133,35 @@
                     Style="{DynamicResource SubHeadline}"
                     Text="Pronostico semanal" />
                 <Border>
-                    <Label Text="Viento" />
+                    <VerticalStackLayout>
+                        <Label Text="Elemento" />
+                    </VerticalStackLayout>
                 </Border>
 
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
-                    Text="atardecer" />
+                    Text="Astronomia" />
                 <Border>
-                    <Label Text="Viento" />
+                    <VerticalStackLayout>
+                        <Label Text="Amanecer" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.sunrise}" />
+                        <Label Text="Atardecer" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.sunset}" />
+                        <Label Text="Salida Lunar" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.moonrise}" />
+                        <Label Text="Ocaso Lunar" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.moonset}" />
+                        <Label Text="Fase Lunar" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase}" />
+                        <Label Text="Iluminacion Lunar" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
+                        <Label Text="Es dia" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_sun_up}" />
+                        <Label Text="es Noche" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_moon_up}" />
+
+                    </VerticalStackLayout>
                 </Border>
 
                 <Label
@@ -147,7 +169,9 @@
                     Style="{DynamicResource SubHeadline}"
                     Text="fases de la luna" />
                 <Border>
-                    <Label Text="Viento" />
+                    <VerticalStackLayout>
+                        <Label Text="Elemento" />
+                    </VerticalStackLayout>
                 </Border>
 
 

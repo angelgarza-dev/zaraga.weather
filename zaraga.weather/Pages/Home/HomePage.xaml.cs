@@ -16,7 +16,7 @@ public partial class HomePage : LoadingContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _viewModel?.GetGurrentWeatherCommand.Execute(null);
+        _viewModel?.LoadDataCommand.Execute(null);
     }
 
     protected override void OnDisappearing()
