@@ -12,11 +12,13 @@ public class HomeViewModel : SharedViewModel
     private string _completeJson = "";
     private WeatherCurrentLocation _currentWeather = new();
     private WeatherForecastAstro _currentAstronomy = new();
+    private WeatherAlerts _locationAlerts = new();
 
 
     public string CompleteJson { get => _completeJson; set { _completeJson = value; OnPropertyChanged(); } }
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
     public WeatherForecastAstro CurrentAstronomy { get => _currentAstronomy; set { _currentAstronomy = value; OnPropertyChanged(); } }
+    public WeatherAlerts LocationAlets { get => _locationAlerts; set { _locationAlerts = value; OnPropertyChanged(); } }
 
 
     public Command LoadDataCommand => new Command(LoadData);
@@ -54,7 +56,8 @@ public class HomeViewModel : SharedViewModel
         //obtencion de datos
         await Task.WhenAll(
             GetCurrentWeather(location),
-            GetAstronomy(location)
+            GetAstronomy(location),
+            GetWeatherAlerts(location)
         );
 
         IsLoading = false;
@@ -84,8 +87,21 @@ public class HomeViewModel : SharedViewModel
             }
 
             CurrentAstronomy = await ApiService.Instance.GetLocationAstronomy(location.Latitude, location.Longitude, astronomyDate);
-            CompleteJson = Newtonsoft.Json.JsonConvert.SerializeObject(CurrentAstronomy, Newtonsoft.Json.Formatting.Indented);
+            //CompleteJson = Newtonsoft.Json.JsonConvert.SerializeObject(CurrentAstronomy, Newtonsoft.Json.Formatting.Indented);
 
+        }
+        catch (Exception ex)
+        {
+            App.Log(ex);
+            await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
+        }
+    }
+
+    private async Task GetWeatherAlerts(Location location)
+    {
+        try
+        {
+            LocationAlets = await ApiService.Instance.GetWeatherAlerts(location.Latitude, location.Longitude);
         }
         catch (Exception ex)
         {

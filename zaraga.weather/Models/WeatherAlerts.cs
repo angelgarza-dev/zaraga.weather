@@ -6,7 +6,29 @@ using System.Threading.Tasks;
 
 namespace zaraga.weather.Models
 {
-    internal class WeatherAlert
+    public class WeatherAlerts
+    {
+        public WeatherLocation location { get; set; }
+        public WeatherAlertsColeccion alerts { get; set; }
+
+        public WeatherAlerts()
+        {
+            location = new();
+            alerts = new();
+        }
+    }
+
+    public class WeatherAlertsColeccion
+    {
+        public List<WeatherAlert> alert { get; set; }
+
+        public WeatherAlertsColeccion()
+        {
+            alert = new();
+        }
+    }
+
+    public class WeatherAlert
     {
         public string? headline { get; set; }
         public string? msgType { get; set; }

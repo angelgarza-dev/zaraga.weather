@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Java.Util;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using zaraga.weather.Models;
 
@@ -82,6 +84,15 @@ internal class ApiService
     }
 
     /// <summary>
+    /// Busca las ubicaciones por parametro de busqueda
+    /// </summary>
+    public async Task<IEnumerable<WeatherLocation>> SearchLocation(string searchParameter)
+    {
+        var resp = await GetRequest($"search.json?key={App.WeatherApikey}&q={searchParameter}&lang=es", new List<WeatherLocation>());
+        return resp;
+    }
+
+    /// <summary>
     /// Obtiene la zona horaria de una ubicacion por coordenadas
     /// </summary>
     public async Task<WeatherTimeZone> GetLocationTimeZone(double latitude, double longitude)
@@ -105,6 +116,15 @@ internal class ApiService
     public async Task<WeatherCurrentLocation> GetCurrentLocationWeather(double latitude, double longitude)
     {
         var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherCurrentLocation());
+        return resp;
+    }
+
+    /// <summary>
+    /// Obtiene las alertas meteorológicas de una ubicación por coordenadas
+    /// </summary>
+    public async Task<WeatherAlerts> GetWeatherAlerts(double latitude, double longitude)
+    {
+        var resp = await GetRequest($"alerts.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherAlerts());
         return resp;
     }
 

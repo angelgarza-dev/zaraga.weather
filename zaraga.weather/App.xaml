@@ -22,7 +22,7 @@
             <!--  layouts  -->
             <ControlTemplate x:Key="LoadingContentPage">
                 <Grid
-                    BackgroundColor="WhiteSmoke"
+                    BackgroundColor="{AppThemeBinding Light=WhiteSmoke}"
                     ColumnDefinitions="*"
                     RowDefinitions="Auto,*">
                     <views:LoadingView
