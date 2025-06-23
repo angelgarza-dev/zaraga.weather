@@ -1,6 +1,6 @@
 ﻿namespace zaraga.weather.Models
 {
-    internal class WeatherAirQuality
+    public class WeatherAirQuality
     {
         /// <summary>
         /// Carbon Monoxide (μg/m3)
@@ -48,5 +48,17 @@
         /// >=71 Very High
         /// </summary>
         public int gbdefraindex { get; set; }
+
+        public WeatherAirQuality()
+        {
+            co = 0.0f;
+            o3 = 0.0f;
+            no2 = 0.0f;
+            so2 = 0.0f;
+            pm2_5 = 0.0f;
+            pm10 = 0.0f;
+            usepaindex = 0;
+            gbdefraindex = 0;
+        }
     }
 }

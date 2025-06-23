@@ -25,6 +25,7 @@
             <StackLayout Padding="30" Spacing="2">
 
                 <Label Style="{DynamicResource Headline}" Text="Ubicación actual" />
+                <Image Source="magni"></Image>
                 <Border>
                     <VerticalStackLayout>
                         <Label Text="{Binding CurrentWeather.location.name}" />
@@ -156,9 +157,9 @@
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase}" />
                         <Label Text="Iluminacion Lunar" />
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
-                        <Label Text="Es dia" />
+                        <Label Text="Sol arriba" />
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_sun_up}" />
-                        <Label Text="es Noche" />
+                        <Label Text="Luna arriba" />
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_moon_up}" />
 
                     </VerticalStackLayout>
