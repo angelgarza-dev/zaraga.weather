@@ -1,4 +1,5 @@
-﻿using Java.Util;
+﻿using Microsoft.Maui.Controls;
+using Java.Util;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -116,6 +117,17 @@ internal class ApiService
     public async Task<WeatherCurrentLocation> GetCurrentLocationWeather(double latitude, double longitude)
     {
         var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherCurrentLocation());
+        return resp;
+    }
+
+    /// <summary>
+    /// Obtiene el pronostico del clima por hora y cantidad de dias
+    /// </summary>
+    public async Task<WeatherForecast> GetWeatherForecast(double latitude, double longitude, int days = 1, bool airQuallity = false, bool alerts = false)
+    {
+        string aqi = airQuallity ? "yes" : "no";
+        string al = alerts ? "yes" : "no";
+        var resp = await GetRequest($"forecast.json?key={App.WeatherApikey}&q={latitude},{longitude}&days={days}&aqi={aqi}&alerts={al}&lang=es", new WeatherForecast());
         return resp;
     }
 
