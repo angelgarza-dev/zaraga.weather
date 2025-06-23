@@ -1,23 +1,12 @@
 ﻿namespace zaraga.weather.Models
 {
-    internal class WeatherForecastHour
+    public class WeatherForecastHour
     {
         public int time_epoch { get; set; }
         public string? time { get; set; }
         public decimal temp_c { get; set; }
         public decimal temp_F { get; set; }
-        /// <summary>
-        /// condition:text
-        /// </summary>
-        public string? conditionText { get; set; }
-        /// <summary>
-        /// condition:icon
-        /// </summary>
-        public string? conditionIcon { get; set; }
-        /// <summary>
-        /// condition:code
-        /// </summary>
-        public int conditionCode { get; set; }
+        public WeatherCondition condition { get; set; }
         public decimal wind_mph { get; set; }
         public decimal wind_kph { get; set; }
         public int wind_degree { get; set; }
@@ -72,5 +61,45 @@
         public decimal diff_rad { get; set; }
         public WeatherAirQuality? air_quality { get; set; }
 
+        public WeatherForecastHour()
+        {
+            time_epoch = 0;
+            time = "";
+            temp_c = 0;
+            temp_F = 0;
+            condition = new();
+            wind_mph = 0;
+            wind_kph = 0;
+            wind_degree = 0;
+            wind_dir = "";
+            pressure_mb = 0;
+            pressure_in = 0;
+            precip_mm = 0;
+            precip_in = 0;
+            snow_cm = 0;
+            humidity = 0;
+            cloud = 0;
+            feelslike_c = 0;
+            feelslike_f = 0;
+            windchill_c = 0;
+            windchill_f = 0;
+            heatindex_c = 0;
+            heatindex_f = 0;
+            dewpoint_c = 0;
+            dewpoint_f = 0;
+            will_it_rain = 0;
+            will_it_snow = 0;
+            is_day = 0;
+            vis_km = 0;
+            vis_miles = 0;
+            chance_of_rain = 0;
+            chance_of_snow = 0;
+            gust_mph = 0;
+            gust_kph = 0;
+            uv = 0;
+            short_rad = 0;
+            diff_rad = 0;
+            air_quality = new();
+        }
     }
 }

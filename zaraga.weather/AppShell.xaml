@@ -19,7 +19,7 @@
         <Tab Title="Favoritos" Icon="heart_outline.png">
             <ShellContent ContentTemplate="{DataTemplate favorites:FavoritesPage}" />
         </Tab>
-        <Tab Title="App" Icon="gear_outline.png">
+        <Tab Title="App" Icon="ic_settings_black.png">
             <ShellContent Title="Ajustes" ContentTemplate="{DataTemplate settings:SettingsPage}" />
             <ShellContent Title="Acerca De" ContentTemplate="{DataTemplate about:AboutPage}" />
             <ShellContent Title="Iconos" ContentTemplate="{DataTemplate icons:IconsPage}" />

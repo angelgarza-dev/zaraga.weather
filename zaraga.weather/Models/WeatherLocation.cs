@@ -12,5 +12,17 @@ namespace zaraga.weather.Models
         public string? tz_id { get; set; }
         public int localtime_epoch { get; set; }
         public DateTime? localtime { get; set; }
+
+        public WeatherLocation()
+        {
+            lat = 0;
+            lon = 0;
+            name = "";
+            region = "";
+            country = "";
+            tz_id = "";
+            localtime_epoch = 0;
+            localtime = DateTime.Now;
+        }
     }
 }

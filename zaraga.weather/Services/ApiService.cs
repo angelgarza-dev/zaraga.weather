@@ -1,5 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Maui.Controls;
+using Java.Util;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using zaraga.weather.Models;
 
@@ -82,6 +85,15 @@ internal class ApiService
     }
 
     /// <summary>
+    /// Busca las ubicaciones por parametro de busqueda
+    /// </summary>
+    public async Task<IEnumerable<WeatherLocation>> SearchLocation(string searchParameter)
+    {
+        var resp = await GetRequest($"search.json?key={App.WeatherApikey}&q={searchParameter}&lang=es", new List<WeatherLocation>());
+        return resp;
+    }
+
+    /// <summary>
     /// Obtiene la zona horaria de una ubicacion por coordenadas
     /// </summary>
     public async Task<WeatherTimeZone> GetLocationTimeZone(double latitude, double longitude)
@@ -93,9 +105,9 @@ internal class ApiService
     /// <summary>
     /// Obtiene las horas de amanecer y atardecer de una ubicacion por coordenadas
     /// </summary>
-    public async Task<WeatherForecastAstro> GetLocationAstronomy(double latitude, double longitude)
+    public async Task<WeatherForecastAstro> GetLocationAstronomy(double latitude, double longitude, DateTime date)
     {
-        var resp = await GetRequest($"astronomy.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherForecastAstro());
+        var resp = await GetRequest($"astronomy.json?key={App.WeatherApikey}&q={latitude},{longitude}&dt={date:yyyy-MM-dd}&lang=es", new WeatherForecastAstro());
         return resp;
     }
 
@@ -105,6 +117,26 @@ internal class ApiService
     public async Task<WeatherCurrentLocation> GetCurrentLocationWeather(double latitude, double longitude)
     {
         var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherCurrentLocation());
+        return resp;
+    }
+
+    /// <summary>
+    /// Obtiene el pronostico del clima por hora y cantidad de dias
+    /// </summary>
+    public async Task<WeatherForecast> GetWeatherForecast(double latitude, double longitude, int days = 1, bool airQuallity = false, bool alerts = false)
+    {
+        string aqi = airQuallity ? "yes" : "no";
+        string al = alerts ? "yes" : "no";
+        var resp = await GetRequest($"forecast.json?key={App.WeatherApikey}&q={latitude},{longitude}&days={days}&aqi={aqi}&alerts={al}&lang=es", new WeatherForecast());
+        return resp;
+    }
+
+    /// <summary>
+    /// Obtiene las alertas meteorológicas de una ubicación por coordenadas
+    /// </summary>
+    public async Task<WeatherAlerts> GetWeatherAlerts(double latitude, double longitude)
+    {
+        var resp = await GetRequest($"alerts.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherAlerts());
         return resp;
     }
 

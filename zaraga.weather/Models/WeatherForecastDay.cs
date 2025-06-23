@@ -1,6 +1,6 @@
 ﻿namespace zaraga.weather.Models
 {
-    internal class WeatherForecastDay
+    public class WeatherForecastDay
     {
         public decimal max_temp_c { get; set; }
         public decimal max_temp_f { get; set; }
@@ -16,7 +16,7 @@
         public decimal avgvis_km { get; set; }
         public decimal avgvis_miles { get; set; }
         public int avghumidity { get; set; }
-        public WeatherCondition? condition { get; set; }
+        public WeatherCondition condition { get; set; }
         public decimal uv { get; set; }
         /// <summary>
         /// 1 = Yes 
@@ -36,6 +36,30 @@
         /// Chance of snow as percentage
         /// </summary>
         public int daily_chance_of_snow { get; set; }
+
+        public WeatherForecastDay()
+        {
+            max_temp_c = 0.0m;
+            max_temp_f = 0.0m;
+            min_temp_c = 0.0m;
+            min_temp_f = 0.0m;
+            avgtemp_c = 0.0m;
+            avgtemp_f = 0.0m;
+            maxwind_kph = 0.0m;
+            maxwind_mph = 0.0m;
+            totalprecip_mm = 0.0m;
+            totalprecip_in = 0.0m;
+            totalsnow_cm = 0.0m;
+            avgvis_km = 0.0m;
+            avgvis_miles = 0.0m;
+            avghumidity = 0;
+            condition = new();
+            uv = 0.0m;
+            daily_will_it_rain = 0;
+            daily_will_it_snow = 0;
+            daily_chance_of_rain = 0;
+            daily_chance_of_snow = 0;
+        }
     }
 
 }
