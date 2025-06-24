@@ -1,9 +1,11 @@
-﻿namespace zaraga.weather.Models
+﻿using System;
+
+namespace zaraga.weather.Models
 {
     public class WeatherForecastHour
     {
         public int time_epoch { get; set; }
-        public string? time { get; set; }
+        public DateTime time { get; set; }
         public decimal temp_c { get; set; }
         public decimal temp_F { get; set; }
         public WeatherCondition condition { get; set; }
@@ -64,7 +66,7 @@
         public WeatherForecastHour()
         {
             time_epoch = 0;
-            time = "";
+            time = DateTime.Now;
             temp_c = 0;
             temp_F = 0;
             condition = new();

@@ -116,13 +116,13 @@
                             Grid.Column="1"
                             Margin="10"
                             IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
-                            Source="ic_arrow_down.png" />
+                            Source="ic_arrow_down_black.png" />
                         <Image
                             Grid.Row="0"
                             Grid.Column="1"
                             Margin="10"
                             IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}}"
-                            Source="ic_arrow_up.png" />
+                            Source="ic_arrow_up_black.png" />
                     </Grid>
                 </maui:Expander.HeaderContent>
                 <VerticalStackLayout Padding="5" Spacing="5">

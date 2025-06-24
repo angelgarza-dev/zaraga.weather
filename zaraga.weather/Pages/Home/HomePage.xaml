@@ -25,7 +25,7 @@
             <StackLayout Padding="30" Spacing="2">
 
                 <Label Style="{DynamicResource Headline}" Text="Ubicación actual" />
-                <Image Source="magni"></Image>
+                <Image Source="magni" />
                 <Border>
                     <VerticalStackLayout>
                         <Label Text="{Binding CurrentWeather.location.name}" />
@@ -122,10 +122,79 @@
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
-                    Text="Pronostico por hora" />
+                    Text="Pronostico" />
                 <Border>
                     <VerticalStackLayout>
-                        <Label Text="Elemento" />
+                        <views:LoadingView IsVisible="{Binding ForecastLoading}" />
+                        <HorizontalStackLayout>
+                            <Label Text="Dias" />
+                            <Picker
+                                Title="Seleccione los dias"
+                                SelectedIndexChanged="Picker_SelectedIndexChanged"
+                                SelectedItem="{Binding ForecastDays}">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:Int32}">
+                                        <x:Int32>1</x:Int32>
+                                        <x:Int32>2</x:Int32>
+                                        <x:Int32>3</x:Int32>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </HorizontalStackLayout>
+                        <CollectionView ItemsSource="{Binding CurrentForecast.forecast.forecastday}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout>
+                                        <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto">
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                HorizontalOptions="Start"
+                                                Text="{Binding date, StringFormat='{0:dd-MM-yyyy}'}" />
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="End"
+                                                Text="Detalle" />
+                                            <Image
+                                                Grid.Row="0"
+                                                Grid.Column="2"
+                                                HeightRequest="30"
+                                                HorizontalOptions="Center"
+                                                Source="{AppThemeBinding Light=ic_arrow_right_black.png,
+                                                                         Dark=ic_arrow_right_white.png}"
+                                                VerticalOptions="Center"
+                                                WidthRequest="30" />
+                                        </Grid>
+
+                                        <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding hour}">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border MaximumWidthRequest="130">
+                                                        <VerticalStackLayout>
+                                                            <Label Text="{Binding time, StringFormat='{0: hh:mm tt}'}" />
+                                                            <Image
+                                                                HeightRequest="64"
+                                                                Source="{Binding condition.icon, Converter={StaticResource WebImageConverter}}"
+                                                                WidthRequest="64" />
+                                                            <Label
+                                                                HeightRequest="40"
+                                                                HorizontalTextAlignment="Center"
+                                                                LineBreakMode="TailTruncation"
+                                                                MaxLines="2"
+                                                                Text="{Binding condition.text}"
+                                                                VerticalTextAlignment="Start" />
+                                                        </VerticalStackLayout>
+
+                                                    </Border>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
                     </VerticalStackLayout>
                 </Border>
 
