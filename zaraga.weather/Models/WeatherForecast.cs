@@ -19,7 +19,7 @@ namespace zaraga.weather.Models
 
     public class WeatherForecastDayly
     {
-        public List<WeatherForecastDayly> forecastday { get; set; }
+        public List<WeatherForecastDaySchedule> forecastday { get; set; }
 
         public WeatherForecastDayly()
         {

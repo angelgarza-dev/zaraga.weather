@@ -14,27 +14,46 @@ public class HomeViewModel : SharedViewModel
     private WeatherForecastAstro _currentAstronomy = new();
     private WeatherForecast _currentForecast = new();
     private WeatherAlerts _locationAlerts = new();
+    private int _forecastDays = 1;
+    private bool _forecastLoading = false;
 
 
     public string CompleteJson { get => _completeJson; set { _completeJson = value; OnPropertyChanged(); } }
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
     public WeatherForecastAstro CurrentAstronomy { get => _currentAstronomy; set { _currentAstronomy = value; OnPropertyChanged(); } }
     public WeatherForecast CurrentForecast { get => _currentForecast; set { _currentForecast = value; OnPropertyChanged(); } }
-    public WeatherAlerts LocationAlets { get => _locationAlerts; set { _locationAlerts = value; OnPropertyChanged(); } }
+    public WeatherAlerts LocationAlerts { get => _locationAlerts; set { _locationAlerts = value; OnPropertyChanged(); } }
+    public int ForecastDays { get => _forecastDays; set { _forecastDays = value; OnPropertyChanged(); } }
+    public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
 
 
     public Command LoadDataCommand => new Command(LoadData);
     public Command OnDisapearingCommand => new Command(OnDisapearing);
+    public Command OnForecastDaysChangeCommand => new Command(OnForecastDaysChange);
 
 
     public HomeViewModel()
     {
-
     }
 
     private void OnDisapearing()
     {
 
+    }
+
+    private async void OnForecastDaysChange()
+    {
+        ForecastLoading = true;
+        var location = await GetDeviceLocation();
+        if (location == null)
+        {
+            IsLoading = false;
+            await Shell.Current.DisplayAlert("Error", "No se pudo obtener la ubicación", "OK");
+            return;
+        }
+
+        await GetForecast(location);
+        ForecastLoading = false;
     }
 
     private async void LoadData()
@@ -45,29 +64,29 @@ public class HomeViewModel : SharedViewModel
             CurrentWeather.location.name = "Cargando...";
         }
 
-        //permisos y ubicacion actual
+        //permisos y ubicación actual
         await GetAppPermissions();
         var location = await GetDeviceLocation();
         if (location == null)
         {
             IsLoading = false;
-            await Shell.Current.DisplayAlert("Error", "No se pudo obtener la ubicacion", "OK");
+            await Shell.Current.DisplayAlert("Error", "No se pudo obtener la ubicación", "OK");
             return;
         }
 
-        //obtencion de datos
+        //obtención de datos
         await Task.WhenAll(
             GetCurrentWeather(location),
             GetAstronomy(location),
+            GetWeatherAlerts(location),
             GetForecast(location)
-            GetWeatherAlerts(location)
         );
 
         IsLoading = false;
     }
 
     /// <summary>
-    /// Obtien el clima actual de la ubicacion proporcionada.
+    /// Obtiene el clima actual de la ubicación proporcionada.
     /// </summary>
     private async Task GetCurrentWeather(Location location)
     {
@@ -83,7 +102,7 @@ public class HomeViewModel : SharedViewModel
     }
 
     /// <summary>
-    /// Obtiene la informacion astronomica de la ubicacion proporcionada.
+    /// Obtiene la información astronómica de la ubicación proporcionada.
     /// </summary>
     private async Task GetAstronomy(Location location)
     {
@@ -107,16 +126,15 @@ public class HomeViewModel : SharedViewModel
     }
 
     /// <summary>
-    /// Obtiene el pronostico del clima por hora y en la cantidad de dias proporcionados.
+    /// Obtiene las alertas meteorológicas de la ubicación proporcionada.
     /// </summary>
     /// <param name="location"></param>
     /// <returns></returns>
-    private async Task GetForecast(Location location)
+    private async Task GetWeatherAlerts(Location location)
     {
         try
         {
-            int forecastDays = 1; // 1 para el pronóstico del día actual, 3 para los próximos 3 días, etc.
-            CurrentForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, forecastDays);
+            LocationAlerts = await ApiService.Instance.GetWeatherAlerts(location.Latitude, location.Longitude);
         }
         catch (Exception ex)
         {
@@ -125,12 +143,16 @@ public class HomeViewModel : SharedViewModel
         }
     }
 
-
-    private async Task GetWeatherAlerts(Location location)
+    /// <summary>
+    /// Obtiene el pronostico del clima por hora y en la cantidad de días proporcionados.
+    /// </summary>
+    /// <param name="location"></param>
+    /// <returns></returns>
+    private async Task GetForecast(Location location)
     {
         try
         {
-            LocationAlets = await ApiService.Instance.GetWeatherAlerts(location.Latitude, location.Longitude);
+            CurrentForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, ForecastDays);
         }
         catch (Exception ex)
         {

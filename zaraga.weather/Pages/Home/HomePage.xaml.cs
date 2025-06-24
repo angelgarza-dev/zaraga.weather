@@ -25,4 +25,8 @@ public partial class HomePage : LoadingContentPage
         _viewModel?.OnDisapearingCommand.Execute(null);
     }
 
+    private void Picker_SelectedIndexChanged(object sender, System.EventArgs e)
+    {
+        _viewModel?.OnForecastDaysChangeCommand.Execute(null);
+    }
 }
