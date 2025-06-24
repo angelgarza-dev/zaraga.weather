@@ -129,7 +129,8 @@ namespace zaraga.devicefeatures
 #if DEBUG
                 Debug.WriteLine($"Error al obtener la geolocalizacion: {ex.Message}");
 #endif
-                throw;
+                //Coordenadas default de Roma
+                return new Location(latitude: 41.902782, longitude: 12.496366);
             }
             finally
             {

@@ -12,17 +12,19 @@ public class HomeViewModel : SharedViewModel
     private string _completeJson = "";
     private WeatherCurrentLocation _currentWeather = new();
     private WeatherForecastAstro _currentAstronomy = new();
-    private WeatherForecast _currentForecast = new();
     private WeatherAlerts _locationAlerts = new();
-    private int _forecastDays = 1;
+    private WeatherForecast _currentForecast = new();
+    private WeatherForecast _weeklyForecast = new();
+    private int _forecastDays = 2;
     private bool _forecastLoading = false;
 
 
     public string CompleteJson { get => _completeJson; set { _completeJson = value; OnPropertyChanged(); } }
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
     public WeatherForecastAstro CurrentAstronomy { get => _currentAstronomy; set { _currentAstronomy = value; OnPropertyChanged(); } }
-    public WeatherForecast CurrentForecast { get => _currentForecast; set { _currentForecast = value; OnPropertyChanged(); } }
     public WeatherAlerts LocationAlerts { get => _locationAlerts; set { _locationAlerts = value; OnPropertyChanged(); } }
+    public WeatherForecast CurrentForecast { get => _currentForecast; set { _currentForecast = value; OnPropertyChanged(); } }
+    public WeatherForecast WeeklyForecast { get => _weeklyForecast; set { _weeklyForecast = value; OnPropertyChanged(); } }
     public int ForecastDays { get => _forecastDays; set { _forecastDays = value; OnPropertyChanged(); } }
     public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
 
@@ -52,7 +54,7 @@ public class HomeViewModel : SharedViewModel
             return;
         }
 
-        await GetForecast(location);
+        await GetWeeklyForecast(location);
         ForecastLoading = false;
     }
 
@@ -79,7 +81,8 @@ public class HomeViewModel : SharedViewModel
             GetCurrentWeather(location),
             GetAstronomy(location),
             GetWeatherAlerts(location),
-            GetForecast(location)
+            GetForecast(location),
+            GetWeeklyForecast(location)
         );
 
         IsLoading = false;
@@ -144,15 +147,13 @@ public class HomeViewModel : SharedViewModel
     }
 
     /// <summary>
-    /// Obtiene el pronostico del clima por hora y en la cantidad de días proporcionados.
+    /// Obtiene el pronostico del clima por hora .
     /// </summary>
-    /// <param name="location"></param>
-    /// <returns></returns>
     private async Task GetForecast(Location location)
     {
         try
         {
-            CurrentForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, ForecastDays);
+            CurrentForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, 1);
         }
         catch (Exception ex)
         {
@@ -161,4 +162,19 @@ public class HomeViewModel : SharedViewModel
         }
     }
 
+    /// <summary>
+    /// Obtiene el pronostico del clima de los dias seleccionados.
+    /// </summary>
+    private async Task GetWeeklyForecast(Location location)
+    {
+        try
+        {
+            WeeklyForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, ForecastDays);
+        }
+        catch (Exception ex)
+        {
+            App.Log(ex);
+            await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
+        }
+    }
 }
