@@ -20,8 +20,7 @@
         <ScrollView
             Grid.Row="1"
             Grid.Column="0"
-            Orientation="Vertical"
-            VerticalScrollBarVisibility="Always">
+            Orientation="Vertical">
             <StackLayout Padding="30" Spacing="2">
 
                 <Label Style="{DynamicResource Headline}" Text="Ubicación actual" />
@@ -122,55 +121,29 @@
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
-                    Text="Pronostico" />
+                    Text="Pronostico por Hora" />
                 <Border>
                     <VerticalStackLayout>
-                        <views:LoadingView IsVisible="{Binding ForecastLoading}" />
-                        <HorizontalStackLayout>
-                            <Label Text="Dias" />
-                            <Picker
-                                Title="Seleccione los dias"
-                                SelectedIndexChanged="Picker_SelectedIndexChanged"
-                                SelectedItem="{Binding ForecastDays}">
-                                <Picker.ItemsSource>
-                                    <x:Array Type="{x:Type x:Int32}">
-                                        <x:Int32>1</x:Int32>
-                                        <x:Int32>2</x:Int32>
-                                        <x:Int32>3</x:Int32>
-                                    </x:Array>
-                                </Picker.ItemsSource>
-                            </Picker>
-                        </HorizontalStackLayout>
                         <CollectionView ItemsSource="{Binding CurrentForecast.forecast.forecastday}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <VerticalStackLayout>
-                                        <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto">
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                HorizontalOptions="Start"
-                                                Text="{Binding date, StringFormat='{0:dd-MM-yyyy}'}" />
-                                            <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                HorizontalOptions="End"
-                                                Text="Detalle" />
-                                            <Image
-                                                Grid.Row="0"
-                                                Grid.Column="2"
-                                                HeightRequest="30"
-                                                HorizontalOptions="Center"
-                                                Source="{AppThemeBinding Light=ic_arrow_right_black.png,
-                                                                         Dark=ic_arrow_right_white.png}"
-                                                VerticalOptions="Center"
-                                                WidthRequest="30" />
-                                        </Grid>
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding date, StringFormat='Fecha: {0:dd-MM-yyyy}'}" />
 
-                                        <CollectionView ItemsLayout="HorizontalList" ItemsSource="{Binding hour}">
+                                        <CollectionView BackgroundColor="white" ItemsSource="{Binding hour}">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout
+                                                    Orientation="Horizontal"
+                                                    SnapPointsAlignment="Start"
+                                                    SnapPointsType="Mandatory" />
+                                            </CollectionView.ItemsLayout>
                                             <CollectionView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <Border MaximumWidthRequest="130">
+                                                    <Border Margin="5,0" WidthRequest="130">
                                                         <VerticalStackLayout>
                                                             <Label Text="{Binding time, StringFormat='{0: hh:mm tt}'}" />
                                                             <Image
@@ -201,10 +174,68 @@
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
-                    Text="Pronostico semanal" />
+                    Text="Pronostico Diario" />
                 <Border>
                     <VerticalStackLayout>
-                        <Label Text="Elemento" />
+                        <views:LoadingView IsVisible="{Binding ForecastLoading}" />
+                        <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto">
+                            <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+                                <Label Text="Dias" />
+                                <Picker
+                                    Title="Dias para mostrar"
+                                    SelectedIndexChanged="Picker_SelectedIndexChanged"
+                                    SelectedItem="{Binding ForecastDays}">
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:Int32}">
+                                            <x:Int32>1</x:Int32>
+                                            <x:Int32>2</x:Int32>
+                                            <x:Int32>3</x:Int32>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                </Picker>
+                            </HorizontalStackLayout>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                Text="Detalle" />
+                            <Image
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                Source="{AppThemeBinding Light=ic_arrow_right_black.png,
+                                                         Dark=ic_arrow_right_white.png}"
+                                VerticalOptions="Center"
+                                WidthRequest="30" />
+                        </Grid>
+
+                        <CollectionView HorizontalScrollBarVisibility="Always" ItemsSource="{Binding WeeklyForecast.forecast.forecastday}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="5,0" WidthRequest="130">
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding date, StringFormat='Fecha: {0:dd-MM-yyyy}'}" />
+                                            <Image
+                                                HeightRequest="64"
+                                                Source="{Binding day.condition.icon, Converter={StaticResource WebImageConverter}}"
+                                                WidthRequest="64" />
+                                            <Label
+                                                HeightRequest="40"
+                                                HorizontalTextAlignment="Center"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="2"
+                                                Text="{Binding day.condition.text}"
+                                                VerticalTextAlignment="Start" />
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </VerticalStackLayout>
                 </Border>
 
