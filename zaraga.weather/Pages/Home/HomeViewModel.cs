@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices.Sensors;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using zaraga.weather.Models;
 using zaraga.weather.Services;
@@ -114,7 +115,7 @@ public class HomeViewModel : SharedViewModel
             DateTime astronomyDate = DateTime.Now.Date;
             if (CurrentWeather.location?.localtime != null)
             {
-                astronomyDate = CurrentWeather.location.localtime.Value;
+                astronomyDate = CurrentWeather.location.localtime;
             }
 
             CurrentAstronomy = await ApiService.Instance.GetLocationAstronomy(location.Latitude, location.Longitude, astronomyDate);
@@ -153,7 +154,11 @@ public class HomeViewModel : SharedViewModel
     {
         try
         {
-            CurrentForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, 1);
+            var hourlyForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, 1);
+            var todayForecast = hourlyForecast.forecast.forecastday[0];
+            todayForecast.hour = todayForecast.hour.Where(x => x.time.Hour >= CurrentWeather.location.localtime.Hour).ToList();
+
+            CurrentForecast = hourlyForecast;
         }
         catch (Exception ex)
         {
