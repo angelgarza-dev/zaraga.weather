@@ -2,8 +2,8 @@
 {
     public class WeatherCurrentLocation
     {
-        public WeatherLocation? location { get; set; }
-        public WeatherRealTime? current { get; set; }
+        public WeatherLocation location { get; set; }
+        public WeatherRealTime current { get; set; }
         
         public WeatherCurrentLocation()
         {

@@ -7,7 +7,7 @@ namespace zaraga.weather.Models
         /// <summary>
         /// Hora local de la ultima actualización de los datos en tiempo real
         /// </summary>
-        public DateTime? last_updated { get; set; }
+        public DateTime last_updated { get; set; }
         /// <summary>
         /// Hora local de la ultima actualización de los datos en horario Unix
         /// </summary>
@@ -22,11 +22,11 @@ namespace zaraga.weather.Models
         public decimal heatindex_f { get; set; }
         public decimal dewpoint_c { get; set; }
         public decimal dewpoint_f { get; set; }
-        public WeatherCondition? condition { get; set; }
+        public WeatherCondition condition { get; set; }
         public decimal wind_mph { get; set; }
         public decimal wind_kph { get; set; }
         public int wind_degree { get; set; }
-        public string? wind_dir { get; set; }
+        public string wind_dir { get; set; }
         /// <summary>
         /// Presión en milibares
         /// </summary>
