@@ -23,10 +23,31 @@
             Orientation="Vertical">
             <StackLayout Padding="30" Spacing="2">
 
-                <Label Style="{DynamicResource Headline}" Text="Ubicación actual" />
+                <!--  tiempo local  -->
+                <Label Style="{DynamicResource SubHeadline}" Text="Ubicación actual" />
                 <Image Source="magni" />
                 <Border>
                     <VerticalStackLayout>
+                        <HorizontalStackLayout>
+                            <Image
+                                Grid.Column="0"
+                                HeightRequest="100"
+                                Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
+                                WidthRequest="100" />
+                            <!--  binding con la referencia por nombre  -->
+                            <views:IconView
+                                HeightRequest="100"
+                                IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
+                                IsVisible="False"
+                                WidthRequest="100" />
+
+                            <Label
+                                Grid.Column="1"
+                                FontSize="Title"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding CurrentWeather.current.condition.text}" />
+                        </HorizontalStackLayout>
                         <Label Text="{Binding CurrentWeather.location.name}" />
                         <Label Text="{Binding CurrentWeather.location.region}" />
                         <Label Text="{Binding CurrentWeather.location.country}" />
@@ -43,81 +64,29 @@
                         <Label Style="{DynamicResource SubHeadline}" Text="Ultima actualizacion" />
                         <Label Text="{Binding CurrentWeather.current.last_updated}" />
 
-                        <Image
-                            HeightRequest="128"
-                            Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
-                            WidthRequest="128" />
-                        <!--  binding con la referencia por nombre  -->
-                        <views:IconView
-                            HeightRequest="128"
-                            IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
-                            IsVisible="False"
-                            WidthRequest="128" />
+                        <Label
+                            FontSize="Title"
+                            Style="{DynamicResource SubHeadline}"
+                            Text="Temperatura" />
+                        <Border>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding CurrentWeather.current.temp_c, StringFormat='°c {0}'}" />
+                                <Label Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />
+
+                                <Label Text="Precipitacion en mililitros" />
+                                <Label Text="{Binding CurrentWeather.current.precip_mm}" />
+                                <Label Text="Precipitacion en pulgadas" />
+                                <Label Text="{Binding CurrentWeather.current.precip_in}" />
+                                <Label Text="Humedad" />
+                                <Label Text="{Binding CurrentWeather.current.humidity, StringFormat='{0}%'}" />
+                            </VerticalStackLayout>
+                        </Border>
 
                     </VerticalStackLayout>
                 </Border>
+                <!--  fin tiempo local  -->
 
-                <Label
-                    FontSize="Title"
-                    Style="{DynamicResource SubHeadline}"
-                    Text="Temperatura" />
-                <Border>
-                    <VerticalStackLayout>
-                        <Label Text="{Binding CurrentWeather.current.temp_c, StringFormat='°c {0}'}" />
-                        <Label Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />
-
-                        <Label Text="Precipitacion en mililitros" />
-                        <Label Text="{Binding CurrentWeather.current.precip_mm}" />
-                        <Label Text="Precipitacion en pulgadas" />
-                        <Label Text="{Binding CurrentWeather.current.precip_in}" />
-                        <Label Text="Humedad" />
-                        <Label Text="{Binding CurrentWeather.current.humidity, StringFormat='{0}%'}" />
-                    </VerticalStackLayout>
-                </Border>
-
-                <Label
-                    FontSize="Title"
-                    Style="{DynamicResource SubHeadline}"
-                    Text="Viento" />
-                <Border>
-                    <VerticalStackLayout>
-                        <Label Text="velocidad" />
-                        <Label Text="{Binding CurrentWeather.current.wind_kph, StringFormat='{0} Km'}" />
-                        <Label Text="{Binding CurrentWeather.current.wind_mph, StringFormat='{0} mill'}" />
-                        <Label Text="direccion en grados de inclinacion" />
-                        <Label Text="{Binding CurrentWeather.current.wind_degree}" />
-                        <Label Text="direccion del viento" />
-                        <Label Text="{Binding CurrentWeather.current.wind_dir}" />
-
-                        <Label Text="velocidad gust" />
-                        <Label Text="{Binding CurrentWeather.current.gust_kph, StringFormat='{0} Km'}" />
-                        <Label Text="{Binding CurrentWeather.current.gust_mph, StringFormat='{0} mill'}" />
-                    </VerticalStackLayout>
-                </Border>
-
-                <Label
-                    FontSize="Title"
-                    Style="{DynamicResource SubHeadline}"
-                    Text="Condicion atmosferica" />
-                <Border>
-                    <VerticalStackLayout>
-                        <Label Text="presion del aire en milibares" />
-                        <Label Text="{Binding CurrentWeather.current.pressure_mb}" />
-                        <Label Text="presion del aire en pulgadas" />
-                        <Label Text="{Binding CurrentWeather.current.pressure_in}" />
-                        <Label Text="Cobertura de Nubes" />
-                        <Label Text="{Binding CurrentWeather.current.cloud, StringFormat='{0}%'}" />
-
-                        <Label Text="Indice UV" />
-                        <Label Text="{Binding CurrentWeather.current.uv, StringFormat='{0}'}" />
-
-
-                        <Label Text="calidad del aire" />
-                    </VerticalStackLayout>
-                </Border>
-
-
-
+                <!--  pronostico hora  -->
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
@@ -134,7 +103,7 @@
                                             HorizontalOptions="Start"
                                             Text="{Binding date, StringFormat='Fecha: {0:dd-MM-yyyy}'}" />
 
-                                        <CollectionView BackgroundColor="white" ItemsSource="{Binding hour}">
+                                        <CollectionView ItemsSource="{Binding hour}">
                                             <CollectionView.ItemsLayout>
                                                 <LinearItemsLayout
                                                     Orientation="Horizontal"
@@ -170,11 +139,13 @@
 
                     </VerticalStackLayout>
                 </Border>
+                <!--  fin pronostico hora  -->
 
+                <!--  proximos dias  -->
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
-                    Text="Pronostico Diario" />
+                    Text="Proximos dias" />
                 <Border>
                     <VerticalStackLayout>
                         <views:LoadingView IsVisible="{Binding ForecastLoading}" />
@@ -238,7 +209,54 @@
                         </CollectionView>
                     </VerticalStackLayout>
                 </Border>
+                <!--  fin proximos dias  -->
 
+                <!--  viento  -->
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="Viento" />
+                <Border>
+                    <VerticalStackLayout>
+                        <Label Text="velocidad" />
+                        <Label Text="{Binding CurrentWeather.current.wind_kph, StringFormat='{0} Km'}" />
+                        <Label Text="{Binding CurrentWeather.current.wind_mph, StringFormat='{0} mill'}" />
+                        <Label Text="direccion en grados de inclinacion" />
+                        <Label Text="{Binding CurrentWeather.current.wind_degree}" />
+                        <Label Text="direccion del viento" />
+                        <Label Text="{Binding CurrentWeather.current.wind_dir}" />
+
+                        <Label Text="velocidad gust" />
+                        <Label Text="{Binding CurrentWeather.current.gust_kph, StringFormat='{0} Km'}" />
+                        <Label Text="{Binding CurrentWeather.current.gust_mph, StringFormat='{0} mill'}" />
+                    </VerticalStackLayout>
+                </Border>
+                <!--  fin viento  -->
+
+                <!--  Condicion atmosferica  -->
+                <Label
+                    FontSize="Title"
+                    Style="{DynamicResource SubHeadline}"
+                    Text="Condicion atmosferica" />
+                <Border>
+                    <VerticalStackLayout>
+                        <Label Text="presion del aire en milibares" />
+                        <Label Text="{Binding CurrentWeather.current.pressure_mb}" />
+                        <Label Text="presion del aire en pulgadas" />
+                        <Label Text="{Binding CurrentWeather.current.pressure_in}" />
+                        <Label Text="Cobertura de Nubes" />
+                        <Label Text="{Binding CurrentWeather.current.cloud, StringFormat='{0}%'}" />
+
+                        <Label Text="Indice UV" />
+                        <Label Text="{Binding CurrentWeather.current.uv, StringFormat='{0}'}" />
+
+
+                        <Label Text="calidad del aire" />
+                    </VerticalStackLayout>
+                </Border>
+                <!--  Condicion atmosferica  -->
+
+                <!--  Astronomia  -->
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
@@ -254,6 +272,7 @@
                         <Label Text="Ocaso Lunar" />
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.moonset}" />
                         <Label Text="Fase Lunar" />
+                        <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase}" />
                         <Label Text="Iluminacion Lunar" />
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
@@ -262,22 +281,32 @@
                         <Label Text="Luna arriba" />
                         <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_moon_up}" />
 
+                        <!--<views:IconView
+                            HeightRequest="100"
+                            IconBindable="static_fill_moon_waxing_gibbous.svg"
+                            WidthRequest="100" />-->
+
+                        <Image
+                            HeightRequest="100"
+                            Source="static_fill_moon_waxing_gibbous.png"
+                            WidthRequest="100" />
+
                     </VerticalStackLayout>
                 </Border>
+                <!--  Astronomia  -->
 
+                <!--  fases de la luna  -->
                 <Label
                     FontSize="Title"
+                    IsVisible="False"
                     Style="{DynamicResource SubHeadline}"
-                    Text="fases de la luna" />
-                <Border>
+                    Text="Fases de la luna" />
+                <Border IsVisible="False">
                     <VerticalStackLayout>
                         <Label Text="Elemento" />
                     </VerticalStackLayout>
                 </Border>
-
-
-
-                <Label Text="{Binding CompleteJson}" />
+                <!--  fases de la luna  -->
 
             </StackLayout>
         </ScrollView>
