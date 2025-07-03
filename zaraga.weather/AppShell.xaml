@@ -13,16 +13,34 @@
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
-        <Tab Title="Inicio" Icon="map_pin_outline.png">
-            <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+        <Tab
+            Title="Inicio"
+            Icon="ic_pin_white.png"
+            Shell.TabBarIsVisible="False">
+            <ShellContent ContentTemplate="{DataTemplate home:HomePage}" Route="HomePage" />
         </Tab>
-        <Tab Title="Favoritos" Icon="heart_outline.png">
-            <ShellContent ContentTemplate="{DataTemplate favorites:FavoritesPage}" />
+        <Tab
+            Title="Favoritos"
+            Icon="ic_favorite_white.png"
+            Shell.TabBarIsVisible="False">
+            <ShellContent ContentTemplate="{DataTemplate favorites:FavoritesPage}" Route="FavoritesPage" />
         </Tab>
-        <Tab Title="App" Icon="ic_settings_black.png">
-            <ShellContent Title="Ajustes" ContentTemplate="{DataTemplate settings:SettingsPage}" />
-            <ShellContent Title="Acerca De" ContentTemplate="{DataTemplate about:AboutPage}" />
-            <ShellContent Title="Iconos" ContentTemplate="{DataTemplate icons:IconsPage}" />
+        <Tab
+            Title="App"
+            Icon="ic_settings_white.png"
+            Shell.TabBarIsVisible="False">
+            <ShellContent
+                Title="Ajustes"
+                ContentTemplate="{DataTemplate settings:SettingsPage}"
+                Route="SettingsPage" />
+            <ShellContent
+                Title="Acerca De"
+                ContentTemplate="{DataTemplate about:AboutPage}"
+                Route="AboutPage" />
+            <ShellContent
+                Title="Iconos"
+                ContentTemplate="{DataTemplate icons:IconsPage}"
+                Route="IconsPage" />
         </Tab>
     </TabBar>
 
