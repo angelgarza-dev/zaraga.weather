@@ -50,8 +50,6 @@ public class SharedViewModel : PropertyChangedViewModel
         }
         else
         {
-            // Permission denied, handle accordingly
-            await Shell.Current.DisplayAlert("Permiso denegado", "No se cuenta con el permiso para acceder a la ubicación del dispositivo", "OK");
             return null;
         }
     }

@@ -15,7 +15,7 @@ public class HomeViewModel : SharedViewModel
     private WeatherAlerts _locationAlerts = new();
     private WeatherForecast _currentForecast = new();
     private WeatherForecast _weeklyForecast = new();
-    private int _forecastDays = 2;
+    private int _forecastDays = 3;
     private bool _forecastLoading = false;
 
 
@@ -28,9 +28,10 @@ public class HomeViewModel : SharedViewModel
     public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
 
 
-    public Command LoadDataCommand => new Command(LoadData);
+    public Command LoadDataCommand => new Command(async () => await LoadData());
     public Command OnDisapearingCommand => new Command(OnDisapearing);
     public Command OnForecastDaysChangeCommand => new Command(OnForecastDaysChange);
+    public Command GoToSettingsCommand => new Command(GoToSettings);
 
 
     public HomeViewModel()
@@ -44,12 +45,14 @@ public class HomeViewModel : SharedViewModel
 
     private async void OnForecastDaysChange()
     {
+        //excepcion para no onteber datos duplicados
+        if (IsLoading) return;
+
         ForecastLoading = true;
         var location = await GetDeviceLocation();
         if (location == null)
         {
             IsLoading = false;
-            await Shell.Current.DisplayAlert("Error", "No se pudo obtener la ubicación", "OK");
             return;
         }
 
@@ -57,7 +60,7 @@ public class HomeViewModel : SharedViewModel
         ForecastLoading = false;
     }
 
-    private async void LoadData()
+    private async Task LoadData()
     {
         IsLoading = true;
         if (CurrentWeather.location != null)
@@ -70,8 +73,6 @@ public class HomeViewModel : SharedViewModel
         var location = await GetDeviceLocation();
         if (location == null)
         {
-            IsLoading = false;
-            await Shell.Current.DisplayAlert("Error", "No se pudo obtener la ubicación", "OK");
             return;
         }
 
@@ -177,5 +178,10 @@ public class HomeViewModel : SharedViewModel
             App.Log(ex);
             await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
         }
+    }
+
+    private void GoToSettings()
+    {
+        Shell.Current.GoToAsync("//SettingsPage");
     }
 }

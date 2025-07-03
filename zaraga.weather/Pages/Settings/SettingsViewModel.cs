@@ -19,6 +19,8 @@ public class SettingsViewModel : SharedViewModel
 
 
     public Command LoadSettingsCommand => new Command(LoadSettings);
+    public Command GoBackCommand => new Command(GoBack);
+
 
     public SettingsViewModel()
     {
@@ -39,14 +41,16 @@ public class SettingsViewModel : SharedViewModel
         }
     }
 
-
-
-
     private void OnIconStyleChange(int selectedIconStyle)
     {
         OnPropertyChanged(nameof(SelectedIConStyle));
         Preferences.Default.Set("SelectedIconStyle", selectedIconStyle);
     }
 
+    private void GoBack()
+    {
+
+        Shell.Current.GoToAsync("//HomePage");
+    }
 
 }
