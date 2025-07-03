@@ -38,7 +38,6 @@
                             <views:IconView
                                 HeightRequest="100"
                                 IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
-                                IsVisible="False"
                                 WidthRequest="100" />
 
                             <Label
