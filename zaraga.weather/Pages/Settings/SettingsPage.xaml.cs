@@ -35,7 +35,7 @@ public partial class SettingsPage : LoadingContentPage
         {
             case 0:
             default:
-                btnAnimated.IsChecked = true;
+                btnDefault.IsChecked = true;
                 break;
             case 1:
                 btnSolid.IsChecked = true;
@@ -43,7 +43,9 @@ public partial class SettingsPage : LoadingContentPage
             case 2:
                 btnLine.IsChecked = true;
                 break;
-
+            case 3:
+                btnAnimated.IsChecked = true;
+                break;
         }
 
         //Expando el primer elemento por defecto 

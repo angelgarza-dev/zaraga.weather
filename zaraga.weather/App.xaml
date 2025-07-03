@@ -41,15 +41,14 @@
             <!--  radio button template  -->
             <ControlTemplate x:Key="RadioButtonTemplate">
                 <Border
-                    BackgroundColor="#F3F2F1"
+                    BackgroundColor="Transparent"
                     HorizontalOptions="Start"
-                    Stroke="#F3F2F1"
+                    Stroke="Transparent"
                     StrokeShape="RoundRectangle 5"
                     StrokeThickness="2"
                     VerticalOptions="Start">
-                    <Grid Margin="4">
+                    <Grid>
                         <Grid
-                            Margin="0,0,4,0"
                             HeightRequest="18"
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
@@ -77,12 +76,14 @@
                                 <VisualState x:Name="Checked">
                                     <VisualState.Setters>
                                         <Setter Property="Stroke" Value="{DynamicResource Primary}" />
+                                        <Setter TargetName="check" Property="Opacity" Value="1" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="Unchecked">
                                     <VisualState.Setters>
                                         <Setter Property="BackgroundColor" Value="#F3F2F1" />
                                         <Setter Property="Stroke" Value="#F3F2F1" />
+                                        <Setter TargetName="check" Property="Opacity" Value="0" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
