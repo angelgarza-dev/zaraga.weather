@@ -14,6 +14,21 @@
         <local:SettingsViewModel />
     </layouts:LoadingContentPage.BindingContext>
 
+    <Shell.TitleView>
+
+        <Grid ColumnDefinitions="Auto,*">
+            <ImageButton Command="{Binding GoBackCommand}" Source="ic_arrow_right_black.png" />
+            <Label
+                Grid.Column="1"
+                Style="{StaticResource Headline}"
+                Text="Configuración">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+    </Shell.TitleView>
+
     <VerticalStackLayout Padding="2" Spacing="5">
 
         <VerticalStackLayout x:Name="AccordionLayout" Spacing="6">

@@ -17,198 +17,182 @@
     </layouts:LoadingContentPage.BindingContext>
 
     <RefreshView Command="{Binding LoadDataCommand}" IsRefreshing="{Binding IsLoading}">
-        <ScrollView
-            Grid.Row="1"
-            Grid.Column="0"
-            Orientation="Vertical">
-            <StackLayout Padding="30" Spacing="2">
+        <ScrollView Orientation="Vertical">
+            <VerticalStackLayout Padding="10" Spacing="5">
 
                 <!--  tiempo local  -->
-                <Label Style="{DynamicResource SubHeadline}" Text="Ubicación actual" />
-                <Image Source="magni" />
-                <Border>
-                    <VerticalStackLayout>
-                        <HorizontalStackLayout>
-                            <Image
-                                Grid.Column="0"
-                                HeightRequest="100"
-                                Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
-                                WidthRequest="100" />
-                            <!--  binding con la referencia por nombre  -->
-                            <views:IconView
-                                HeightRequest="100"
-                                IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
-                                IsVisible="False"
-                                WidthRequest="100" />
-
-                            <Label
-                                Grid.Column="1"
-                                FontSize="Title"
-                                HorizontalTextAlignment="Center"
-                                LineBreakMode="WordWrap"
-                                Text="{Binding CurrentWeather.current.condition.text}" />
-                        </HorizontalStackLayout>
-                        <Label Text="{Binding CurrentWeather.location.name}" />
-                        <Label Text="{Binding CurrentWeather.location.region}" />
-                        <Label Text="{Binding CurrentWeather.location.country}" />
-                        <Label Style="{DynamicResource SubHeadline}" Text="Tiempo local" />
-                        <Label Text="{Binding CurrentWeather.location.localtime}" />
-                        <Label Text="Ubicación" />
-                        <HorizontalStackLayout>
-                            <Label Text="{Binding CurrentWeather.location.lat}" />
-                            <Label Text=" , " />
-                            <Label Text="{Binding CurrentWeather.location.lon}" />
-                        </HorizontalStackLayout>
-                        <Label Text="{Binding CurrentWeather.current.is_day}" />
-
-                        <Label Style="{DynamicResource SubHeadline}" Text="Ultima actualizacion" />
-                        <Label Text="{Binding CurrentWeather.current.last_updated}" />
+                <Grid ColumnDefinitions="*,Auto">
+                    <HorizontalStackLayout>
+                        <Label Style="{DynamicResource SubHeadline}" Text="Ubicación actual" />
+                        <Image Source="ic_search_black.png" />
+                    </HorizontalStackLayout>
+                    <ImageButton Grid.Column="1" Source="ic_settings_black.png" Command="{Binding GoToSettingsCommand}" />
+                </Grid>
+                <VerticalStackLayout>
+                    <Grid Padding="2" ColumnDefinitions="Auto,*">
+                        <Image
+                            Grid.Column="0"
+                            HeightRequest="100"
+                            Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
+                            VerticalOptions="Center"
+                            WidthRequest="100" />
+                        <!--  binding con la referencia por nombre  -->
+                        <views:IconView
+                            Grid.Column="0"
+                            HeightRequest="100"
+                            IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
+                            WidthRequest="100" />
 
                         <Label
+                            Grid.Column="1"
                             FontSize="Title"
-                            Style="{DynamicResource SubHeadline}"
-                            Text="Temperatura" />
-                        <Border>
-                            <VerticalStackLayout>
-                                <Label Text="{Binding CurrentWeather.current.temp_c, StringFormat='°c {0}'}" />
-                                <Label Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap"
+                            Text="{Binding CurrentWeather.current.condition.text}" />
+                    </Grid>
+                    <Label Text="{Binding CurrentWeather.location.name}" />
+                    <Label Text="{Binding CurrentWeather.location.region}" />
+                    <Label Text="{Binding CurrentWeather.location.country}" />
+                    <Label Style="{DynamicResource SubHeadline}" Text="Tiempo local" />
+                    <Label Text="{Binding CurrentWeather.location.localtime}" />
+                    <Label Text="Ubicación" />
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding CurrentWeather.location.lat}" />
+                        <Label Text=" , " />
+                        <Label Text="{Binding CurrentWeather.location.lon}" />
+                    </HorizontalStackLayout>
+                    <Label Text="{Binding CurrentWeather.current.is_day}" />
 
-                                <Label Text="Precipitacion en mililitros" />
-                                <Label Text="{Binding CurrentWeather.current.precip_mm}" />
-                                <Label Text="Precipitacion en pulgadas" />
-                                <Label Text="{Binding CurrentWeather.current.precip_in}" />
-                                <Label Text="Humedad" />
-                                <Label Text="{Binding CurrentWeather.current.humidity, StringFormat='{0}%'}" />
-                            </VerticalStackLayout>
-                        </Border>
+                    <Label Style="{DynamicResource SubHeadline}" Text="Ultima actualizacion" />
+                    <Label Text="{Binding CurrentWeather.current.last_updated}" />
 
-                    </VerticalStackLayout>
-                </Border>
+                    <Label
+                        FontSize="Title"
+                        Style="{DynamicResource SubHeadline}"
+                        Text="Temperatura" />
+                    <Border>
+                        <VerticalStackLayout>
+                            <Label Text="{Binding CurrentWeather.current.temp_c, StringFormat='°c {0}'}" />
+                            <Label Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />
+
+                            <Label Text="Precipitacion en mililitros" />
+                            <Label Text="{Binding CurrentWeather.current.precip_mm}" />
+                            <Label Text="Precipitacion en pulgadas" />
+                            <Label Text="{Binding CurrentWeather.current.precip_in}" />
+                            <Label Text="Humedad" />
+                            <Label Text="{Binding CurrentWeather.current.humidity, StringFormat='{0}%'}" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                </VerticalStackLayout>
                 <!--  fin tiempo local  -->
 
                 <!--  pronostico hora  -->
                 <Label
                     FontSize="Title"
                     Style="{DynamicResource SubHeadline}"
-                    Text="Pronostico por Hora" />
-                <Border>
-                    <VerticalStackLayout>
-                        <CollectionView ItemsSource="{Binding CurrentForecast.forecast.forecastday}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <VerticalStackLayout>
-                                        <Label
-                                            Grid.Row="0"
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            Text="{Binding date, StringFormat='Fecha: {0:dd-MM-yyyy}'}" />
+                    Text="Próximas Horas" />
+                <VerticalStackLayout>
+                    <CollectionView ItemsSource="{Binding CurrentForecast.forecast.forecastday}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout>
+                                    <!--<Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        HorizontalOptions="Start"
+                                        Text="{Binding date, StringFormat='Fecha: {0:dd-MM-yyyy}'}" />-->
 
-                                        <CollectionView ItemsSource="{Binding hour}">
-                                            <CollectionView.ItemsLayout>
-                                                <LinearItemsLayout
-                                                    Orientation="Horizontal"
-                                                    SnapPointsAlignment="Start"
-                                                    SnapPointsType="Mandatory" />
-                                            </CollectionView.ItemsLayout>
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Margin="5,0" WidthRequest="130">
-                                                        <VerticalStackLayout>
-                                                            <Label Text="{Binding time, StringFormat='{0: hh:mm tt}'}" />
-                                                            <Image
-                                                                HeightRequest="64"
-                                                                Source="{Binding condition.icon, Converter={StaticResource WebImageConverter}}"
-                                                                WidthRequest="64" />
-                                                            <Label
-                                                                HeightRequest="40"
-                                                                HorizontalTextAlignment="Center"
-                                                                LineBreakMode="TailTruncation"
-                                                                MaxLines="2"
-                                                                Text="{Binding condition.text}"
-                                                                VerticalTextAlignment="Start" />
-                                                        </VerticalStackLayout>
+                                    <CollectionView ItemsSource="{Binding hour}">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout
+                                                Orientation="Horizontal"
+                                                SnapPointsAlignment="Start"
+                                                SnapPointsType="Mandatory" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Margin="5,0" WidthRequest="130">
+                                                    <VerticalStackLayout>
+                                                        <Label Text="{Binding time, StringFormat='{0: hh:mm tt}'}" />
+                                                        <Image
+                                                            HeightRequest="64"
+                                                            Source="{Binding condition.icon, Converter={StaticResource WebImageConverter}}"
+                                                            WidthRequest="64" />
+                                                        <Label
+                                                            HeightRequest="40"
+                                                            HorizontalTextAlignment="Center"
+                                                            LineBreakMode="TailTruncation"
+                                                            MaxLines="2"
+                                                            Text="{Binding condition.text}"
+                                                            VerticalTextAlignment="Start" />
+                                                    </VerticalStackLayout>
 
-                                                    </Border>
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                    </VerticalStackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                                                </Border>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                    </VerticalStackLayout>
-                </Border>
+                </VerticalStackLayout>
                 <!--  fin pronostico hora  -->
 
                 <!--  proximos dias  -->
-                <Label
-                    FontSize="Title"
-                    Style="{DynamicResource SubHeadline}"
-                    Text="Proximos dias" />
-                <Border>
-                    <VerticalStackLayout>
-                        <views:LoadingView IsVisible="{Binding ForecastLoading}" />
-                        <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto">
-                            <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
-                                <Label Text="Dias" />
-                                <Picker
-                                    Title="Dias para mostrar"
-                                    SelectedIndexChanged="Picker_SelectedIndexChanged"
-                                    SelectedItem="{Binding ForecastDays}">
-                                    <Picker.ItemsSource>
-                                        <x:Array Type="{x:Type x:Int32}">
-                                            <x:Int32>1</x:Int32>
-                                            <x:Int32>2</x:Int32>
-                                            <x:Int32>3</x:Int32>
-                                        </x:Array>
-                                    </Picker.ItemsSource>
-                                </Picker>
-                            </HorizontalStackLayout>
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label
+                        Grid.Column="0"
+                        FontSize="Title"
+                        Style="{DynamicResource SubHeadline}"
+                        Text="Próximos días" />
+                    <HorizontalStackLayout Grid.Column="1">
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Text="Detalle" />
+                        <Image
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            HeightRequest="30"
+                            HorizontalOptions="Center"
+                            Source="{AppThemeBinding Light=ic_arrow_right_black.png,
+                                                     Dark=ic_arrow_right_white.png}"
+                            VerticalOptions="Center"
+                            WidthRequest="30" />
+                    </HorizontalStackLayout>
+                </Grid>
+                <VerticalStackLayout>
+                    <views:LoadingView IsVisible="{Binding ForecastLoading}" />
 
-                            <Label
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                HorizontalOptions="End"
-                                Text="Detalle" />
-                            <Image
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                HeightRequest="30"
-                                HorizontalOptions="Center"
-                                Source="{AppThemeBinding Light=ic_arrow_right_black.png,
-                                                         Dark=ic_arrow_right_white.png}"
-                                VerticalOptions="Center"
-                                WidthRequest="30" />
-                        </Grid>
-
-                        <CollectionView HorizontalScrollBarVisibility="Always" ItemsSource="{Binding WeeklyForecast.forecast.forecastday}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Horizontal" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Margin="5,0" WidthRequest="130">
-                                        <VerticalStackLayout>
-                                            <Label Text="{Binding date, StringFormat='Fecha: {0:dd-MM-yyyy}'}" />
-                                            <Image
-                                                HeightRequest="64"
-                                                Source="{Binding day.condition.icon, Converter={StaticResource WebImageConverter}}"
-                                                WidthRequest="64" />
-                                            <Label
-                                                HeightRequest="40"
-                                                HorizontalTextAlignment="Center"
-                                                LineBreakMode="TailTruncation"
-                                                MaxLines="2"
-                                                Text="{Binding day.condition.text}"
-                                                VerticalTextAlignment="Start" />
-                                        </VerticalStackLayout>
-                                    </Border>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </Border>
+                    <CollectionView HorizontalScrollBarVisibility="Always" ItemsSource="{Binding WeeklyForecast.forecast.forecastday}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="5,0" WidthRequest="130">
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding date, StringFormat='Fecha: {0:dd-MM-yyyy}'}" />
+                                        <Image
+                                            HeightRequest="64"
+                                            Source="{Binding day.condition.icon, Converter={StaticResource WebImageConverter}}"
+                                            WidthRequest="64" />
+                                        <Label
+                                            HeightRequest="40"
+                                            HorizontalTextAlignment="Center"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="2"
+                                            Text="{Binding day.condition.text}"
+                                            VerticalTextAlignment="Start" />
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
                 <!--  fin proximos dias  -->
 
                 <!--  viento  -->
@@ -308,7 +292,7 @@
                 </Border>
                 <!--  fases de la luna  -->
 
-            </StackLayout>
+            </VerticalStackLayout>
         </ScrollView>
     </RefreshView>
 
