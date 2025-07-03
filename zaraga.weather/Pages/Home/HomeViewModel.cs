@@ -9,7 +9,6 @@ namespace zaraga.weather.Pages.Home;
 
 public class HomeViewModel : SharedViewModel
 {
-    private string _completeJson = "";
     private WeatherCurrentLocation _currentWeather = new();
     private WeatherForecastAstro _currentAstronomy = new();
     private WeatherAlerts _locationAlerts = new();
@@ -19,7 +18,6 @@ public class HomeViewModel : SharedViewModel
     private bool _forecastLoading = false;
 
 
-    public string CompleteJson { get => _completeJson; set { _completeJson = value; OnPropertyChanged(); } }
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
     public WeatherForecastAstro CurrentAstronomy { get => _currentAstronomy; set { _currentAstronomy = value; OnPropertyChanged(); } }
     public WeatherAlerts LocationAlerts { get => _locationAlerts; set { _locationAlerts = value; OnPropertyChanged(); } }
@@ -118,8 +116,6 @@ public class HomeViewModel : SharedViewModel
             }
 
             CurrentAstronomy = await ApiService.Instance.GetLocationAstronomy(location.Latitude, location.Longitude, astronomyDate);
-            //CompleteJson = Newtonsoft.Json.JsonConvert.SerializeObject(CurrentAstronomy, Newtonsoft.Json.Formatting.Indented);
-
         }
         catch (Exception ex)
         {

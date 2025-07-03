@@ -18,6 +18,7 @@
             <converters:WebImageConverter x:Key="WebImageConverter" />
             <converters:IconCodeConverter x:Key="IconCodeConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:MoonPhaseLangConverter x:Key="MoonPhaseLangConverter" />
 
             <!--  layouts  -->
             <ControlTemplate x:Key="LoadingContentPage">
