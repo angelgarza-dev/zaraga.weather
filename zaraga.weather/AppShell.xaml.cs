@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using zaraga.weather.Pages.Settings;
 
 namespace zaraga.weather;
 
