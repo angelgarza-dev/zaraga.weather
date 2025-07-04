@@ -14,25 +14,17 @@
         <local:SettingsViewModel />
     </layouts:LoadingContentPage.BindingContext>
 
-    <Shell.TitleView>
+    <VerticalStackLayout Padding="2" Spacing="5">
 
-        <Grid ColumnDefinitions="Auto,*">
-            <ImageButton Command="{Binding GoBackCommand}" Source="ic_arrow_right_black.png" />
+        <HorizontalStackLayout>
+            <ImageButton Command="{Binding GoBackCommand}" Source="{AppThemeBinding Light=ic_back_black.png, Dark=ic_back_white.png}" />
             <Label
                 Grid.Column="1"
                 Style="{StaticResource Headline}"
-                Text="Configuración">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                </Label.GestureRecognizers>
-            </Label>
-        </Grid>
-    </Shell.TitleView>
-
-    <VerticalStackLayout Padding="2" Spacing="5">
+                Text="Configuración" />
+        </HorizontalStackLayout>
 
         <VerticalStackLayout x:Name="AccordionLayout" Spacing="6">
-
             <!--  estilo de iconos  -->
             <maui:Expander Animated="True" HeaderTapped="Expander_HeaderTapped">
                 <maui:Expander.HeaderContent>
@@ -51,13 +43,15 @@
                             Grid.Column="1"
                             Margin="10"
                             IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
-                            Source="ic_arrow_down_black.png" />
+                            Source="{AppThemeBinding Light=ic_arrow_down_black.png,
+                                                     Dark=ic_arrow_down_white.png}" />
                         <Image
                             Grid.Row="0"
                             Grid.Column="1"
                             Margin="10"
                             IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}}"
-                            Source="ic_arrow_up_black.png" />
+                            Source="{AppThemeBinding Light=ic_arrow_up_black.png,
+                                                     Dark=ic_arrow_up_white.png}" />
                     </Grid>
                 </maui:Expander.HeaderContent>
                 <Grid
@@ -146,17 +140,19 @@
                             Grid.Column="1"
                             Margin="10"
                             IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
-                            Source="ic_arrow_down_black.png" />
+                            Source="{AppThemeBinding Light=ic_arrow_down_black.png,
+                                                     Dark=ic_arrow_down_white.png}" />
                         <Image
                             Grid.Row="0"
                             Grid.Column="1"
                             Margin="10"
                             IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}}"
-                            Source="ic_arrow_up_black.png" />
+                            Source="{AppThemeBinding Light=ic_arrow_up_black.png,
+                                                     Dark=ic_arrow_up_white.png}" />
                     </Grid>
                 </maui:Expander.HeaderContent>
                 <VerticalStackLayout Padding="5" Spacing="5">
-                    <Border BackgroundColor="White">
+                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
                         <VerticalStackLayout>
                             <Label Style="{DynamicResource SubHeadline}" Text="Temperatura" />
                             <BoxView />
@@ -165,7 +161,7 @@
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border BackgroundColor="White">
+                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
                         <VerticalStackLayout>
                             <Label Style="{DynamicResource SubHeadline}" Text="Velocidad" />
                             <BoxView />
@@ -174,7 +170,7 @@
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border BackgroundColor="White">
+                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
                         <VerticalStackLayout>
                             <Label Style="{DynamicResource SubHeadline}" Text="Liquidos" />
                             <BoxView />
@@ -183,7 +179,7 @@
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border BackgroundColor="White">
+                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
                         <VerticalStackLayout>
                             <Label Style="{DynamicResource SubHeadline}" Text="Presion atmosferica" />
                             <BoxView />

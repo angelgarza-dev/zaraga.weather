@@ -50,6 +50,7 @@ public class SettingsViewModel : SharedViewModel
     private void GoBack()
     {
 
+        //Shell.Current.GoToAsync("..");
         Shell.Current.GoToAsync("//HomePage");
     }
 
