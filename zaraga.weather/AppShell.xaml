@@ -12,36 +12,37 @@
     Title="zaraga.weather"
     Shell.FlyoutBehavior="Disabled">
 
-    <TabBar>
-        <Tab
-            Title="Inicio"
-            Icon="ic_pin_white.png"
-            Shell.TabBarIsVisible="False">
-            <ShellContent ContentTemplate="{DataTemplate home:HomePage}" Route="HomePage" />
-        </Tab>
-        <Tab
-            Title="Favoritos"
-            Icon="ic_favorite_white.png"
-            Shell.TabBarIsVisible="False">
-            <ShellContent ContentTemplate="{DataTemplate favorites:FavoritesPage}" Route="FavoritesPage" />
-        </Tab>
-        <Tab
-            Title="App"
-            Icon="ic_settings_white.png"
-            Shell.TabBarIsVisible="False">
-            <ShellContent
-                Title="Ajustes"
-                ContentTemplate="{DataTemplate settings:SettingsPage}"
-                Route="SettingsPage" />
-            <ShellContent
-                Title="Acerca De"
-                ContentTemplate="{DataTemplate about:AboutPage}"
-                Route="AboutPage" />
-            <ShellContent
-                Title="Iconos"
-                ContentTemplate="{DataTemplate icons:IconsPage}"
-                Route="IconsPage" />
-        </Tab>
-    </TabBar>
+    <ShellContent
+        Title="Inicio"
+        ContentTemplate="{DataTemplate home:HomePage}"
+        Icon="ic_pin_white.png"
+        Route="HomePage"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Title="Favoritos"
+        ContentTemplate="{DataTemplate favorites:FavoritesPage}"
+        Icon="ic_favorite_white.png"
+        Route="FavoritesPage"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Title="Ajustes"
+        ContentTemplate="{DataTemplate settings:SettingsPage}"
+        Route="SettingsPage"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Title="Acerca De"
+        ContentTemplate="{DataTemplate about:AboutPage}"
+        Route="AboutPage"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Title="Iconos"
+        ContentTemplate="{DataTemplate icons:IconsPage}"
+        Route="IconsPage"
+        Shell.NavBarIsVisible="False" />
+
 
 </Shell>

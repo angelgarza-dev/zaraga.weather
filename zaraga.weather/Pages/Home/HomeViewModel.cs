@@ -177,6 +177,7 @@ public class HomeViewModel : SharedViewModel
 
     private void GoToSettings()
     {
+        //Shell.Current.GoToAsync("SettingsPage");
         Shell.Current.GoToAsync("//SettingsPage");
     }
 }
