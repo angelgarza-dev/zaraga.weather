@@ -1,5 +1,6 @@
 ﻿using epj.Expander.Maui;
 using Microsoft.Maui.Controls;
+using Plugin.Maui.BottomSheet.Navigation;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -11,7 +12,7 @@ public partial class App : Application
 {
     internal static string NotAvailableIcon => "not_available";
     internal static string WeatherApikey => Assembly.GetExecutingAssembly()?.GetCustomAttribute<WeatherApiKeyAttribute>()?.WeatherKey.ToString() ?? "";
-
+    internal static IBottomSheetNavigationService bottomSheetNavigationService;
 
     //Log Manager 
     private static zaraga.logger.Manager? _console;
@@ -27,9 +28,10 @@ public partial class App : Application
         }
     }
 
-    public App()
+    public App(IBottomSheetNavigationService _bottomSheetNavigationService)
     {
         InitializeComponent();
+        bottomSheetNavigationService = _bottomSheetNavigationService;
 
         Console.Init(filePath: BuildMetadata.LogPath, daysToRecord: 3);
         Expander.EnableAnimations();

@@ -4,134 +4,51 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:bottomsheet="http://pluginmauibottomsheet.com"
-    xmlns:local="clr-namespace:zaraga.weather.Pages.Search"
     xmlns:maui="clr-namespace:epj.Expander.Maui;assembly=epj.Expander.Maui"
-    xmlns:views="clr-namespace:zaraga.weather.Views"
     x:Name="ModalBottomSheet"
-    Padding="5"
-    Closed="ModalBottomSheet_Closed"
+    Padding="20"
     CornerRadius="10"
     HasHandle="True"
     IgnoreSafeArea="False"
     IsCancelable="True"
     IsDraggable="True"
-    IsModal="True"
+    IsModal="False"
     ShowHeader="True"
-    States="Large">
-
-    <bottomsheet:BottomSheet.BindingContext>
-        <local:SearchViewModel />
-    </bottomsheet:BottomSheet.BindingContext>
-
+    States="Medium,Large"
+    WindowBackgroundColor="RosyBrown">
     <bottomsheet:BottomSheet.Header>
         <bottomsheet:BottomSheetHeader
             CloseButtonPosition="TopRight"
-            HeaderAppearance="RightButton"
+            HeaderAppearance="LeftAndRightButton"
             ShowCloseButton="True"
-            TitleText="Busqueda">
+            TitleText="Titulo del modal">
+            <bottomsheet:BottomSheetHeader.TopLeftButton>
+                <Button Command="{Binding TopLefButtonCommand}" Text="Top left" />
+            </bottomsheet:BottomSheetHeader.TopLeftButton>
             <bottomsheet:BottomSheetHeader.TopRightButton>
-                <Button Command="{Binding TopRightButtonCommand}" Text="Cerrar" />
+                <Button Command="{Binding TopRightButtonCommand}" Text="Top right" />
             </bottomsheet:BottomSheetHeader.TopRightButton>
         </bottomsheet:BottomSheetHeader>
     </bottomsheet:BottomSheet.Header>
     <bottomsheet:BottomSheet.Content>
         <bottomsheet:BottomSheetContent>
+            <!--<bottomsheet:BottomSheetContent.ContentTemplate>
+                <DataTemplate x:DataType="local:ShowCaseViewModel">
+                    <VerticalStackLayout>
+                        <ContentView>
+                            <ContentView.Behaviors>
+                                <bottomsheet:BottomSheetPeekBehavior />
+                            </ContentView.Behaviors>
+                            <Label Text="PeekHeight reference view " />
+                        </ContentView>
+                        <Grid>
+                            <Label Text="Some other view" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </bottomsheet:BottomSheetContent.ContentTemplate>-->
             <bottomsheet:BottomSheetContent.Content>
-
-                <Grid RowDefinitions="Auto,Auto,*">
-                    <Grid.GestureRecognizers>
-                        <SwipeGestureRecognizer Direction="Up" Swiped="SwipeGestureRecognizer_Swiped" />
-                        <SwipeGestureRecognizer Direction="Left" Swiped="SwipeGestureRecognizer_Swiped" />
-                        <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureRecognizer_Swiped" />
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                    </Grid.GestureRecognizers>
-                    <SearchBar
-                        x:Name="txtSearch"
-                        Placeholder="Direccion, Codigo postal o Coordenadas"
-                        SearchCommand="{Binding SearchCommand}" 
-                        Text="{Binding SearchText}"
-                        TextChanged="txtSearch_TextChanged"
-                        Unfocused="txtSearch_Unfocused" />
-                    <views:LoadingView
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        IsVisible="{Binding IsLoading}" />
-
-                    <CollectionView
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        ItemsSource="{Binding LocationList}">
-                        <CollectionView.GestureRecognizers>
-                            <SwipeGestureRecognizer Direction="Up" Swiped="SwipeGestureRecognizer_Swiped" />
-                            <SwipeGestureRecognizer Direction="Left" Swiped="SwipeGestureRecognizer_Swiped" />
-                            <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureRecognizer_Swiped" />
-                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                        </CollectionView.GestureRecognizers>
-                        <CollectionView.EmptyView>
-                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding CloseModalCommand}" />
-                                </Grid.GestureRecognizers>
-                                <Image
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    HeightRequest="40"
-                                    Source="{AppThemeBinding Light=ic_target_black.png,
-                                                             Dark=ic_target_white.png}" />
-                                <Label
-                                    Grid.Row="0"
-                                    Grid.Column="1"
-                                    HorizontalTextAlignment="Center"
-                                    Style="{StaticResource SubHeadline}"
-                                    Text="Ubicación Actual" />
-                            </Grid>
-                        </CollectionView.EmptyView>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Border>
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference ModalBottomSheet}, Path=BindingContext.SelectLocationCommand}" CommandParameter="{Binding .}" />
-                                    </Border.GestureRecognizers>
-
-                                    <Grid ColumnDefinitions="Auto,*,*" RowDefinitions="Auto,Auto">
-
-                                        <Image
-                                            Grid.Row="0"
-                                            Grid.RowSpan="2"
-                                            Grid.Column="0"
-                                            HeightRequest="50"
-                                            Source="{AppThemeBinding Light=ic_pin_black.png,
-                                                                     Dark=ic_pin_white.png}" />
-                                        <Label
-                                            Grid.Row="0"
-                                            Grid.Column="1"
-                                            Grid.ColumnSpan="2"
-                                            Text="{Binding name}" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-                                            Text="{Binding region}" />
-                                        <Label
-                                            Grid.Row="1"
-                                            Grid.Column="2"
-                                            Text="{Binding country}" />
-                                        <!--<Label
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-                                            IsVisible="False"
-                                            Text="{Binding lat}" />
-                                        <Label
-                                            Grid.Row="2"
-                                            Grid.Column="2"
-                                            IsVisible="False"
-                                            Text="{Binding lon}" />-->
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Grid>
-
+                <Label Style="{StaticResource Headline}">Hola modal</Label>
             </bottomsheet:BottomSheetContent.Content>
         </bottomsheet:BottomSheetContent>
     </bottomsheet:BottomSheet.Content>

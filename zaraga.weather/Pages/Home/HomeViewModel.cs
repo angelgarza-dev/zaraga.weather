@@ -1,8 +1,10 @@
 ﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices.Sensors;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using zaraga.weather.Models;
+using zaraga.weather.Pages.Search;
 using zaraga.weather.Services;
 
 namespace zaraga.weather.Pages.Home;
@@ -27,10 +29,11 @@ public class HomeViewModel : SharedViewModel
     public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
 
 
-    public Command LoadDataCommand => new Command(async () => await LoadData());
+    public Command LoadDataCommand => new Command(LoadData);
     public Command OnDisapearingCommand => new Command(OnDisapearing);
     public Command OnForecastDaysChangeCommand => new Command(OnForecastDaysChange);
     public Command GoToSettingsCommand => new Command(GoToSettings);
+    public Command SearchCommand => new Command(Search);
 
 
     public HomeViewModel()
@@ -59,7 +62,7 @@ public class HomeViewModel : SharedViewModel
         ForecastLoading = false;
     }
 
-    private async Task LoadData()
+    private async void LoadData()
     {
         IsLoading = true;
         if (CurrentWeather.location != null)
@@ -113,7 +116,7 @@ public class HomeViewModel : SharedViewModel
             DateTime astronomyDate = DateTime.Now.Date;
             if (CurrentWeather.location?.localtime != null)
             {
-                astronomyDate = CurrentWeather.location.localtime.Value;
+                astronomyDate = CurrentWeather.location.localtime;
             }
 
             CurrentAstronomy = await ApiService.Instance.GetLocationAstronomy(location.Latitude, location.Longitude, astronomyDate);
@@ -150,7 +153,14 @@ public class HomeViewModel : SharedViewModel
     {
         try
         {
-            CurrentForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, 1);
+            var hourlyForecast = await ApiService.Instance.GetWeatherForecast(location.Latitude, location.Longitude, 1);
+            if (hourlyForecast.forecast.forecastday.Count > 0)
+            {
+                var todayForecast = hourlyForecast.forecast.forecastday[0];
+                todayForecast.hour = todayForecast.hour.Where(x => x.time.Hour >= CurrentWeather.location.localtime.Hour).ToList();
+            }
+
+            CurrentForecast = hourlyForecast;
         }
         catch (Exception ex)
         {
@@ -179,5 +189,11 @@ public class HomeViewModel : SharedViewModel
     {
         //Shell.Current.GoToAsync("SettingsPage");
         Shell.Current.GoToAsync("//SettingsPage");
+    }
+
+    private async void Search()
+    {
+        var page = new SearchPage();
+        await App.bottomSheetNavigationService.NavigateToAsync(page);
     }
 }
