@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<bottomsheet:BottomSheet
+    x:Class="zaraga.weather.Pages.Search.SearchPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bottomsheet="http://pluginmauibottomsheet.com"
+    xmlns:maui="clr-namespace:epj.Expander.Maui;assembly=epj.Expander.Maui"
+    x:Name="ModalBottomSheet"
+    Padding="20"
+    CornerRadius="10"
+    HasHandle="True"
+    IgnoreSafeArea="False"
+    IsCancelable="True"
+    IsDraggable="True"
+    IsModal="False"
+    ShowHeader="True"
+    States="Medium,Large"
+    WindowBackgroundColor="RosyBrown">
+    <bottomsheet:BottomSheet.Header>
+        <bottomsheet:BottomSheetHeader
+            CloseButtonPosition="TopRight"
+            HeaderAppearance="LeftAndRightButton"
+            ShowCloseButton="True"
+            TitleText="Titulo del modal">
+            <bottomsheet:BottomSheetHeader.TopLeftButton>
+                <Button Command="{Binding TopLefButtonCommand}" Text="Top left" />
+            </bottomsheet:BottomSheetHeader.TopLeftButton>
+            <bottomsheet:BottomSheetHeader.TopRightButton>
+                <Button Command="{Binding TopRightButtonCommand}" Text="Top right" />
+            </bottomsheet:BottomSheetHeader.TopRightButton>
+        </bottomsheet:BottomSheetHeader>
+    </bottomsheet:BottomSheet.Header>
+    <bottomsheet:BottomSheet.Content>
+        <bottomsheet:BottomSheetContent>
+            <!--<bottomsheet:BottomSheetContent.ContentTemplate>
+                <DataTemplate x:DataType="local:ShowCaseViewModel">
+                    <VerticalStackLayout>
+                        <ContentView>
+                            <ContentView.Behaviors>
+                                <bottomsheet:BottomSheetPeekBehavior />
+                            </ContentView.Behaviors>
+                            <Label Text="PeekHeight reference view " />
+                        </ContentView>
+                        <Grid>
+                            <Label Text="Some other view" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </bottomsheet:BottomSheetContent.ContentTemplate>-->
+            <bottomsheet:BottomSheetContent.Content>
+                <Label Style="{StaticResource Headline}">Hola modal</Label>
+            </bottomsheet:BottomSheetContent.Content>
+        </bottomsheet:BottomSheetContent>
+    </bottomsheet:BottomSheet.Content>
+</bottomsheet:BottomSheet>
