@@ -1,5 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices.Sensors;
+using Plugin.Maui.BottomSheet.Navigation;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ public class HomeViewModel : SharedViewModel
 
     public HomeViewModel()
     {
+
     }
 
     private void OnDisapearing()
@@ -47,7 +49,7 @@ public class HomeViewModel : SharedViewModel
 
     private async void OnForecastDaysChange()
     {
-        //excepcion para no onteber datos duplicados
+        //validación para no obtener datos duplicados
         if (IsLoading) return;
 
         ForecastLoading = true;
@@ -79,13 +81,11 @@ public class HomeViewModel : SharedViewModel
         }
 
         //obtención de datos
-        await Task.WhenAll(
-            GetCurrentWeather(location),
-            GetAstronomy(location),
-            GetWeatherAlerts(location),
-            GetForecast(location),
-            GetWeeklyForecast(location)
-        );
+        await GetCurrentWeather(location);
+        await GetAstronomy(location);
+        await GetWeatherAlerts(location);
+        await GetForecast(location);
+        await GetWeeklyForecast(location);
 
         IsLoading = false;
     }
@@ -101,8 +101,7 @@ public class HomeViewModel : SharedViewModel
         }
         catch (Exception ex)
         {
-            App.Log(ex);
-            await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
+            await App.Log(ex);
         }
     }
 
@@ -123,8 +122,7 @@ public class HomeViewModel : SharedViewModel
         }
         catch (Exception ex)
         {
-            App.Log(ex);
-            await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
+            await App.Log(ex);
         }
     }
 
@@ -141,8 +139,7 @@ public class HomeViewModel : SharedViewModel
         }
         catch (Exception ex)
         {
-            App.Log(ex);
-            await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
+            await App.Log(ex);
         }
     }
 
@@ -164,13 +161,12 @@ public class HomeViewModel : SharedViewModel
         }
         catch (Exception ex)
         {
-            App.Log(ex);
-            await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
+            await App.Log(ex);
         }
     }
 
     /// <summary>
-    /// Obtiene el pronostico del clima de los dias seleccionados.
+    /// Obtiene el pronostico del clima de los días seleccionados.
     /// </summary>
     private async Task GetWeeklyForecast(Location location)
     {
@@ -180,8 +176,7 @@ public class HomeViewModel : SharedViewModel
         }
         catch (Exception ex)
         {
-            App.Log(ex);
-            await Shell.Current.DisplayAlert("Error", ex.Message, "ok");
+            await App.Log(ex);
         }
     }
 
@@ -194,6 +189,20 @@ public class HomeViewModel : SharedViewModel
     private async void Search()
     {
         var page = new SearchPage();
-        await App.bottomSheetNavigationService.NavigateToAsync(page);
+        var viewModel = new SearchViewModel("Constructor desde home");
+
+        //TODO: crear evento para asociar con el metodo OnLocationSelected
+        await viewModel.OnSelectedLocation;
+
+        if (App.BottomSheetNavigationService?.NavigationStack().Count > 0)
+        {//limpio el stack de navegación antes de mostrar la nueva pantalla
+            await App.BottomSheetNavigationService.ClearBottomSheetStackAsync();
+        }
+        await App.BottomSheetNavigationService!.NavigateToAsync(page, viewModel);
+    }
+
+    private async Task<WeatherLocation?> OnLocationSelected()
+    {
+        return await Task.FromResult<WeatherLocation?>(null);
     }
 }

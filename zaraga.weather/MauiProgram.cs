@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Hosting;
 using Plugin.Maui.BottomSheet.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using zaraga.weather.Pages.Home;
 using zaraga.weather.Pages.Search;
+using zaraga.weather.Pages.Settings;
 
 namespace zaraga.weather;
 
