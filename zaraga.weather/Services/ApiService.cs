@@ -59,7 +59,8 @@ internal class ApiService
         }
         catch (Exception ex)
         {
-            App.Log(ex);
+            await App.Log(ex);
+
             if (_useRetries)
             {
                 if (_retryCount >= _maxRetries)
@@ -85,7 +86,7 @@ internal class ApiService
     /// <summary>
     /// Busca las ubicaciones por parametro de busqueda
     /// </summary>
-    public async Task<IEnumerable<WeatherLocation>> SearchLocation(string searchParameter)
+    public async Task<List<WeatherLocation>> SearchLocation(string searchParameter)
     {
         var resp = await GetRequest($"search.json?key={App.WeatherApikey}&q={searchParameter}&lang=es", new List<WeatherLocation>());
         return resp;
