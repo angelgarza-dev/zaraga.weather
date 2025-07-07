@@ -19,6 +19,7 @@ public class HomeViewModel : SharedViewModel
     private WeatherForecast _weeklyForecast = new();
     private int _forecastDays = 3;
     private bool _forecastLoading = false;
+    private bool _isDay = false;
 
 
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
@@ -98,6 +99,7 @@ public class HomeViewModel : SharedViewModel
         try
         {
             CurrentWeather = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
+            _isDay = CurrentWeather.current.is_day == 1;
         }
         catch (Exception ex)
         {
