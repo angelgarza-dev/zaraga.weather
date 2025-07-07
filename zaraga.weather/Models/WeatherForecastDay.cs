@@ -2,10 +2,10 @@
 {
     public class WeatherForecastDay
     {
-        public decimal max_temp_c { get; set; }
-        public decimal max_temp_f { get; set; }
-        public decimal min_temp_c { get; set; }
-        public decimal min_temp_f { get; set; }
+        public decimal maxtemp_c { get; set; }
+        public decimal maxtemp_f { get; set; }
+        public decimal mintemp_c { get; set; }
+        public decimal mintemp_f { get; set; }
         public decimal avgtemp_c { get; set; }
         public decimal avgtemp_f { get; set; }
         public decimal maxwind_kph { get; set; }
@@ -39,10 +39,10 @@
 
         public WeatherForecastDay()
         {
-            max_temp_c = 0.0m;
-            max_temp_f = 0.0m;
-            min_temp_c = 0.0m;
-            min_temp_f = 0.0m;
+            maxtemp_c = 0.0m;
+            maxtemp_f = 0.0m;
+            mintemp_c = 0.0m;
+            mintemp_f = 0.0m;
             avgtemp_c = 0.0m;
             avgtemp_f = 0.0m;
             maxwind_kph = 0.0m;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AndroidX.Annotations;
+using System;
 using System.Collections.Generic;
 
 namespace zaraga.weather.Models
