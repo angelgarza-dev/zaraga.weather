@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Devices.Sensors;
 using Plugin.Maui.BottomSheet.Navigation;
 using System;
@@ -19,7 +20,9 @@ public class HomeViewModel : SharedViewModel
     private WeatherForecast _weeklyForecast = new();
     private int _forecastDays = 3;
     private bool _forecastLoading = false;
-
+    private bool _isDay = false;
+    private bool _usingSearchLocation = false;
+    private string imageUrl = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg-static/humidity.svg";
 
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
     public WeatherForecastAstro CurrentAstronomy { get => _currentAstronomy; set { _currentAstronomy = value; OnPropertyChanged(); } }
@@ -28,7 +31,15 @@ public class HomeViewModel : SharedViewModel
     public WeatherForecast WeeklyForecast { get => _weeklyForecast; set { _weeklyForecast = value; OnPropertyChanged(); } }
     public int ForecastDays { get => _forecastDays; set { _forecastDays = value; OnPropertyChanged(); } }
     public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
-
+    public string ImageUrl
+    {
+        get => imageUrl;
+        set
+        {
+            imageUrl = value;
+            OnPropertyChanged();
+        }
+    }
 
     public Command LoadDataCommand => new Command(LoadData);
     public Command OnDisapearingCommand => new Command(OnDisapearing);
@@ -66,6 +77,11 @@ public class HomeViewModel : SharedViewModel
 
     private async void LoadData()
     {
+        if (_usingSearchLocation)
+        {
+            return;
+        }
+
         IsLoading = true;
         if (CurrentWeather.location != null)
         {
@@ -77,6 +93,7 @@ public class HomeViewModel : SharedViewModel
         var location = await GetDeviceLocation();
         if (location == null)
         {
+            IsLoading = false;
             return;
         }
 
@@ -98,6 +115,7 @@ public class HomeViewModel : SharedViewModel
         try
         {
             CurrentWeather = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
+            _isDay = CurrentWeather.current.is_day == 1;
         }
         catch (Exception ex)
         {
@@ -189,10 +207,10 @@ public class HomeViewModel : SharedViewModel
     private async void Search()
     {
         var page = new SearchPage();
-        var viewModel = new SearchViewModel("Constructor desde home");
+        var viewModel = new SearchViewModel();
 
-        //TODO: crear evento para asociar con el metodo OnLocationSelected
-        await viewModel.OnSelectedLocation;
+        //suscripcion de evento para recibir el elemento seleccionado
+        viewModel.OnLocationSelected += ViewModel_OnLocationSelected;
 
         if (App.BottomSheetNavigationService?.NavigationStack().Count > 0)
         {//limpio el stack de navegación antes de mostrar la nueva pantalla
@@ -201,8 +219,20 @@ public class HomeViewModel : SharedViewModel
         await App.BottomSheetNavigationService!.NavigateToAsync(page, viewModel);
     }
 
-    private async Task<WeatherLocation?> OnLocationSelected()
+    private async void ViewModel_OnLocationSelected(Location location)
     {
-        return await Task.FromResult<WeatherLocation?>(null);
+        IsLoading = true;
+        _usingSearchLocation = true;
+
+        //obtención de datos
+        await GetCurrentWeather(location);
+        await GetAstronomy(location);
+        await GetWeatherAlerts(location);
+        await GetForecast(location);
+        await GetWeeklyForecast(location);
+
+        _usingSearchLocation = false;
+        IsLoading = false;
     }
+
 }

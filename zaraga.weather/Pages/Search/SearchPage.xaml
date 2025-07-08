@@ -87,14 +87,43 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Border>
-                                    <VerticalStackLayout>
-                                        <Label Text="{Binding name}" />
-                                        <Label Text="{Binding region}" />
-                                        <Label Text="{Binding country}" />
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference ModalBottomSheet}, Path=BindingContext.SelectLocationCommand}" CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
 
-                                        <Label Text="{Binding lat}" />
-                                        <Label Text="{Binding lon}" />
-                                    </VerticalStackLayout>
+                                    <Grid ColumnDefinitions="Auto,*,*" RowDefinitions="Auto,Auto">
+
+                                        <Image
+                                            Grid.Row="0"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="0"
+                                            HeightRequest="50"
+                                            Source="{AppThemeBinding Light=ic_pin_black.png,
+                                                                     Dark=ic_pin_white.png}" />
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2"
+                                            Text="{Binding name}" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Text="{Binding region}" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            Text="{Binding country}" />
+                                        <!--<Label
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            IsVisible="False"
+                                            Text="{Binding lat}" />
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            IsVisible="False"
+                                            Text="{Binding lon}" />-->
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
