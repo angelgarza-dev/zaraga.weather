@@ -91,16 +91,15 @@
                                         <TapGestureRecognizer Command="{Binding Source={x:Reference ModalBottomSheet}, Path=BindingContext.SelectLocationCommand}" CommandParameter="{Binding .}" />
                                     </Border.GestureRecognizers>
 
-                                    <Grid ColumnDefinitions="*,2*,2*" RowDefinitions="Auto,Auto">
+                                    <Grid ColumnDefinitions="Auto,*,*" RowDefinitions="Auto,Auto">
 
                                         <Image
                                             Grid.Row="0"
                                             Grid.RowSpan="2"
                                             Grid.Column="0"
-                                            HeightRequest="40"
-                                            Source="{AppThemeBinding Light=ic_target_black.png,
-                                                                     Dark=ic_target_black.png}" />
-
+                                            HeightRequest="50"
+                                            Source="{AppThemeBinding Light=ic_pin_black.png,
+                                                                     Dark=ic_pin_white.png}" />
                                         <Label
                                             Grid.Row="0"
                                             Grid.Column="1"

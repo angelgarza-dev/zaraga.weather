@@ -2,6 +2,14 @@
 <?xaml-comp compile="true" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Style x:Key="GridBackgroundColor" TargetType="Grid">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource OffBlack}}" />
+    </Style>
+
+    <Style x:Key="LabelBackgroundColor" TargetType="Label">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=WhiteSmoke, Dark={StaticResource OffBlack}}" />
+    </Style>
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
@@ -170,7 +178,7 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontSize" Value="Medium" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>

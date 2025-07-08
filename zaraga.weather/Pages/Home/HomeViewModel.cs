@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Devices.Sensors;
 using Plugin.Maui.BottomSheet.Navigation;
 using System;
@@ -20,7 +21,8 @@ public class HomeViewModel : SharedViewModel
     private int _forecastDays = 3;
     private bool _forecastLoading = false;
     private bool _isDay = false;
-
+    private bool _usingSearchLocation = false;
+    private string imageUrl = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg-static/humidity.svg";
 
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
     public WeatherForecastAstro CurrentAstronomy { get => _currentAstronomy; set { _currentAstronomy = value; OnPropertyChanged(); } }
@@ -29,7 +31,15 @@ public class HomeViewModel : SharedViewModel
     public WeatherForecast WeeklyForecast { get => _weeklyForecast; set { _weeklyForecast = value; OnPropertyChanged(); } }
     public int ForecastDays { get => _forecastDays; set { _forecastDays = value; OnPropertyChanged(); } }
     public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
-
+    public string ImageUrl
+    {
+        get => imageUrl;
+        set
+        {
+            imageUrl = value;
+            OnPropertyChanged();
+        }
+    }
 
     public Command LoadDataCommand => new Command(LoadData);
     public Command OnDisapearingCommand => new Command(OnDisapearing);
@@ -67,9 +77,8 @@ public class HomeViewModel : SharedViewModel
 
     private async void LoadData()
     {
-        if (IsLoading)
+        if (_usingSearchLocation)
         {
-            IsLoading = false;
             return;
         }
 
@@ -213,6 +222,7 @@ public class HomeViewModel : SharedViewModel
     private async void ViewModel_OnLocationSelected(Location location)
     {
         IsLoading = true;
+        _usingSearchLocation = true;
 
         //obtención de datos
         await GetCurrentWeather(location);
@@ -221,6 +231,7 @@ public class HomeViewModel : SharedViewModel
         await GetForecast(location);
         await GetWeeklyForecast(location);
 
+        _usingSearchLocation = false;
         IsLoading = false;
     }
 
