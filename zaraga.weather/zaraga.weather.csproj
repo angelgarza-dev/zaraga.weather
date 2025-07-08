@@ -38,8 +38,6 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Include="Resources\Images\icons\*" />
-		<MauiImage Include="Resources\Images\Static\Fill\*" />
-		<MauiImage Include="Resources\Images\Static\Outline\*" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
