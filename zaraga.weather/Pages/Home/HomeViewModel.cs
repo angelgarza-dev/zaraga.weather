@@ -67,6 +67,12 @@ public class HomeViewModel : SharedViewModel
 
     private async void LoadData()
     {
+        if (IsLoading)
+        {
+            IsLoading = false;
+            return;
+        }
+
         IsLoading = true;
         if (CurrentWeather.location != null)
         {
@@ -78,6 +84,7 @@ public class HomeViewModel : SharedViewModel
         var location = await GetDeviceLocation();
         if (location == null)
         {
+            IsLoading = false;
             return;
         }
 
@@ -191,10 +198,10 @@ public class HomeViewModel : SharedViewModel
     private async void Search()
     {
         var page = new SearchPage();
-        var viewModel = new SearchViewModel("Constructor desde home");
+        var viewModel = new SearchViewModel();
 
-        //TODO: crear evento para asociar con el metodo OnLocationSelected
-        await viewModel.OnSelectedLocation;
+        //suscripcion de evento para recibir el elemento seleccionado
+        viewModel.OnLocationSelected += ViewModel_OnLocationSelected;
 
         if (App.BottomSheetNavigationService?.NavigationStack().Count > 0)
         {//limpio el stack de navegación antes de mostrar la nueva pantalla
@@ -203,8 +210,18 @@ public class HomeViewModel : SharedViewModel
         await App.BottomSheetNavigationService!.NavigateToAsync(page, viewModel);
     }
 
-    private async Task<WeatherLocation?> OnLocationSelected()
+    private async void ViewModel_OnLocationSelected(Location location)
     {
-        return await Task.FromResult<WeatherLocation?>(null);
+        IsLoading = true;
+
+        //obtención de datos
+        await GetCurrentWeather(location);
+        await GetAstronomy(location);
+        await GetWeatherAlerts(location);
+        await GetForecast(location);
+        await GetWeeklyForecast(location);
+
+        IsLoading = false;
     }
+
 }
