@@ -19,6 +19,8 @@
             <converters:IconCodeConverter x:Key="IconCodeConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:MoonPhaseLangConverter x:Key="MoonPhaseLangConverter" />
+            <converters:MoonPhaseIconConverter x:Key="MoonPhaseIconConverter" />
+            <converters:WindDirConverter x:Key="WindDirConverter" />
 
             <!--  layouts  -->
             <ControlTemplate x:Key="LoadingContentPage">

@@ -1,13 +1,17 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Devices.Sensors;
 using Plugin.Maui.BottomSheet.Navigation;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using zaraga.weather.Converters;
 using zaraga.weather.Models;
 using zaraga.weather.Pages.Search;
 using zaraga.weather.Services;
+using zaraga.weather.Views;
 
 namespace zaraga.weather.Pages.Home;
 
@@ -22,7 +26,8 @@ public class HomeViewModel : SharedViewModel
     private bool _forecastLoading = false;
     private bool _isDay = false;
     private bool _usingSearchLocation = false;
-    private string imageUrl = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg-static/humidity.svg";
+    private SkiaSharp.Extended.UI.Controls.SKLottieImageSource _moonImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile($"{App.NotAvailableIcon}.json");
+
 
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
     public WeatherForecastAstro CurrentAstronomy { get => _currentAstronomy; set { _currentAstronomy = value; OnPropertyChanged(); } }
@@ -31,15 +36,9 @@ public class HomeViewModel : SharedViewModel
     public WeatherForecast WeeklyForecast { get => _weeklyForecast; set { _weeklyForecast = value; OnPropertyChanged(); } }
     public int ForecastDays { get => _forecastDays; set { _forecastDays = value; OnPropertyChanged(); } }
     public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
-    public string ImageUrl
-    {
-        get => imageUrl;
-        set
-        {
-            imageUrl = value;
-            OnPropertyChanged();
-        }
-    }
+    public SkiaSharp.Extended.UI.Controls.SKLottieImageSource MoonImageSource { get => _moonImageSource; set { _moonImageSource = value; OnPropertyChanged(); } }
+
+
 
     public Command LoadDataCommand => new Command(LoadData);
     public Command OnDisapearingCommand => new Command(OnDisapearing);
@@ -137,6 +136,11 @@ public class HomeViewModel : SharedViewModel
             }
 
             CurrentAstronomy = await ApiService.Instance.GetLocationAstronomy(location.Latitude, location.Longitude, astronomyDate);
+
+            string? moonPhaseIcon = new MoonPhaseIconConverter().Convert(CurrentAstronomy.astronomy.astro.moon_phase, typeof(HomeViewModel), null, CultureInfo.CurrentCulture)?.ToString();
+
+            MoonImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile(moonPhaseIcon ?? $"{App.NotAvailableIcon}.json");
+
         }
         catch (Exception ex)
         {
@@ -209,6 +213,7 @@ public class HomeViewModel : SharedViewModel
         var page = new SearchPage();
         var viewModel = new SearchViewModel();
 
+        _usingSearchLocation = true;
         //suscripcion de evento para recibir el elemento seleccionado
         viewModel.OnLocationSelected += ViewModel_OnLocationSelected;
 
@@ -222,7 +227,6 @@ public class HomeViewModel : SharedViewModel
     private async void ViewModel_OnLocationSelected(Location location)
     {
         IsLoading = true;
-        _usingSearchLocation = true;
 
         //obtención de datos
         await GetCurrentWeather(location);
