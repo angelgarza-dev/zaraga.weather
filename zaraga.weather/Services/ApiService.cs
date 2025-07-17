@@ -115,7 +115,9 @@ internal class ApiService
     /// </summary>
     public async Task<WeatherCurrentLocation> GetCurrentLocationWeather(double latitude, double longitude)
     {
-        var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang=es", new WeatherCurrentLocation());
+        string language = "es";
+        string airQuality = "yes";
+        var resp = await GetRequest($"current.json?key={App.WeatherApikey}&q={latitude},{longitude}&lang={language}&aqi={airQuality}", new WeatherCurrentLocation());
         return resp;
     }
 
