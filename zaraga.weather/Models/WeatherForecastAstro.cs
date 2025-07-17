@@ -5,7 +5,7 @@
         public string? sunrise { get; set; }
         public string? sunset { get; set; }
         public string? moonrise { get; set; }
-        public string? moonset { get; set; }
+        public string moonset { get; set; }
         /// <summary>
         /// New Moon
         /// Waxing Crescent
@@ -31,6 +31,11 @@
         /// 0 = No
         /// </summary>
         public int is_sun_up { get; set; }
+
+        public LocationAstro()
+        {
+            moonrise = "No moonrise";
+        }
     }
 
 }

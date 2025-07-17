@@ -48,6 +48,8 @@ namespace zaraga.weather.Models
         public decimal gust_mph { get; set; }
         public decimal gust_kph { get; set; }
 
+        public WeatherAirQuality air_quality { get; set; }
+
         public WeatherRealTime()
         {
             last_updated = DateTime.Now;
@@ -77,6 +79,7 @@ namespace zaraga.weather.Models
             uv = 0;
             gust_mph = 0;
             gust_kph = 0;
+            air_quality = new WeatherAirQuality();
         }
     }
 }

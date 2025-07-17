@@ -104,34 +104,12 @@
                             </Grid>
                             <Label Text="{Binding CurrentWeather.current.last_updated, StringFormat='A las {0:hh:mm tt}'}" />
 
-                            <!--  humedad  -->
-                            <HorizontalStackLayout HorizontalOptions="End">
-                                <Label
-                                    LineHeight="50"
-                                    Style="{StaticResource SubHeadline}"
-                                    Text="{Binding CurrentWeather.current.humidity, StringFormat='Humedad: {0}'}" />
-                                <Image
-                                    HeightRequest="40"
-                                    IsVisible="False"
-                                    Source="humidity.png" />
-                                <skia:SKLottieView
-                                    Padding="-25"
-                                    HeightRequest="50"
-                                    IsVisible="True"
-                                    RepeatCount="-1"
-                                    Source="humidity.json"
-                                    WidthRequest="50" />
-                            </HorizontalStackLayout>
-                            <!--  fin humedad  -->
                         </VerticalStackLayout>
                     </Border>
                     <!--  fin tiempo local  -->
 
                     <!--  pronostico hora  -->
-                    <Label
-                        FontSize="Title"
-                        Style="{DynamicResource SubHeadline}"
-                        Text="Próximas Horas" />
+                    <Label Style="{DynamicResource SubHeadline}" Text="Próximas Horas" />
                     <VerticalStackLayout>
                         <CollectionView ItemsSource="{Binding CurrentForecast.forecast.forecastday}">
                             <CollectionView.ItemTemplate>
@@ -181,10 +159,7 @@
                     <!--  fin pronostico hora  -->
 
                     <!--  proximos días  -->
-                    <Label
-                        FontSize="Title"
-                        Style="{DynamicResource SubHeadline}"
-                        Text="Próximos Días" />
+                    <Label Style="{DynamicResource SubHeadline}" Text="Próximos Días" />
                     <views:LoadingView IsVisible="{Binding ForecastLoading}" />
                     <Border Padding="0">
                         <CollectionView BackgroundColor="{StaticResource Gray300}" ItemsSource="{Binding WeeklyForecast.forecast.forecastday}">
@@ -253,96 +228,443 @@
                     <!--  fin proximos días  -->
 
 
-                    <!--  precipitacion  -->
-                    <Label
-                        FontSize="Title"
-                        Style="{DynamicResource SubHeadline}"
-                        Text="Precipitación" />
-                    <Border>
-                        <VerticalStackLayout>
-                            <Label Text="{Binding CurrentWeather.current.precip_mm, StringFormat='Precipitación en ml: {0}'}" />
-                            <Label Text="{Binding CurrentWeather.current.precip_in, StringFormat='Precipitación en in: {0}'}" />
-
-                        </VerticalStackLayout>
+                    <Border Margin="0,20,0,0" Padding="5">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource SubHeadline}"
+                            Text="Información Adicional" />
                     </Border>
-                    <!--  fin precipitacion  -->
 
+
+                    <!--  humedad  -->
+                    <Label Style="{StaticResource SubHeadline}" Text="Humedad" />
+                    <BoxView />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
+                        <Border>
+                            <VerticalStackLayout>
+                                <Label Text="Covertura" />
+                                <Label
+                                    LineHeight="50"
+                                    Style="{StaticResource Headline}"
+                                    Text="{Binding CurrentWeather.current.humidity, StringFormat='{0}%'}" />
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="humidity.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="Precipitación" />
+
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.precip_mm, StringFormat='ml: {0}'}" />
+                                <!--<Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.precip_in, StringFormat='in: {0}'}" />-->
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="raindrop_measure.json"
+                                    WidthRequest="80" />
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                    <!--  fin humedad  -->
 
                     <!--  viento  -->
-                    <Label
-                        FontSize="Title"
-                        Style="{DynamicResource SubHeadline}"
-                        Text="Viento" />
-                    <Border>
-                        <VerticalStackLayout>
-                            <Label Text="velocidad" />
-                            <Label Text="{Binding CurrentWeather.current.wind_kph, StringFormat='{0} Km'}" />
-                            <Label Text="{Binding CurrentWeather.current.wind_mph, StringFormat='{0} mill'}" />
-                            <Label Text="direccion en grados de inclinacion" />
-                            <Label Text="{Binding CurrentWeather.current.wind_degree}" />
-                            <Label Text="direccion del viento" />
-                            <Label Text="{Binding CurrentWeather.current.wind_dir}" />
-
-                            <Label Text="velocidad gust" />
-                            <Label Text="{Binding CurrentWeather.current.gust_kph, StringFormat='{0} Km'}" />
-                            <Label Text="{Binding CurrentWeather.current.gust_mph, StringFormat='{0} mill'}" />
-                        </VerticalStackLayout>
-                    </Border>
+                    <Label Style="{DynamicResource SubHeadline}" Text="Viento" />
+                    <BoxView />
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="5"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="5">
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label Text="Velocidad" />
+                                    <Label Text="{Binding CurrentWeather.current.wind_kph, StringFormat='{0} Km'}" />
+                                    <!--<Label Text="{Binding CurrentWeather.current.wind_mph, StringFormat='{0} mill'}" />-->
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1">
+                                    <Label Text="Ráfagas" />
+                                    <Label Text="{Binding CurrentWeather.current.gust_kph, StringFormat='{0} Km'}" />
+                                    <!--<Label Text="{Binding CurrentWeather.current.gust_mph, StringFormat='{0} mill'}" />-->
+                                </VerticalStackLayout>
+                                <skia:SKLottieView
+                                    Grid.Column="2"
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="wind.json"
+                                    WidthRequest="80" />
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="Inclinación" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.wind_degree, StringFormat='{0}°'}" />
+                                <skia:SKLottieView
+                                    Padding="-15"
+                                    HeightRequest="60"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="windsock.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="Dirección" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
+                                    Text="{Binding CurrentWeather.current.wind_dir, Converter={StaticResource WindDirConverter}}" />
+                                <skia:SKLottieView
+                                    Padding="-15"
+                                    HeightRequest="60"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="compass.json"
+                                    WidthRequest="60" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
                     <!--  fin viento  -->
 
-                    <!--  Condicion atmosferica  -->
-                    <Label
-                        FontSize="Title"
-                        Style="{DynamicResource SubHeadline}"
-                        Text="Condicion atmosferica" />
-                    <Border>
-                        <VerticalStackLayout>
-                            <Label Text="presion del aire en milibares" />
-                            <Label Text="{Binding CurrentWeather.current.pressure_mb}" />
-                            <Label Text="presion del aire en pulgadas" />
-                            <Label Text="{Binding CurrentWeather.current.pressure_in}" />
-                            <Label Text="Cobertura de Nubes" />
-                            <Label Text="{Binding CurrentWeather.current.cloud, StringFormat='{0}%'}" />
-
-                            <Label Text="Indice UV" />
-                            <Label Text="{Binding CurrentWeather.current.uv, StringFormat='{0}'}" />
-
-
-                            <Label Text="calidad del aire" />
-                        </VerticalStackLayout>
-                    </Border>
-                    <!--  Condicion atmosferica  -->
-
                     <!--  Astronomia  -->
-                    <Label
-                        FontSize="Title"
-                        Style="{DynamicResource SubHeadline}"
-                        Text="Astronomia" />
-                    <Border>
+                    <Label Style="{DynamicResource SubHeadline}" Text="Astronomia" />
+
+                    <BoxView />
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="5"
+                        RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                        RowSpacing="5">
+                        <Border Grid.Row="0" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="Amanecer" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.sunrise}" />
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="sunrise.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="0" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="Atardecer" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.sunset}" />
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="sunset.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="Ocaso Lunar" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moonset}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="moonset.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="Iluminación" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
+                                <skia:SKLottieView
+                                    Padding="-20"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="starry_night.json"
+                                    WidthRequest="50" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                            <VerticalStackLayout>
+                                <Label Text="Fase Lunar" />
+                                <Label Style="{StaticResource SubHeadline}" Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
+
+                                <skia:SKLottieView
+                                    Padding="-20"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="{Binding MoonImageSource}"
+                                    WidthRequest="50" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            IsVisible="True">
+                            <Border.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding CurrentAstronomy.astronomy.astro.moonrise}"
+                                    TargetType="Border"
+                                    Value="No moonrise">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <VerticalStackLayout>
+                                <Label Text="Salida Lunar" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moonrise}" />
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="moonrise.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                    <!--  Astronomia  -->
+
+                    <!--  Condicion atmosferica  -->
+                    <Label Style="{DynamicResource SubHeadline}" Text="Condición atmosférica" />
+                    <BoxView />
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="5"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="5">
+                        <Border Grid.Row="0" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="Presión" />
+                                <!--<Label Text="Milibares" />-->
+                                <!--<Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.pressure_mb, StringFormat='mbar: {0}'}" />-->
+                                <!--<Label Text="Pulgadas" />-->
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.pressure_in, StringFormat='in: {0}'}" />
+
+                                <skia:SKLottieView
+                                    Padding="-15"
+                                    HeightRequest="60"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="barometer.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="Cobertura" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.cloud, StringFormat='{0}%'}" />
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="overcast.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="Indice UV" />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.uv, StringFormat='{0}'}" />
+                                <skia:SKLottieView
+                                    Padding="-15"
+                                    HeightRequest="60"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="uv_index.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                    <!--  Condicion atmosferica  -->
+
+                    <!--  calidad de aire  -->
+                    <Label Style="{StaticResource SubHeadline}" Text="calidad del aire" />
+                    <BoxView />
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="5"
+                        RowDefinitions="Auto,Auto,Auto,Auto"
+                        RowSpacing="5">
+
+                        <Border Grid.Row="0" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="CO" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
+                                    Text="{Binding CurrentWeather.current.air_quality.co, StringFormat='{0} ppm'}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="pollen.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="0" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="NO2" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
+                                    Text="{Binding CurrentWeather.current.air_quality.no2, StringFormat='{0} ppm'}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="pollen.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="O3" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
+                                    Text="{Binding CurrentWeather.current.air_quality.o3, StringFormat='{0} ppm'}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="pollen.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="1" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="SO2" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
+                                    Text="{Binding CurrentWeather.current.air_quality.so2, StringFormat='{0} ppm'}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="pollen.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="PM2.5" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
+                                    Text="{Binding CurrentWeather.current.air_quality.pm2_5, StringFormat='{0} ppm'}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="pollen.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="2" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="PM10" />
+                                <Label
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
+                                    Text="{Binding CurrentWeather.current.air_quality.pm10, StringFormat='{0} ppm'}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="pollen.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="0">
+                            <VerticalStackLayout>
+                                <Label Text="EPA de EU." />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.air_quality.usepaindex}" />
+
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="code_green.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Grid.Row="3" Grid.Column="1">
+                            <VerticalStackLayout>
+                                <Label Text="Defra de UK." />
+                                <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.air_quality.gbdefraindex}" />
+                                <skia:SKLottieView
+                                    Padding="-25"
+                                    HeightRequest="50"
+                                    IsVisible="True"
+                                    RepeatCount="-1"
+                                    Source="code_green.json"
+                                    WidthRequest="80" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                    <!--  fin calidad de aire  -->
+
+                    <!--  otros  -->
+                    <Border IsVisible="false">
                         <VerticalStackLayout>
-                            <Label Text="Amanecer" />
-                            <Label Text="{Binding CurrentAstronomy.astronomy.astro.sunrise}" />
-                            <Label Text="Atardecer" />
-                            <Label Text="{Binding CurrentAstronomy.astronomy.astro.sunset}" />
-                            <Label Text="Salida Lunar" />
-                            <Label Text="{Binding CurrentAstronomy.astronomy.astro.moonrise}" />
-                            <Label Text="Ocaso Lunar" />
-                            <Label Text="{Binding CurrentAstronomy.astronomy.astro.moonset}" />
-                            <Label Text="Fase Lunar" />
-                            <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
-                            <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase}" />
-                            <Label Text="Iluminacion Lunar" />
-                            <Label Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
                             <Label Text="Sol arriba" />
                             <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_sun_up}" />
                             <Label Text="Luna arriba" />
                             <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_moon_up}" />
 
-                            <!--<views:IconView
-                            HeightRequest="100"
-                            IconBindable="static_fill_moon_waxing_gibbous.svg"
-                            WidthRequest="100" />-->
-
+                            <!--  ejemplos de como implementar la vista de imagenes que cambia segun la configuracion  -->
+                            <views:IconView
+                                HeightRequest="100"
+                                IconBindable="static_fill_moon_waxing_gibbous.svg"
+                                WidthRequest="100" />
                             <Image
                                 HeightRequest="100"
                                 Source="static_fill_moon_waxing_gibbous.png"
@@ -350,20 +672,7 @@
 
                         </VerticalStackLayout>
                     </Border>
-                    <!--  Astronomia  -->
-
-                    <!--  fases de la luna  -->
-                    <Label
-                        FontSize="Title"
-                        IsVisible="False"
-                        Style="{DynamicResource SubHeadline}"
-                        Text="Fases de la luna" />
-                    <Border IsVisible="False">
-                        <VerticalStackLayout>
-                            <Label Text="Elemento" />
-                        </VerticalStackLayout>
-                    </Border>
-                    <!--  fases de la luna  -->
+                    <!--  fin otros  -->
 
                 </VerticalStackLayout>
             </ScrollView>
