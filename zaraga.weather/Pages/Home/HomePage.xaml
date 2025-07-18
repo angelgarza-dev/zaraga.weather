@@ -6,6 +6,7 @@
     xmlns:expand="clr-namespace:epj.Expander.Maui;assembly=epj.Expander.Maui"
     xmlns:layouts="clr-namespace:zaraga.weather.Layouts"
     xmlns:local="clr-namespace:zaraga.weather.Pages.Home"
+    xmlns:models="clr-namespace:zaraga.weather.Models"
     xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
     xmlns:views="clr-namespace:zaraga.weather.Views"
     x:Name="page"
@@ -72,23 +73,23 @@
                                 Padding="2"
                                 ColumnDefinitions="Auto,*"
                                 RowDefinitions="Auto,Auto">
-                                <Image
+                                <!--<Image
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
                                     Grid.Column="0"
                                     HeightRequest="100"
-                                    Source="{Binding CurrentWeather.current.condition.icon, Converter={StaticResource WebImageConverter}}"
+                                    IsVisible="False"
+                                    Source="{Binding CurrentWeather.current.condition.code, Converter={StaticResource WebImageConverter}}"
                                     VerticalOptions="Center"
-                                    WidthRequest="100" />
+                                    WidthRequest="100" />-->
                                 <!--  binding con la referencia por nombre  -->
                                 <views:IconView
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
                                     Grid.Column="0"
-                                    HeightRequest="100"
-                                    IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}, Converter={StaticResource IconCodeConverter}}"
-                                    IsVisible="False"
-                                    WidthRequest="100" />
+                                    IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}}"
+                                    IconHeight="100"
+                                    IconWidth="100" />
 
 
                                 <Label
@@ -97,11 +98,11 @@
                                     Style="{StaticResource Headline}"
                                     Text="{Binding CurrentWeather.current.temp_c, StringFormat='°c {0}'}" />
                                 <!--  TODO: visible si la configuracion de grados farenheight esta activa  -->
-                                <Label
+                                <!--<Label
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     IsVisible="False"
-                                    Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />
+                                    Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />-->
 
 
                                 <Label
@@ -143,10 +144,16 @@
                                                     <Border Margin="5,0" WidthRequest="130">
                                                         <VerticalStackLayout>
                                                             <Label Text="{Binding time, StringFormat='{0: hh:mm tt}'}" />
-                                                            <Image
-                                                                HeightRequest="64"
-                                                                Source="{Binding condition.icon, Converter={StaticResource WebImageConverter}}"
-                                                                WidthRequest="64" />
+
+                                                            <views:IconView
+                                                                IconBindable="{Binding Path=Text, Source={x:Reference lblItem}}"
+                                                                IconHeight="80"
+                                                                IconWidth="80" />
+
+                                                            <Label
+                                                                x:Name="lblItem"
+                                                                IsVisible="False"
+                                                                Text="{Binding condition.code}" />
                                                             <Label
                                                                 HeightRequest="40"
                                                                 HorizontalTextAlignment="Center"
@@ -183,15 +190,18 @@
                                         ColumnDefinitions="*,*,*"
                                         RowDefinitions="Auto,Auto,Auto,Auto"
                                         Style="{StaticResource GridBackgroundColor}">
-                                        <Image
+                                        <views:IconView
                                             Grid.Row="0"
                                             Grid.RowSpan="3"
                                             Grid.Column="0"
                                             Margin="0,0,10,0"
-                                            HeightRequest="70"
-                                            Source="{Binding day.condition.icon, Converter={StaticResource WebImageConverter}}"
-                                            VerticalOptions="Center" />
-
+                                            IconBindable="{Binding Path=Text, Source={x:Reference lblItem}}"
+                                            IconHeight="70"
+                                            IconWidth="70" />
+                                        <Label
+                                            x:Name="lblItem"
+                                            IsVisible="False"
+                                            Text="{Binding day.condition.code}" />
                                         <Label
                                             Grid.Row="0"
                                             Grid.Column="1"
@@ -238,7 +248,7 @@
                     <!--  fin proximos días  -->
 
 
-                    <expand:Expander Animated="True" HeaderTapped="Expander_HeaderTapped" >
+                    <expand:Expander Animated="True" HeaderTapped="Expander_HeaderTapped">
                         <expand:Expander.HeaderContent>
                             <Border
                                 x:Name="expHeader"
@@ -697,10 +707,10 @@
                                     <Label Text="{Binding CurrentAstronomy.astronomy.astro.is_moon_up}" />
 
                                     <!--  ejemplos de como implementar la vista de imagenes que cambia segun la configuracion  -->
-                                    <views:IconView
+                                    <!--<views:IconView
                                         HeightRequest="100"
                                         IconBindable="static_fill_moon_waxing_gibbous.svg"
-                                        WidthRequest="100" />
+                                        WidthRequest="100" />-->
                                     <Image
                                         HeightRequest="100"
                                         Source="static_fill_moon_waxing_gibbous.png"

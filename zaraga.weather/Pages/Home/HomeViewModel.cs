@@ -27,7 +27,6 @@ public class HomeViewModel : SharedViewModel
     private WeatherForecast _weeklyForecast = new();
     private int _forecastDays = 3;
     private bool _forecastLoading = false;
-    private bool _isDay = false;
     private bool _usingSearchLocation = false;
     private SkiaSharp.Extended.UI.Controls.SKLottieImageSource _moonImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile($"{App.NotAvailableIcon}.json");
     private SkiaSharp.Extended.UI.Controls.SKLottieImageSource _epaImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile($"{App.NotAvailableIcon}.json");
@@ -145,7 +144,9 @@ public class HomeViewModel : SharedViewModel
         try
         {
             CurrentWeather = await ApiService.Instance.GetCurrentLocationWeather(location.Latitude, location.Longitude);
-            _isDay = CurrentWeather.current.is_day == 1;
+            //Guardo la configuracion en las preferencias del dispositivo
+            Microsoft.Maui.Storage.Preferences.Default.Set("IsDay", CurrentWeather.current.is_day == 1);
+
             string? epaIcon = new EpaIndexIconConverter().Convert(CurrentWeather.current.air_quality.usepaindex, typeof(HomeViewModel), null, CultureInfo.CurrentCulture)?.ToString();
             string? defraIcon = new DefraIconConverter().Convert(CurrentWeather.current.air_quality.gbdefraindex, typeof(HomeViewModel), null, CultureInfo.CurrentCulture)?.ToString();
 
@@ -283,7 +284,7 @@ public class HomeViewModel : SharedViewModel
         {
             return;
         }
-        timer.Interval = TimeSpan.FromMinutes(1);
+        timer.Interval = TimeSpan.FromMinutes(5);
         timer.Tick += (s, e) => Task.Run(async () => await LoadData());
         timer.Start();
     }

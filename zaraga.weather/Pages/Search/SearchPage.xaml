@@ -48,8 +48,9 @@
                     <SearchBar
                         x:Name="txtSearch"
                         Placeholder="Direccion, Codigo postal o Coordenadas"
-                        SearchCommand="{Binding SearchCommand}"
+                        SearchCommand="{Binding SearchCommand}" 
                         Text="{Binding SearchText}"
+                        TextChanged="txtSearch_TextChanged"
                         Unfocused="txtSearch_Unfocused" />
                     <views:LoadingView
                         Grid.Row="1"
@@ -76,11 +77,12 @@
                                     Grid.Column="0"
                                     HeightRequest="40"
                                     Source="{AppThemeBinding Light=ic_target_black.png,
-                                                             Dark=ic_target_black.png}" />
+                                                             Dark=ic_target_white.png}" />
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Style="{StaticResource Headline}"
+                                    HorizontalTextAlignment="Center"
+                                    Style="{StaticResource SubHeadline}"
                                     Text="Ubicación Actual" />
                             </Grid>
                         </CollectionView.EmptyView>
