@@ -21,6 +21,8 @@
             <converters:MoonPhaseLangConverter x:Key="MoonPhaseLangConverter" />
             <converters:MoonPhaseIconConverter x:Key="MoonPhaseIconConverter" />
             <converters:WindDirConverter x:Key="WindDirConverter" />
+            <converters:EpaIndexIconConverter x:Key="EpaIndexIconConverter" />
+            <converters:DefraIconConverter x:Key="DefraIconConverter" />
 
             <!--  layouts  -->
             <ControlTemplate x:Key="LoadingContentPage">
