@@ -85,7 +85,7 @@ namespace zaraga.weather.Services
                 1063 => "partly_cloudy_rain", // day | night
                 1066 => "partly_cloudy_snow", // day | night
                 1069 => "partly_cloudy_sleet", // day | night
-                1072 => "drizzle",
+                1072 => "drizzle", // day | night
                 1087 => "thunderstorms",
                 1114 => "snow",
                 1117 => "wind_snow",

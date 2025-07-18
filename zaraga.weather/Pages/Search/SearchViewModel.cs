@@ -1,8 +1,10 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Devices.Sensors;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using zaraga.weather.Models;
@@ -12,26 +14,34 @@ namespace zaraga.weather.Pages.Search
 {
     public class SearchViewModel : SharedViewModel
     {
-        private TaskCompletionSource<WeatherLocation> tcs;
         private ObservableCollection<WeatherLocation> _locationList = new();
         private string _SearchText = "";
 
-        public Task<WeatherLocation> OnSelectedLocation => tcs.Task;
         public ObservableCollection<WeatherLocation> LocationList { get => _locationList; set { _locationList = value; OnPropertyChanged(); } }
-        public string SearchText { get => _SearchText; set { _SearchText = value; OnPropertyChanged(); } }
+        public string SearchText { get => _SearchText; set => SearchTextChanged(value); }
 
 
         public Command SearchCommand => new Command(Search);
         public Command CloseModalCommand => new Command(CloseModal);
+        public Command SelectLocationCommand => new Command<object>(SelectLocation);
+
+
+        //evento al seleccionar un elemento de la busqueda
+        public delegate void LocationSelectedEventHandler(Location location);
+        public event LocationSelectedEventHandler? OnLocationSelected;
+
+        private void TriggerItemSelected(Location item)
+        {
+            LocationSelectedEventHandler? handler = OnLocationSelected;
+            if (handler != null)
+            {
+                handler(item);
+            }
+        }
 
         public SearchViewModel()
         {
-            tcs = new TaskCompletionSource<WeatherLocation>();
-        }
 
-        public SearchViewModel(string searchText)
-        {
-            tcs = new TaskCompletionSource<WeatherLocation>();
         }
 
         private async void Search()
@@ -52,9 +62,41 @@ namespace zaraga.weather.Pages.Search
 
         private async void CloseModal()
         {
-            tcs.SetResult(null);
-            //await App.BottomSheetNavigationService!.ClearBottomSheetStackAsync();
+            var location = await GetDeviceLocation();
+            if (location == null)
+            {
+                await App.Log(new Exception("No se pudo obtener la ubicación actual del dispositivo."));
+                return;
+            }
+            TriggerItemSelected(location);
+
+            await App.BottomSheetNavigationService!.ClearBottomSheetStackAsync();
         }
 
+        private async void SelectLocation(object item)
+        {
+            var loc = new Location();
+            loc.Latitude = (item as WeatherLocation)!.lat;
+            loc.Longitude = (item as WeatherLocation)!.lon;
+
+            TriggerItemSelected(loc);
+
+            await App.BottomSheetNavigationService!.ClearBottomSheetStackAsync();
+        }
+
+        private void SearchTextChanged(string value)
+        {
+            _SearchText = value;
+            //OnPropertyChanged(nameof(SearchText));
+
+            if (value.Length == 0)
+            {
+                LocationList.Clear();
+            }
+            else if (value.Length >= 3)
+            {
+                Search();
+            }
+        }
     }
 }
