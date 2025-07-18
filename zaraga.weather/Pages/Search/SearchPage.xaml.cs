@@ -43,4 +43,9 @@ public partial class SearchPage : BottomSheet
     {
 
     }
+
+    private void txtSearch_TextChanged(object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    {
+
+    }
 }

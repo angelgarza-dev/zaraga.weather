@@ -4,21 +4,22 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:zaraga.weather.Views"
-    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI">
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    x:DataType="local:IconView">
 
     <VerticalStackLayout>
         <skia:SKLottieView
-            HeightRequest="150"
+            HeightRequest="{Binding ParentHeight}"
             IsVisible="{Binding AnimatedVisible}"
             RepeatCount="-1"
             Source="{Binding ImageSource}"
-            WidthRequest="150" />
+            WidthRequest="{Binding ParentWidth}" />
 
         <Image
-            HeightRequest="150"
+            HeightRequest="100"
             IsVisible="{Binding StatickVisible}"
             Source="{Binding IconSource}"
-            WidthRequest="150" />
+            WidthRequest="100" />
     </VerticalStackLayout>
 
 

@@ -2,12 +2,27 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Storage;
 using System;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using zaraga.weather.Converters;
+using zaraga.weather.Models;
 
 namespace zaraga.weather.Views;
 
 public partial class IconView : ContentView, INotifyPropertyChanged
 {
+    private static string[] dayNightIcons =
+    {
+        "clear",
+        "fog",
+        "partly_cloudy",
+        "partly_cloudy_rain",
+        "partly_cloudy_snow",
+        "partly_cloudy_sleet",
+        "drizzle",
+        "overcast_drizzle"
+    };
     private string _iconsource = "";
     private string _sourcePrefix;
     private int _iconType;
@@ -22,14 +37,31 @@ public partial class IconView : ContentView, INotifyPropertyChanged
     public bool StatickVisible { get => _statickVisible; set { _statickVisible = value; NotifyPropertyChanged(); } }
     public SkiaSharp.Extended.UI.Controls.SKLottieImageSource ImageSource { get => _imageSource; set { _imageSource = value; NotifyPropertyChanged(); } }
 
+    private double _parentHeight;
+    private double _parentWidth;
 
-
-    public static readonly BindableProperty IconBindableProperty = BindableProperty.Create("IconBindable", typeof(string), typeof(IconView), "", propertyChanged: OnIconPropertyChanged);
-    public string IconBindable
+    public double ParentHeight
     {
-        get => GetValue(IconBindableProperty).ToString() ?? "";
-        set => SetValue(IconBindableProperty, value);
+        get { return _parentHeight; }
+        set { _parentHeight = value; NotifyPropertyChanged(); }
     }
+
+    public double ParentWidth
+    {
+        get { return _parentWidth; }
+        set { _parentWidth = value; NotifyPropertyChanged(); }
+    }
+
+
+
+    public static BindableProperty IconBindableProperty = BindableProperty.Create("IconBindable", typeof(int), typeof(IconView), 0, propertyChanged: OnIconPropertyChanged);
+    public static BindableProperty IconHeightProperty = BindableProperty.Create("IconHeight", typeof(double), typeof(IconView), propertyChanged: OnIconHeightPropertyChanged);
+    public static BindableProperty IconWidthProperty = BindableProperty.Create("IconWidth", typeof(double), typeof(IconView), propertyChanged: OnIconWidthPropertyChanged);
+
+    public int IconBindable { get => (int)GetValue(IconBindableProperty); set => SetValue(IconBindableProperty, value); }
+    public double IconHeight { get => (double)GetValue(IconHeightProperty); set => SetValue(IconHeightProperty, value); }
+    public double IconWidth { get => (double)GetValue(IconWidthProperty); set => SetValue(IconWidthProperty, value); }
+
 
 
     public IconView()
@@ -52,7 +84,8 @@ public partial class IconView : ContentView, INotifyPropertyChanged
         {
             case 0:
             default:
-                sourcePrefix = "Dynamic/Fill/dynamic_fill_";
+                //sourcePrefix = "Dynamic/Fill/dynamic_fill_";
+                sourcePrefix = "dynamic_fill_";
                 break;
             case 1:
                 sourcePrefix = "static_fill_";
@@ -70,19 +103,34 @@ public partial class IconView : ContentView, INotifyPropertyChanged
 
     private static void OnIconPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (bindable is IconView iconView && newValue is string newIcon)
+        if (bindable is IconView iconView && newValue is int neeWeatherCode)
         {
+            string icon_name = new IconCodeConverter().Convert(neeWeatherCode, typeof(IconView), null, CultureInfo.CurrentCulture)?.ToString() ?? App.NotAvailableIcon;
+
+            string icon_sufix = "";
             //Obtiene el tipo de icono seleccionado segun la configuración
             iconView.IconType = Preferences.Default.Get("SelectedIconStyle", 0);
             iconView._sourcePrefix = iconView.GetImageSourcePrefix();
 
 
-            if (iconView.IconType > 0)
+            if (dayNightIcons.Contains(icon_name))
+            {
+                bool isDay = Preferences.Default.Get("IsDay", true);
+                icon_sufix = isDay ? "_day" : "_night";
+            }
+
+            if (icon_name == App.NotAvailableIcon)
+            {
+                iconView.AnimatedVisible = true;
+                iconView.StatickVisible = false;
+                iconView.ImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile("na.json");
+            }
+            else if (iconView.IconType > 0)
             {
                 iconView.AnimatedVisible = false;
                 iconView.StatickVisible = true;
 
-                string iconPath = iconView._sourcePrefix + newIcon;
+                string iconPath = iconView._sourcePrefix + icon_name + icon_sufix;
                 iconView.IconSource = iconPath;
                 iconView.ImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile(App.NotAvailableIcon);
             }
@@ -90,7 +138,7 @@ public partial class IconView : ContentView, INotifyPropertyChanged
             {
                 iconView.AnimatedVisible = true;
                 iconView.StatickVisible = false;
-                string iconPath = iconView._sourcePrefix + newIcon + ".json";
+                string iconPath = iconView._sourcePrefix + icon_name + icon_sufix + ".json";
                 iconView.IconSource = "";
                 iconView.ImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile(iconPath);
                 //ImageSource = SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile("Dynamic/Fill/dynamic_fill_clear_night.json") as SkiaSharp.Extended.UI.Controls.SKLottieImageSource;
@@ -100,6 +148,22 @@ public partial class IconView : ContentView, INotifyPropertyChanged
     }
 
 
+    private static void OnIconHeightPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is IconView iconView && newValue is double newHeight)
+        {
+            iconView.ParentHeight = newHeight;
+        }
+    }
+
+
+    private static void OnIconWidthPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is IconView iconView && newValue is double newWidth)
+        {
+            iconView.ParentWidth = newWidth;
+        }
+    }
 
 
     #region notify property changed

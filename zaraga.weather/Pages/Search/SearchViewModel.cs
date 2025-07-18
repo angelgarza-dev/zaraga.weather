@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using zaraga.weather.Models;
@@ -17,7 +18,7 @@ namespace zaraga.weather.Pages.Search
         private string _SearchText = "";
 
         public ObservableCollection<WeatherLocation> LocationList { get => _locationList; set { _locationList = value; OnPropertyChanged(); } }
-        public string SearchText { get => _SearchText; set { _SearchText = value; OnPropertyChanged(); } }
+        public string SearchText { get => _SearchText; set => SearchTextChanged(value); }
 
 
         public Command SearchCommand => new Command(Search);
@@ -81,6 +82,21 @@ namespace zaraga.weather.Pages.Search
             TriggerItemSelected(loc);
 
             await App.BottomSheetNavigationService!.ClearBottomSheetStackAsync();
+        }
+
+        private void SearchTextChanged(string value)
+        {
+            _SearchText = value;
+            //OnPropertyChanged(nameof(SearchText));
+
+            if (value.Length == 0)
+            {
+                LocationList.Clear();
+            }
+            else if (value.Length >= 3)
+            {
+                Search();
+            }
         }
     }
 }
