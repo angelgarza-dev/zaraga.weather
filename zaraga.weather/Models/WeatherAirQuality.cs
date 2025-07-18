@@ -1,4 +1,6 @@
-﻿namespace zaraga.weather.Models
+﻿using Newtonsoft.Json;
+
+namespace zaraga.weather.Models
 {
     public class WeatherAirQuality
     {
@@ -34,6 +36,7 @@
         /// 5 means Very Unhealthy
         /// 6 means Hazardous
         /// </summary>
+        [JsonProperty("us-epa-index")]
         public int usepaindex { get; set; }
         /// <summary>
         /// 0-11 low
@@ -47,6 +50,7 @@
         /// 65-70 High
         /// >=71 Very High
         /// </summary>
+        [JsonProperty("gb-defra-index")]
         public int gbdefraindex { get; set; }
 
         public WeatherAirQuality()
