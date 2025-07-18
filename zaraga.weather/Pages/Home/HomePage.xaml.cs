@@ -1,3 +1,4 @@
+using epj.Expander.Maui;
 using Microsoft.Maui.Controls;
 using zaraga.weather.Layouts;
 
@@ -28,5 +29,16 @@ public partial class HomePage : LoadingContentPage
     private void Picker_SelectedIndexChanged(object sender, System.EventArgs e)
     {
         _viewModel?.OnForecastDaysChangeCommand.Execute(null);
+    }
+
+    private void Expander_HeaderTapped(object sender, epj.Expander.Maui.ExpandedEventArgs e)
+    {
+        if (sender is Expander)
+        {
+            if ((sender as Expander)!.IsExpanded)
+            {
+                scrol.ScrollToAsync(expHeader, ScrollToPosition.Start, true);
+            }
+        }
     }
 }

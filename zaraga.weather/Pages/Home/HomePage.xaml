@@ -26,16 +26,27 @@
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SearchCommand}" />
                     </Border.GestureRecognizers>
-                    <Grid ColumnDefinitions="*,Auto">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
                         <Label
+                            Grid.Row="0"
                             Grid.Column="0"
                             Style="{DynamicResource SubHeadline}"
                             Text="{Binding CurrentWeather.location.name}" />
                         <Image
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
                             Grid.Column="1"
                             HeightRequest="40"
                             Source="{AppThemeBinding Light=ic_search_black.png,
                                                      Dark=ic_search_white.png}" />
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Spacing="5">
+                            <Label FontSize="Default" Text="{Binding CurrentWeather.location.region}" />
+                            <Label Text="," />
+                            <Label FontSize="Default" Text="{Binding CurrentWeather.location.country}" />
+                        </HorizontalStackLayout>
                     </Grid>
                 </Border>
 
@@ -48,13 +59,11 @@
             <!--  fin encabezado  -->
 
             <!--  detalle  -->
-            <ScrollView Grid.Row="1" Orientation="Vertical">
+            <ScrollView
+                x:Name="scrol"
+                Grid.Row="1"
+                Orientation="Vertical">
                 <VerticalStackLayout Padding="10" Spacing="5">
-
-                    <!--  Ultima actualizacion  -->
-                    <Label Text="{Binding CurrentWeather.location.region}" />
-                    <Label Text="{Binding CurrentWeather.location.country}" />
-                    <!--  fin Ultima actualizacion  -->
 
                     <!--  tiempo local  -->
                     <Border>
@@ -229,11 +238,16 @@
                     <!--  fin proximos días  -->
 
 
-                    <expand:Expander Animated="True">
+                    <expand:Expander Animated="True" HeaderTapped="Expander_HeaderTapped" >
                         <expand:Expander.HeaderContent>
-
-                            <Border Margin="0,20,0,0" Padding="5">
-                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
+                            <Border
+                                x:Name="expHeader"
+                                Margin="0,20,0,0"
+                                Padding="0">
+                                <Grid
+                                    x:Name="expHeaderContent"
+                                    ColumnDefinitions="*,Auto"
+                                    RowDefinitions="Auto">
                                     <Label
                                         HorizontalTextAlignment="Center"
                                         Style="{StaticResource SubHeadline}"
@@ -242,14 +256,12 @@
                                     <Image
                                         Grid.Row="0"
                                         Grid.Column="1"
-                                        Margin="10"
                                         IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type expand:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
                                         Source="{AppThemeBinding Light=ic_arrow_down_black.png,
                                                                  Dark=ic_arrow_down_white.png}" />
                                     <Image
                                         Grid.Row="0"
                                         Grid.Column="1"
-                                        Margin="10"
                                         IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type expand:Expander}, AncestorLevel=1}}"
                                         Source="{AppThemeBinding Light=ic_arrow_up_black.png,
                                                                  Dark=ic_arrow_up_white.png}" />
