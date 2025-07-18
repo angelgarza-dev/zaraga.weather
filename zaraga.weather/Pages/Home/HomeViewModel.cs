@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android;
 using Microsoft.Maui.Devices.Sensors;
+using Microsoft.Maui.Dispatching;
 using Plugin.Maui.BottomSheet.Navigation;
 using System;
 using System.Globalization;
@@ -17,6 +18,8 @@ namespace zaraga.weather.Pages.Home;
 
 public class HomeViewModel : SharedViewModel
 {
+    private Location? _lastLocation = null;
+    private IDispatcherTimer? timer = null;
     private WeatherCurrentLocation _currentWeather = new();
     private WeatherForecastAstro _currentAstronomy = new();
     private WeatherAlerts _locationAlerts = new();
@@ -44,7 +47,8 @@ public class HomeViewModel : SharedViewModel
 
 
 
-    public Command LoadDataCommand => new Command(LoadData);
+    public Command LoadDataCommand => new Command(Init);
+    public Command ReloadDataCommand => new Command(async () => await LoadData());
     public Command OnDisapearingCommand => new Command(OnDisapearing);
     public Command OnForecastDaysChangeCommand => new Command(OnForecastDaysChange);
     public Command GoToSettingsCommand => new Command(GoToSettings);
@@ -67,18 +71,21 @@ public class HomeViewModel : SharedViewModel
         if (IsLoading) return;
 
         ForecastLoading = true;
-        var location = await GetDeviceLocation();
-        if (location == null)
+        _lastLocation = await GetDeviceLocation();
+        if (_lastLocation == null)
         {
             IsLoading = false;
             return;
         }
 
-        await GetWeeklyForecast(location);
+        await GetWeeklyForecast(_lastLocation);
         ForecastLoading = false;
     }
 
-    private async void LoadData()
+    /// <summary>
+    /// Obtiene los datos iniciales
+    /// </summary>
+    private async void Init()
     {
         if (_usingSearchLocation)
         {
@@ -93,21 +100,41 @@ public class HomeViewModel : SharedViewModel
 
         //permisos y ubicación actual
         await GetAppPermissions();
-        var location = await GetDeviceLocation();
-        if (location == null)
+        _lastLocation = await GetDeviceLocation();
+        if (_lastLocation == null)
         {
             IsLoading = false;
             return;
         }
 
-        //obtención de datos
-        await GetCurrentWeather(location);
-        await GetAstronomy(location);
-        await GetWeatherAlerts(location);
-        await GetForecast(location);
-        await GetWeeklyForecast(location);
+        await LoadData();
+        StartTimer();
 
         IsLoading = false;
+    }
+
+    /// <summary>
+    /// Llama a los endpoints para obtener la información a mostrar
+    /// </summary>
+    /// <returns></returns>
+    private async Task LoadData()
+    {
+        if (_lastLocation == null)
+        {
+            return;
+        }
+
+        IsLoading = true;
+
+        //obtención de datos
+        await GetCurrentWeather(_lastLocation);
+        await GetAstronomy(_lastLocation);
+        await GetWeatherAlerts(_lastLocation);
+        await GetForecast(_lastLocation);
+        await GetWeeklyForecast(_lastLocation);
+
+        IsLoading = false;
+
     }
 
     /// <summary>
@@ -236,16 +263,29 @@ public class HomeViewModel : SharedViewModel
     private async void ViewModel_OnLocationSelected(Location location)
     {
         IsLoading = true;
+        _lastLocation = location;
 
-        //obtención de datos
-        await GetCurrentWeather(location);
-        await GetAstronomy(location);
-        await GetWeatherAlerts(location);
-        await GetForecast(location);
-        await GetWeeklyForecast(location);
+        await LoadData();
 
         _usingSearchLocation = false;
         IsLoading = false;
+    }
+
+    private void StartTimer()
+    {
+        if (timer != null)
+        {//restart timer
+            timer.Stop();
+        }
+
+        timer = Application.Current?.Dispatcher.CreateTimer();
+        if (timer == null)
+        {
+            return;
+        }
+        timer.Interval = TimeSpan.FromMinutes(1);
+        timer.Tick += (s, e) => Task.Run(async () => await LoadData());
+        timer.Start();
     }
 
 }

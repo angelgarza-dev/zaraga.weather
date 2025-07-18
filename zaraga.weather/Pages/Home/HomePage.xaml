@@ -15,7 +15,7 @@
         <local:HomeViewModel />
     </layouts:LoadingContentPage.BindingContext>
 
-    <RefreshView Command="{Binding LoadDataCommand}" IsRefreshing="{Binding IsLoading}">
+    <RefreshView Command="{Binding ReloadDataCommand}" IsRefreshing="{Binding IsLoading}">
         <Grid RowDefinitions="Auto,*">
             <!--  encabezado  -->
             <Grid
