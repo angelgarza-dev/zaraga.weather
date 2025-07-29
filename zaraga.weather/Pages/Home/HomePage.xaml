@@ -207,6 +207,7 @@
                                             Grid.Column="1"
                                             Grid.ColumnSpan="2"
                                             HorizontalTextAlignment="Center"
+                                            MaxLines="2"
                                             Text="{Binding date, StringFormat='{0:D}'}" />
 
                                         <Label
@@ -285,9 +286,9 @@
                             <!--  humedad  -->
                             <Label Style="{StaticResource SubHeadline}" Text="Humedad" />
                             <BoxView />
-                            <Grid ColumnDefinitions="*,*" ColumnSpacing="5">
-                                <Border>
-                                    <VerticalStackLayout>
+                            <Border Padding="0">
+                                <Grid ColumnDefinitions="*,*" Style="{StaticResource GridBackgroundBorder}">
+                                    <VerticalStackLayout Padding="8,3" Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Covertura" />
                                         <Label
                                             LineHeight="50"
@@ -301,9 +302,10 @@
                                             Source="humidity.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Column="1">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Precipitación" />
 
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.precip_mm, StringFormat='ml: {0}'}" />
@@ -318,23 +320,26 @@
                                             WidthRequest="80" />
 
                                     </VerticalStackLayout>
-                                </Border>
-                            </Grid>
+                                </Grid>
+                            </Border>
                             <!--  fin humedad  -->
 
                             <!--  viento  -->
                             <Label Style="{DynamicResource SubHeadline}" Text="Viento" />
                             <BoxView />
-                            <Grid
-                                ColumnDefinitions="*,*"
-                                ColumnSpacing="5"
-                                RowDefinitions="Auto,Auto"
-                                RowSpacing="5">
-                                <Border
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2">
-                                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
+                            <Border Padding="0">
+                                <Grid
+                                    ColumnDefinitions="*,*"
+                                    RowDefinitions="Auto,Auto"
+                                    Style="{StaticResource GridBackgroundBorder}">
+                                    <Grid
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Padding="8,3"
+                                        ColumnDefinitions="*,*,*"
+                                        ColumnSpacing="5"
+                                        Style="{StaticResource GridBackgroundColor}">
                                         <VerticalStackLayout Grid.Column="0">
                                             <Label Text="Velocidad" />
                                             <Label Text="{Binding CurrentWeather.current.wind_kph, StringFormat='{0} Km'}" />
@@ -354,9 +359,11 @@
                                             Source="wind.json"
                                             WidthRequest="80" />
                                     </Grid>
-                                </Border>
-                                <Border Grid.Row="1" Grid.Column="0">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Inclinación" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.wind_degree, StringFormat='{0}°'}" />
                                         <skia:SKLottieView
@@ -367,9 +374,11 @@
                                             Source="windsock.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="1" Grid.Column="1">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Dirección" />
                                         <Label
                                             HorizontalOptions="Center"
@@ -384,21 +393,23 @@
                                             Source="compass.json"
                                             WidthRequest="60" />
                                     </VerticalStackLayout>
-                                </Border>
-                            </Grid>
+                                </Grid>
+                            </Border>
                             <!--  fin viento  -->
 
                             <!--  Astronomia  -->
                             <Label Style="{DynamicResource SubHeadline}" Text="Astronomia" />
-
                             <BoxView />
-                            <Grid
-                                ColumnDefinitions="*,*"
-                                ColumnSpacing="5"
-                                RowDefinitions="Auto,Auto,Auto,Auto,Auto"
-                                RowSpacing="5">
-                                <Border Grid.Row="0" Grid.Column="0">
-                                    <VerticalStackLayout>
+                            <Border Padding="0">
+                                <Grid
+                                    ColumnDefinitions="*,*"
+                                    RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                                    Style="{StaticResource GridBackgroundBorder}">
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Amanecer" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.sunrise}" />
                                         <skia:SKLottieView
@@ -409,9 +420,11 @@
                                             Source="sunrise.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="0" Grid.Column="1">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Atardecer" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.sunset}" />
                                         <skia:SKLottieView
@@ -422,11 +435,13 @@
                                             Source="sunset.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
 
-                                <Border Grid.Row="1" Grid.Column="0">
-                                    <VerticalStackLayout>
-                                        <Label Text="Ocaso Lunar" />
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
+                                        <Label Text="Puesta Lunar" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moonset}" />
 
                                         <skia:SKLottieView
@@ -437,27 +452,61 @@
                                             Source="moonset.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="1" Grid.Column="1">
-                                    <VerticalStackLayout>
-                                        <Label Text="Iluminación" />
-                                        <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Grid.ColumnSpan="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
+
+                                        <Label Text="Salida Lunar" />
+                                        <Label
+                                            IsVisible="True"
+                                            Style="{StaticResource Headline}"
+                                            Text="{Binding CurrentAstronomy.astronomy.astro.moonrise}">
+                                            <Label.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding CurrentAstronomy.astronomy.astro.moonrise}"
+                                                    TargetType="Label"
+                                                    Value="No moonrise">
+                                                    <Setter Property="IsVisible" Value="False" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label
+                                            IsVisible="False"
+                                            Style="{StaticResource Headline}"
+                                            Text="Sin Salida">
+                                            <Label.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding CurrentAstronomy.astronomy.astro.moonrise}"
+                                                    TargetType="Label"
+                                                    Value="No moonrise">
+                                                    <Setter Property="IsVisible" Value="True" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+
                                         <skia:SKLottieView
-                                            Padding="-20"
+                                            Padding="-25"
                                             HeightRequest="50"
                                             IsVisible="True"
                                             RepeatCount="-1"
-                                            Source="starry_night.json"
-                                            WidthRequest="50" />
+                                            Source="moonrise.json"
+                                            WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2">
-                                    <VerticalStackLayout>
+
+                                    <VerticalStackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Fase Lunar" />
-                                        <Label Style="{StaticResource SubHeadline}" Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
+                                        <Label
+                                            HeightRequest="64"
+                                            MaxLines="2"
+                                            Style="{StaticResource SubHeadline}"
+                                            Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
 
                                         <skia:SKLottieView
                                             Padding="-20"
@@ -467,21 +516,43 @@
                                             Source="{Binding MoonImageSource}"
                                             WidthRequest="50" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border
-                                    Grid.Row="4"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    IsVisible="True">
-                                    <Border.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding CurrentAstronomy.astronomy.astro.moonrise}"
-                                            TargetType="Border"
-                                            Value="No moonrise">
-                                            <Setter Property="IsVisible" Value="False" />
-                                        </DataTrigger>
-                                    </Border.Triggers>
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
+                                        <Label Text="Iluminación" />
+                                        <Label
+                                            HeightRequest="64"
+                                            HorizontalTextAlignment="Center"
+                                            Style="{StaticResource Headline}"
+                                            Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
+
+                                        <skia:SKLottieView
+                                            Padding="-20"
+                                            HeightRequest="50"
+                                            IsVisible="True"
+                                            RepeatCount="-1"
+                                            Source="starry_night.json"
+                                            WidthRequest="50" />
+                                    </VerticalStackLayout>
+
+
+                                    <!--<VerticalStackLayout
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Padding="8,3"
+                                        IsVisible="True"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
+                                        <VerticalStackLayout.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding CurrentAstronomy.astronomy.astro.moonrise}"
+                                                TargetType="VerticalStackLayout"
+                                                Value="No moonrise">
+                                                <Setter Property="IsVisible" Value="False" />
+                                            </DataTrigger>
+                                        </VerticalStackLayout.Triggers>
                                         <Label Text="Salida Lunar" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moonrise}" />
                                         <skia:SKLottieView
@@ -492,20 +563,41 @@
                                             Source="moonrise.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                            </Grid>
+                                    <VerticalStackLayout
+                                        Grid.Row="4"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
+                                        <Label Text="Fase Lunar" />
+                                        <Label Style="{StaticResource SubHeadline}" Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
+
+                                        <skia:SKLottieView
+                                            Padding="-20"
+                                            HeightRequest="50"
+                                            IsVisible="True"
+                                            RepeatCount="-1"
+                                            Source="{Binding MoonImageSource}"
+                                            WidthRequest="50" />
+                                    </VerticalStackLayout>-->
+
+                                </Grid>
+                            </Border>
                             <!--  Astronomia  -->
 
                             <!--  Condicion atmosferica  -->
                             <Label Style="{DynamicResource SubHeadline}" Text="Condición atmosférica" />
                             <BoxView />
-                            <Grid
-                                ColumnDefinitions="*,*"
-                                ColumnSpacing="5"
-                                RowDefinitions="Auto,Auto"
-                                RowSpacing="5">
-                                <Border Grid.Row="0" Grid.Column="0">
-                                    <VerticalStackLayout>
+                            <Border Padding="0">
+                                <Grid
+                                    ColumnDefinitions="*,*"
+                                    RowDefinitions="Auto,Auto"
+                                    Style="{StaticResource GridBackgroundBorder}">
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Presión" />
                                         <!--<Label Text="Milibares" />-->
                                         <!--<Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.pressure_mb, StringFormat='mbar: {0}'}" />-->
@@ -520,10 +612,12 @@
                                             Source="barometer.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
 
-                                <Border Grid.Row="0" Grid.Column="1">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Cobertura" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.cloud, StringFormat='{0}%'}" />
                                         <skia:SKLottieView
@@ -534,9 +628,11 @@
                                             Source="overcast.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="1" Grid.Column="0">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Indice UV" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.uv, StringFormat='{0}'}" />
                                         <skia:SKLottieView
@@ -547,21 +643,29 @@
                                             Source="uv_index.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                            </Grid>
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Style="{StaticResource VerticalStackBackgroundColor}" />
+                                </Grid>
+                            </Border>
                             <!--  Condicion atmosferica  -->
 
                             <!--  calidad de aire  -->
                             <Label Style="{StaticResource SubHeadline}" Text="calidad del aire" />
                             <BoxView />
-                            <Grid
-                                ColumnDefinitions="*,*"
-                                ColumnSpacing="5"
-                                RowDefinitions="Auto,Auto,Auto,Auto"
-                                RowSpacing="5">
+                            <Border Padding="0">
+                                <Grid
+                                    ColumnDefinitions="*,*"
+                                    RowDefinitions="Auto,Auto,Auto,Auto"
+                                    Style="{StaticResource GridBackgroundBorder}">
 
-                                <Border Grid.Row="0" Grid.Column="0">
-                                    <VerticalStackLayout>
+
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="CO" />
                                         <Label
                                             HorizontalOptions="Center"
@@ -577,9 +681,12 @@
                                             Source="pollen.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="0" Grid.Column="1">
-                                    <VerticalStackLayout>
+
+                                    <VerticalStackLayout
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="NO2" />
                                         <Label
                                             HorizontalOptions="Center"
@@ -595,9 +702,11 @@
                                             Source="pollen.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="1" Grid.Column="0">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="O3" />
                                         <Label
                                             HorizontalOptions="Center"
@@ -613,9 +722,11 @@
                                             Source="pollen.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="1" Grid.Column="1">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="SO2" />
                                         <Label
                                             HorizontalOptions="Center"
@@ -631,9 +742,11 @@
                                             Source="pollen.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="2" Grid.Column="0">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="PM2.5" />
                                         <Label
                                             HorizontalOptions="Center"
@@ -649,9 +762,11 @@
                                             Source="pollen.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="2" Grid.Column="1">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="PM10" />
                                         <Label
                                             HorizontalOptions="Center"
@@ -667,9 +782,11 @@
                                             Source="pollen.json"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="3" Grid.Column="0">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="EPA de EU." />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.air_quality.usepaindex}" />
 
@@ -681,9 +798,11 @@
                                             Source="{Binding EpaImageSource}"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                                <Border Grid.Row="3" Grid.Column="1">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Padding="8,3"
+                                        Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Defra de UK." />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.air_quality.gbdefraindex}" />
                                         <skia:SKLottieView
@@ -694,8 +813,9 @@
                                             Source="{Binding DefraImageSource}"
                                             WidthRequest="80" />
                                     </VerticalStackLayout>
-                                </Border>
-                            </Grid>
+
+                                </Grid>
+                            </Border>
                             <!--  fin calidad de aire  -->
 
                             <!--  otros  -->
