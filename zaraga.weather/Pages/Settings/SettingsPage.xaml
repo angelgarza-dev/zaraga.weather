@@ -56,36 +56,24 @@
                 </maui:Expander.HeaderContent>
                 <Grid
                     Padding="5,0"
-                    ColumnDefinitions="*,*,*,*"
+                    ColumnDefinitions="*,*,*"
                     ColumnSpacing="2"
                     RadioButtonGroup.GroupName="IconType"
                     RadioButtonGroup.SelectedValue="{Binding SelectedIConStyle}"
                     RowDefinitions="Auto">
 
                     <RadioButton
-                        x:Name="btnDefault"
+                        x:Name="btnAnimated"
                         Grid.Row="0"
                         Grid.Column="0"
                         ControlTemplate="{DynamicResource RadioButtonTemplate}"
                         Value="0">
                         <RadioButton.Content>
-                            <Image
+                            <skia:SKLottieView
+                                BackgroundColor="Transparent"
                                 HeightRequest="100"
-                                Source="https://cdn.weatherapi.com/weather/128x128/day/113.png"
-                                WidthRequest="100" />
-                        </RadioButton.Content>
-                    </RadioButton>
-
-                    <RadioButton
-                        x:Name="btnLine"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                        Value="2">
-                        <RadioButton.Content>
-                            <Image
-                                HeightRequest="100"
-                                Source="static_line_clear_day.png"
+                                RepeatCount="-1"
+                                Source="dynamic_fill_clear_day.json"
                                 WidthRequest="100" />
                         </RadioButton.Content>
                     </RadioButton>
@@ -93,7 +81,7 @@
                     <RadioButton
                         x:Name="btnSolid"
                         Grid.Row="0"
-                        Grid.Column="2"
+                        Grid.Column="1"
                         ControlTemplate="{DynamicResource RadioButtonTemplate}"
                         Value="1">
                         <RadioButton.Content>
@@ -105,17 +93,15 @@
                     </RadioButton>
 
                     <RadioButton
-                        x:Name="btnAnimated"
+                        x:Name="btnLine"
                         Grid.Row="0"
-                        Grid.Column="3"
+                        Grid.Column="2"
                         ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                        Value="3">
+                        Value="2">
                         <RadioButton.Content>
-                            <skia:SKLottieView
-                                BackgroundColor="Transparent"
+                            <Image
                                 HeightRequest="100"
-                                RepeatCount="-1"
-                                Source="Dynamic/Fill/dynamic_fill_clear_day.json"
+                                Source="static_line_clear_day.png"
                                 WidthRequest="100" />
                         </RadioButton.Content>
                     </RadioButton>

@@ -35,16 +35,13 @@ public partial class SettingsPage : LoadingContentPage
         {
             case 0:
             default:
-                btnDefault.IsChecked = true;
+                btnAnimated.IsChecked = true;
                 break;
             case 1:
                 btnSolid.IsChecked = true;
                 break;
             case 2:
                 btnLine.IsChecked = true;
-                break;
-            case 3:
-                btnAnimated.IsChecked = true;
                 break;
         }
 

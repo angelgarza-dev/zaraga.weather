@@ -48,7 +48,7 @@
                     <SearchBar
                         x:Name="txtSearch"
                         Placeholder="Direccion, Codigo postal o Coordenadas"
-                        SearchCommand="{Binding SearchCommand}" 
+                        SearchCommand="{Binding SearchCommand}"
                         Text="{Binding SearchText}"
                         TextChanged="txtSearch_TextChanged"
                         Unfocused="txtSearch_Unfocused" />

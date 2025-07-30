@@ -73,24 +73,18 @@
                                 Padding="2"
                                 ColumnDefinitions="Auto,*"
                                 RowDefinitions="Auto,Auto">
-                                <!--<Image
-                                    Grid.Row="0"
-                                    Grid.RowSpan="2"
-                                    Grid.Column="0"
-                                    HeightRequest="100"
-                                    IsVisible="False"
-                                    Source="{Binding CurrentWeather.current.condition.code, Converter={StaticResource WebImageConverter}}"
-                                    VerticalOptions="Center"
-                                    WidthRequest="100" />-->
-                                <!--  binding con la referencia por nombre  -->
                                 <views:IconView
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
                                     Grid.Column="0"
-                                    IconBindable="{Binding BindingContext.CurrentWeather.current.condition.code, Source={x:Reference page}}"
+                                    IconBindable="{Binding Path=Text, Source={x:Reference lblCurrentWeatherName}}"
                                     IconHeight="100"
                                     IconWidth="100" />
-
+                                <Label
+                                    x:Name="lblCurrentWeatherName"
+                                    Grid.Row="1"
+                                    IsVisible="False"
+                                    Text="{Binding CurrentWeather.current.condition.code}" />
 
                                 <Label
                                     Grid.Row="0"
@@ -144,18 +138,16 @@
                                                     <Border Margin="5,0" WidthRequest="130">
                                                         <VerticalStackLayout>
                                                             <Label Text="{Binding time, StringFormat='{0: hh:mm tt}'}" />
-
                                                             <views:IconView
                                                                 IconBindable="{Binding Path=Text, Source={x:Reference lblItem}}"
                                                                 IconHeight="80"
                                                                 IconWidth="80" />
-
                                                             <Label
                                                                 x:Name="lblItem"
                                                                 IsVisible="False"
                                                                 Text="{Binding condition.code}" />
                                                             <Label
-                                                                HeightRequest="40"
+                                                                HeightRequest="50"
                                                                 HorizontalTextAlignment="Center"
                                                                 LineBreakMode="TailTruncation"
                                                                 MaxLines="2"

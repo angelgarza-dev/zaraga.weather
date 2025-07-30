@@ -84,7 +84,6 @@ public partial class IconView : ContentView, INotifyPropertyChanged
         {
             case 0:
             default:
-                //sourcePrefix = "Dynamic/Fill/dynamic_fill_";
                 sourcePrefix = "dynamic_fill_";
                 break;
             case 1:
