@@ -14,7 +14,7 @@ public class AboutViewModel : SharedViewModel
 
     public Command OpenBrowserCommand => new Command(OpenBrowser);
     public Command OpenBassDevCommand => new Command(OpenBassDev);
-
+    public Command GoBackCommand => new Command(GoBack);
 
     /// <summary>
     /// Abre el navegador web con la pagina web de WeatherAPI
@@ -41,4 +41,8 @@ public class AboutViewModel : SharedViewModel
         });
     }
 
+    private void GoBack()
+    {
+        Shell.Current.GoToAsync("//HomePage");
+    }
 }

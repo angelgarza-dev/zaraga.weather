@@ -1,18 +1,13 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+﻿using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Dispatching;
-using Plugin.Maui.BottomSheet.Navigation;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using zaraga.weather.Converters;
 using zaraga.weather.Models;
 using zaraga.weather.Pages.Search;
 using zaraga.weather.Services;
-using zaraga.weather.Views;
 
 namespace zaraga.weather.Pages.Home;
 
@@ -241,8 +236,10 @@ public class HomeViewModel : SharedViewModel
 
     private void GoToSettings()
     {
-        //Shell.Current.GoToAsync("SettingsPage");
         Shell.Current.GoToAsync("//SettingsPage");
+        //Shell.Current.GoToAsync("SettingsTabPage");
+
+
     }
 
     private async void Search()
