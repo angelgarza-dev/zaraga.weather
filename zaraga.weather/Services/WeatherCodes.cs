@@ -9,7 +9,7 @@ namespace zaraga.weather.Services
     public static class WeatherCodes
     {
         /// <summary>
-        /// Coleccion de descripciones de clima originales de weatherapi
+        /// Colección de descripciones de clima originales de weatherapi
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
@@ -70,7 +70,7 @@ namespace zaraga.weather.Services
         }
 
         /// <summary>
-        /// Obtiene la imagen del clima segun el codigo de respuesta de weatherapi
+        /// Obtiene la imagen del clima según el código de respuesta de weatherapi
         /// </summary>
         /// <returns></returns>
         public static string GetWeatherImageByCode(int code)
@@ -125,6 +125,40 @@ namespace zaraga.weather.Services
                 1276 => "thunderstorms_overcast_rain",
                 1279 => "thunderstorms_snow",
                 1282 => "thunderstorms_overcast_snow",
+
+                //Misceláneos
+                5001 => "barometer",
+                5002 => "celsius",
+                5003 => "compass",
+                5004 => "fahrenheit",
+                5005 => "horizon",
+                5006 => "humidity",
+                5007 => "raindrop_measure",
+                5008 => "starry_night",
+                5009 => "pollen",
+                5010 => "uv_index",
+                5011 => "wind",
+                5012 => "windsock",
+                //Astronómicos
+                5101 => "moonrise",
+                5102 => "moonset",
+                5103 => "sunrise",
+                5104 => "sunset",
+                //Fases de la luna
+                5201 => "moon_first_quarter",
+                5202 => "moon_full",
+                5203 => "moon_last_quarter",
+                5204 => "moon_new",
+                5205 => "moon_waning_crescent",
+                5206 => "moon_waning_gibbous",
+                5207 => "moon_waxing_crescent",
+                5208 => "moon_waxing_gibbous",
+                //Indicadores
+                5301 => "code_green",
+                5302 => "code_orange",
+                5303 => "code_red",
+                5304 => "code_yellow",
+
                 _ => "not_available"
             };
 

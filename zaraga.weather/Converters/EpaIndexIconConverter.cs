@@ -1,10 +1,6 @@
 ﻿using Microsoft.Maui.Controls;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace zaraga.weather.Converters
 {
@@ -45,6 +41,30 @@ namespace zaraga.weather.Converters
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return value;
+        }
+    }
+
+    internal class EpaIndexIconCode
+    {
+        internal int GetImageCodeByIndex(int index)
+        {
+            var indicatorIcons = new WeatherIndicatorIcons();
+            switch (index)
+            {
+                case 0:
+                case 1:
+                    return indicatorIcons.CodeGreen;
+                case 2:
+                case 3:
+                    return indicatorIcons.CodeYellow;
+                case 4:
+                    return indicatorIcons.CodeOrange;
+                case 5:
+                case 6:
+                    return indicatorIcons.CodeRed;
+                default:
+                    return 0;
+            }
         }
     }
 }

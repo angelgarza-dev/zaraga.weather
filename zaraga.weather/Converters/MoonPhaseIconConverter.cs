@@ -28,4 +28,24 @@ namespace zaraga.weather.Converters
             return value;
         }
     }
+
+    internal class MoonPhaseIconCode
+    {
+        internal int GetImageCodeByPhase(string? moonPhaseEng)
+        {
+            var indicatorIcons = new WeatherIndicatorIcons();
+            return moonPhaseEng switch
+            {
+                "New Moon" => indicatorIcons.MoonNew,
+                "Waxing Crescent" => indicatorIcons.MoonWaxingCrescent,
+                "First Quarter" => indicatorIcons.MoonFirstQuarter,
+                "Waxing Gibbous" => indicatorIcons.MoonWaxingGibbous,
+                "Full Moon" => indicatorIcons.MoonFull,
+                "Waning Gibbous" => indicatorIcons.MoonWaningGibbous,
+                "Last Quarter" => indicatorIcons.MoonLastQuarter,
+                "Waning Crescent" => indicatorIcons.MoonWaningCrescent,
+                _ => 0,
+            };
+        }
+    }
 }

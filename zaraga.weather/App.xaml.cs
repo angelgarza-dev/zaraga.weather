@@ -59,4 +59,11 @@ public partial class App : Application
 #endif
         await Shell.Current.DisplayAlert("Error", exception?.Message ?? "Ops por favor vuelva a intentar.", "OK");
     }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+        //Establece el estilo de imagenes fijas por defecto
+        Microsoft.Maui.Storage.Preferences.Default.Set("SelectedIconStyle", 1);
+    }
 }

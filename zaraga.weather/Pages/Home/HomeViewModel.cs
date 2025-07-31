@@ -28,9 +28,10 @@ public class HomeViewModel : SharedViewModel
     private int _forecastDays = 3;
     private bool _forecastLoading = false;
     private bool _usingSearchLocation = false;
-    private SkiaSharp.Extended.UI.Controls.SKLottieImageSource _moonImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile($"{App.NotAvailableIcon}.json");
-    private SkiaSharp.Extended.UI.Controls.SKLottieImageSource _epaImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile($"{App.NotAvailableIcon}.json");
-    private SkiaSharp.Extended.UI.Controls.SKLottieImageSource _defraImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile($"{App.NotAvailableIcon}.json");
+
+    private int _moonImageCode = 0;
+    private int _epaImageCode = 0;
+    private int _defraImageCode = 0;
 
 
     public WeatherCurrentLocation CurrentWeather { get => _currentWeather; set { _currentWeather = value; OnPropertyChanged(); } }
@@ -40,9 +41,9 @@ public class HomeViewModel : SharedViewModel
     public WeatherForecast WeeklyForecast { get => _weeklyForecast; set { _weeklyForecast = value; OnPropertyChanged(); } }
     public int ForecastDays { get => _forecastDays; set { _forecastDays = value; OnPropertyChanged(); } }
     public bool ForecastLoading { get => _forecastLoading; set { _forecastLoading = value; OnPropertyChanged(); } }
-    public SkiaSharp.Extended.UI.Controls.SKLottieImageSource MoonImageSource { get => _moonImageSource; set { _moonImageSource = value; OnPropertyChanged(); } }
-    public SkiaSharp.Extended.UI.Controls.SKLottieImageSource EpaImageSource { get => _epaImageSource; set { _epaImageSource = value; OnPropertyChanged(); } }
-    public SkiaSharp.Extended.UI.Controls.SKLottieImageSource DefraImageSource { get => _defraImageSource; set { _defraImageSource = value; OnPropertyChanged(); } }
+    public int MoonImageCode { get => _moonImageCode; set { _moonImageCode = value; OnPropertyChanged(); } }
+    public int EpaImageCode { get => _epaImageCode; set { _epaImageCode = value; OnPropertyChanged(); } }
+    public int DefraImageCode { get => _defraImageCode; set { _defraImageCode = value; OnPropertyChanged(); } }
 
 
 
@@ -127,13 +128,18 @@ public class HomeViewModel : SharedViewModel
 
         //obtención de datos
         await GetCurrentWeather(_lastLocation);
+        await Task.Delay(50);
         await GetAstronomy(_lastLocation);
+        await Task.Delay(50);
         await GetWeatherAlerts(_lastLocation);
+        await Task.Delay(50);
         await GetForecast(_lastLocation);
+        await Task.Delay(50);
         await GetWeeklyForecast(_lastLocation);
 
-        IsLoading = false;
+        WeatherIndicators = new WeatherIndicatorIcons();
 
+        IsLoading = false;
     }
 
     /// <summary>
@@ -147,11 +153,8 @@ public class HomeViewModel : SharedViewModel
             //Guardo la configuracion en las preferencias del dispositivo
             Microsoft.Maui.Storage.Preferences.Default.Set("IsDay", CurrentWeather.current.is_day == 1);
 
-            string? epaIcon = new EpaIndexIconConverter().Convert(CurrentWeather.current.air_quality.usepaindex, typeof(HomeViewModel), null, CultureInfo.CurrentCulture)?.ToString();
-            string? defraIcon = new DefraIconConverter().Convert(CurrentWeather.current.air_quality.gbdefraindex, typeof(HomeViewModel), null, CultureInfo.CurrentCulture)?.ToString();
-
-            EpaImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile(epaIcon ?? $"{App.NotAvailableIcon}.json");
-            DefraImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile(defraIcon ?? $"{App.NotAvailableIcon}.json");
+            EpaImageCode = new EpaIndexIconCode().GetImageCodeByIndex(CurrentWeather.current.air_quality.usepaindex);
+            DefraImageCode = new DefraIndexIconCode().GetImageCodeByIndex(CurrentWeather.current.air_quality.gbdefraindex);
         }
         catch (Exception ex)
         {
@@ -174,10 +177,7 @@ public class HomeViewModel : SharedViewModel
 
             CurrentAstronomy = await ApiService.Instance.GetLocationAstronomy(location.Latitude, location.Longitude, astronomyDate);
 
-            string? moonPhaseIcon = new MoonPhaseIconConverter().Convert(CurrentAstronomy.astronomy.astro.moon_phase, typeof(HomeViewModel), null, CultureInfo.CurrentCulture)?.ToString();
-
-            MoonImageSource = (SkiaSharp.Extended.UI.Controls.SKLottieImageSource)SkiaSharp.Extended.UI.Controls.SKLottieImageSource.FromFile(moonPhaseIcon ?? $"{App.NotAvailableIcon}.json");
-
+            MoonImageCode = new MoonPhaseIconCode().GetImageCodeByPhase(CurrentAstronomy.astronomy.astro.moon_phase);
         }
         catch (Exception ex)
         {

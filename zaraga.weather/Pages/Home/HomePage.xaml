@@ -77,15 +77,9 @@
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
                                     Grid.Column="0"
-                                    IconBindable="{Binding Path=Text, Source={x:Reference lblCurrentWeatherName}}"
+                                    IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path='CurrentWeather.current.condition.code'}"
                                     IconHeight="100"
                                     IconWidth="100" />
-                                <Label
-                                    x:Name="lblCurrentWeatherName"
-                                    Grid.Row="1"
-                                    IsVisible="False"
-                                    Text="{Binding CurrentWeather.current.condition.code}" />
-
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
@@ -97,7 +91,6 @@
                                     Grid.Column="1"
                                     IsVisible="False"
                                     Text="{Binding CurrentWeather.current.temp_f, StringFormat='°f {0}'}" />-->
-
 
                                 <Label
                                     Grid.Row="1"
@@ -286,13 +279,11 @@
                                             LineHeight="50"
                                             Style="{StaticResource Headline}"
                                             Text="{Binding CurrentWeather.current.humidity, StringFormat='{0}%'}" />
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="humidity.json"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Humidity}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Column="1"
@@ -303,14 +294,11 @@
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.precip_mm, StringFormat='ml: {0}'}" />
                                         <!--<Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.precip_in, StringFormat='in: {0}'}" />-->
 
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="raindrop_measure.json"
-                                            WidthRequest="80" />
-
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.RaindropMeasure}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                 </Grid>
                             </Border>
@@ -342,14 +330,12 @@
                                             <Label Text="{Binding CurrentWeather.current.gust_kph, StringFormat='{0} Km'}" />
                                             <!--<Label Text="{Binding CurrentWeather.current.gust_mph, StringFormat='{0} mill'}" />-->
                                         </VerticalStackLayout>
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Grid.Column="2"
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="wind.json"
-                                            WidthRequest="80" />
+                                            Padding="-10"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Wind}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </Grid>
                                     <VerticalStackLayout
                                         Grid.Row="1"
@@ -358,13 +344,11 @@
                                         Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Inclinación" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.wind_degree, StringFormat='{0}°'}" />
-                                        <skia:SKLottieView
-                                            Padding="-15"
-                                            HeightRequest="60"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="windsock.json"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-10"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Windsock}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="1"
@@ -377,13 +361,11 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentWeather.current.wind_dir, Converter={StaticResource WindDirConverter}}" />
-                                        <skia:SKLottieView
-                                            Padding="-15"
-                                            HeightRequest="60"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="compass.json"
-                                            WidthRequest="60" />
+                                        <views:IconView
+                                            Padding="-10"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Compass}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                 </Grid>
                             </Border>
@@ -404,13 +386,11 @@
                                         Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Amanecer" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.sunrise}" />
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="sunrise.json"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Sunrise}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="0"
@@ -419,13 +399,11 @@
                                         Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Atardecer" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.sunset}" />
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="sunset.json"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Sunset}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout
@@ -435,14 +413,11 @@
                                         Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Puesta Lunar" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moonset}" />
-
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="moonset.json"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Moonset}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="1"
@@ -478,14 +453,11 @@
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>
-
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="moonrise.json"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Moonrise}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout
@@ -500,13 +472,19 @@
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
 
-                                        <skia:SKLottieView
+                                        <!--<skia:SKLottieView
                                             Padding="-20"
                                             HeightRequest="50"
                                             IsVisible="True"
                                             RepeatCount="-1"
                                             Source="{Binding MoonImageSource}"
-                                            WidthRequest="50" />
+                                            WidthRequest="50" />-->
+                                        <views:IconView
+                                            Padding="-15"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=MoonImageCode}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
+
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="2"
@@ -519,60 +497,12 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource Headline}"
                                             Text="{Binding CurrentAstronomy.astronomy.astro.moon_illumination, StringFormat='{0}%'}" />
-
-                                        <skia:SKLottieView
-                                            Padding="-20"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="starry_night.json"
-                                            WidthRequest="50" />
+                                        <views:IconView
+                                            Padding="-15"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.StarryNight}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
-
-
-                                    <!--<VerticalStackLayout
-                                        Grid.Row="3"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        Padding="8,3"
-                                        IsVisible="True"
-                                        Style="{StaticResource VerticalStackBackgroundColor}">
-                                        <VerticalStackLayout.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding CurrentAstronomy.astronomy.astro.moonrise}"
-                                                TargetType="VerticalStackLayout"
-                                                Value="No moonrise">
-                                                <Setter Property="IsVisible" Value="False" />
-                                            </DataTrigger>
-                                        </VerticalStackLayout.Triggers>
-                                        <Label Text="Salida Lunar" />
-                                        <Label Style="{StaticResource Headline}" Text="{Binding CurrentAstronomy.astronomy.astro.moonrise}" />
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="moonrise.json"
-                                            WidthRequest="80" />
-                                    </VerticalStackLayout>
-                                    <VerticalStackLayout
-                                        Grid.Row="4"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="2"
-                                        Padding="8,3"
-                                        Style="{StaticResource VerticalStackBackgroundColor}">
-                                        <Label Text="Fase Lunar" />
-                                        <Label Style="{StaticResource SubHeadline}" Text="{Binding CurrentAstronomy.astronomy.astro.moon_phase, Converter={StaticResource MoonPhaseLangConverter}}" />
-
-                                        <skia:SKLottieView
-                                            Padding="-20"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="{Binding MoonImageSource}"
-                                            WidthRequest="50" />
-                                    </VerticalStackLayout>-->
-
                                 </Grid>
                             </Border>
                             <!--  Astronomia  -->
@@ -596,13 +526,11 @@
                                         <!--<Label Text="Pulgadas" />-->
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.pressure_in, StringFormat='in: {0}'}" />
 
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Padding="-15"
-                                            HeightRequest="60"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="barometer.json"
-                                            WidthRequest="80" />
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Barometer}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout
@@ -612,13 +540,12 @@
                                         Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Cobertura" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.cloud, StringFormat='{0}%'}" />
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="overcast.json"
-                                            WidthRequest="80" />
+
+                                        <views:IconView
+                                            Padding="-15"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Overcast}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="1"
@@ -627,13 +554,12 @@
                                         Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Indice UV" />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.uv, StringFormat='{0}'}" />
-                                        <skia:SKLottieView
-                                            Padding="-15"
-                                            HeightRequest="60"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="uv_index.json"
-                                            WidthRequest="80" />
+
+                                        <views:IconView
+                                            Padding="-10"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.UVIndex}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="1"
@@ -664,14 +590,11 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentWeather.current.air_quality.co, StringFormat='{0} ppm'}" />
-
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="pollen.json"
-                                            WidthRequest="80" />
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Pollen}"
+                                            IconHeight="90"
+                                            IconWidth="100" />
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout
@@ -685,14 +608,11 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentWeather.current.air_quality.no2, StringFormat='{0} ppm'}" />
-
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="pollen.json"
-                                            WidthRequest="80" />
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Pollen}"
+                                            IconHeight="90"
+                                            IconWidth="100" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="1"
@@ -705,14 +625,11 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentWeather.current.air_quality.o3, StringFormat='{0} ppm'}" />
-
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="pollen.json"
-                                            WidthRequest="80" />
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Pollen}"
+                                            IconHeight="90"
+                                            IconWidth="100" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="1"
@@ -725,14 +642,11 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentWeather.current.air_quality.so2, StringFormat='{0} ppm'}" />
-
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="pollen.json"
-                                            WidthRequest="80" />
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Pollen}"
+                                            IconHeight="90"
+                                            IconWidth="100" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="2"
@@ -745,14 +659,11 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentWeather.current.air_quality.pm2_5, StringFormat='{0} ppm'}" />
-
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="pollen.json"
-                                            WidthRequest="80" />
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Pollen}"
+                                            IconHeight="90"
+                                            IconWidth="100" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="2"
@@ -765,14 +676,11 @@
                                             HorizontalTextAlignment="Center"
                                             Style="{StaticResource SubHeadline}"
                                             Text="{Binding CurrentWeather.current.air_quality.pm10, StringFormat='{0} ppm'}" />
-
-                                        <skia:SKLottieView
+                                        <views:IconView
                                             Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="pollen.json"
-                                            WidthRequest="80" />
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=WeatherIndicators.Pollen}"
+                                            IconHeight="90"
+                                            IconWidth="100" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="3"
@@ -782,13 +690,11 @@
                                         <Label Text="EPA de EU." />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.air_quality.usepaindex}" />
 
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="{Binding EpaImageSource}"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=EpaImageCode}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
                                     </VerticalStackLayout>
                                     <VerticalStackLayout
                                         Grid.Row="3"
@@ -797,13 +703,12 @@
                                         Style="{StaticResource VerticalStackBackgroundColor}">
                                         <Label Text="Defra de UK." />
                                         <Label Style="{StaticResource Headline}" Text="{Binding CurrentWeather.current.air_quality.gbdefraindex}" />
-                                        <skia:SKLottieView
-                                            Padding="-25"
-                                            HeightRequest="50"
-                                            IsVisible="True"
-                                            RepeatCount="-1"
-                                            Source="{Binding DefraImageSource}"
-                                            WidthRequest="80" />
+                                        <views:IconView
+                                            Padding="-20"
+                                            IconBindable="{Binding x:DataType='local:HomeViewModel', Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=DefraImageCode}"
+                                            IconHeight="80"
+                                            IconWidth="80" />
+
                                     </VerticalStackLayout>
 
                                 </Grid>

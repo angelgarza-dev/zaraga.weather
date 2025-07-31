@@ -16,10 +16,10 @@
             WidthRequest="{Binding ParentWidth}" />
 
         <Image
-            HeightRequest="100"
+            HeightRequest="{Binding ParentHeight}"
             IsVisible="{Binding StatickVisible}"
             Source="{Binding IconSource}"
-            WidthRequest="100" />
+            WidthRequest="{Binding ParentWidth}" />
     </VerticalStackLayout>
 
 

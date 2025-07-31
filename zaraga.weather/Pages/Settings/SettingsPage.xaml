@@ -14,9 +14,12 @@
         <local:SettingsViewModel />
     </layouts:LoadingContentPage.BindingContext>
 
-    <VerticalStackLayout Padding="2" Spacing="5">
-
-        <HorizontalStackLayout>
+    <Grid
+        Padding="2"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*"
+        RowSpacing="5">
+        <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
             <ImageButton Command="{Binding GoBackCommand}" Source="{AppThemeBinding Light=ic_back_black.png, Dark=ic_back_white.png}" />
             <Label
                 Grid.Column="1"
@@ -24,39 +27,19 @@
                 Text="Configuración" />
         </HorizontalStackLayout>
 
-        <VerticalStackLayout x:Name="AccordionLayout" Spacing="6">
-            <!--  estilo de iconos  -->
-            <maui:Expander Animated="True" HeaderTapped="Expander_HeaderTapped">
-                <maui:Expander.HeaderContent>
-                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Style="{DynamicResource Headline}"
-                            Text="Estilo de iconos"
-                            VerticalTextAlignment="Center" />
+        <ScrollView Grid.Row="1" Grid.Column="0">
+            <VerticalStackLayout x:Name="AccordionLayout" Spacing="6">
+                <!--  estilo de iconos  -->
+                <Label
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    Style="{DynamicResource Headline}"
+                    Text="Estilo de iconos"
+                    VerticalTextAlignment="Center" />
 
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="10"
-                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
-                            Source="{AppThemeBinding Light=ic_arrow_down_black.png,
-                                                     Dark=ic_arrow_down_white.png}" />
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="10"
-                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}}"
-                            Source="{AppThemeBinding Light=ic_arrow_up_black.png,
-                                                     Dark=ic_arrow_up_white.png}" />
-                    </Grid>
-                </maui:Expander.HeaderContent>
                 <Grid
                     Padding="5,0"
-                    ColumnDefinitions="*,*,*"
+                    ColumnDefinitions="*,*"
                     ColumnSpacing="2"
                     RadioButtonGroup.GroupName="IconType"
                     RadioButtonGroup.SelectedValue="{Binding SelectedIConStyle}"
@@ -67,10 +50,10 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                        HorizontalOptions="Center"
                         Value="0">
                         <RadioButton.Content>
                             <skia:SKLottieView
-                                BackgroundColor="Transparent"
                                 HeightRequest="100"
                                 RepeatCount="-1"
                                 Source="dynamic_fill_clear_day.json"
@@ -83,6 +66,7 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                        HorizontalOptions="Center"
                         Value="1">
                         <RadioButton.Content>
                             <Image
@@ -92,11 +76,13 @@
                         </RadioButton.Content>
                     </RadioButton>
 
+                    <!--  button not visible  -->
                     <RadioButton
                         x:Name="btnLine"
                         Grid.Row="0"
                         Grid.Column="2"
                         ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                        IsVisible="False"
                         Value="2">
                         <RadioButton.Content>
                             <Image
@@ -108,35 +94,14 @@
 
                 </Grid>
 
-            </maui:Expander>
+                <!--  medidas  -->
+                <Label
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    Style="{DynamicResource Headline}"
+                    Text="Medidas"
+                    VerticalTextAlignment="Center" />
 
-            <!--  medidas  -->
-            <maui:Expander Animated="True" HeaderTapped="Expander_HeaderTapped">
-                <maui:Expander.HeaderContent>
-                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
-                        <Label
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Style="{DynamicResource Headline}"
-                            Text="Medidas"
-                            VerticalTextAlignment="Center" />
-
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="10"
-                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
-                            Source="{AppThemeBinding Light=ic_arrow_down_black.png,
-                                                     Dark=ic_arrow_down_white.png}" />
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="10"
-                            IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type maui:Expander}, AncestorLevel=1}}"
-                            Source="{AppThemeBinding Light=ic_arrow_up_black.png,
-                                                     Dark=ic_arrow_up_white.png}" />
-                    </Grid>
-                </maui:Expander.HeaderContent>
                 <VerticalStackLayout Padding="5" Spacing="5">
                     <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
                         <VerticalStackLayout>
@@ -174,11 +139,9 @@
                         </VerticalStackLayout>
                     </Border>
                 </VerticalStackLayout>
-            </maui:Expander>
 
-        </VerticalStackLayout>
-
-
-    </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 
 </layouts:LoadingContentPage>

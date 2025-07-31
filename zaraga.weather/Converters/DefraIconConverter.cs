@@ -51,4 +51,32 @@ namespace zaraga.weather.Converters
             return value;
         }
     }
+
+    public class DefraIndexIconCode()
+    {
+        public int GetImageCodeByIndex(int index)
+        {
+            var indicatorIcons = new WeatherIndicatorIcons();
+            switch (index)
+            {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    return indicatorIcons.CodeGreen;
+                case 4:
+                case 5:
+                case 6:
+                    return indicatorIcons.CodeYellow;
+                case 7:
+                case 8:
+                case 9:
+                    return indicatorIcons.CodeOrange;
+                case 10:
+                    return indicatorIcons.CodeRed;
+                default:
+                    return 0; // Icono por defecto si no se encuentra el índice
+            }
+        }
+    }
 }
