@@ -37,7 +37,7 @@
                             Grid.Row="0"
                             Grid.RowSpan="2"
                             Grid.Column="1"
-                            HeightRequest="40"
+                            HeightRequest="35"
                             Source="{AppThemeBinding Light=ic_search_black.png,
                                                      Dark=ic_search_white.png}" />
                         <HorizontalStackLayout
@@ -54,6 +54,7 @@
                 <ImageButton
                     Grid.Column="1"
                     Command="{Binding GoToSettingsCommand}"
+                    HeightRequest="35"
                     Source="{AppThemeBinding Light=ic_settings_black.png,
                                              Dark=ic_settings_white.png}" />
             </Grid>
@@ -244,20 +245,19 @@
                                     x:Name="expHeaderContent"
                                     ColumnDefinitions="*,Auto"
                                     RowDefinitions="Auto">
-                                    <Label
-                                        HorizontalTextAlignment="Center"
-                                        Style="{StaticResource SubHeadline}"
-                                        Text="Información Adicional" />
+                                    <Label Style="{StaticResource Headline}" Text="Información Adicional" />
 
                                     <Image
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        HeightRequest="35"
                                         IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type expand:Expander}, AncestorLevel=1}, Converter={StaticResource InverseBoolConverter}}"
                                         Source="{AppThemeBinding Light=ic_arrow_down_black.png,
                                                                  Dark=ic_arrow_down_white.png}" />
                                     <Image
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        HeightRequest="35"
                                         IsVisible="{Binding Path=IsExpanded, Source={RelativeSource AncestorType={x:Type expand:Expander}, AncestorLevel=1}}"
                                         Source="{AppThemeBinding Light=ic_arrow_up_black.png,
                                                                  Dark=ic_arrow_up_white.png}" />

@@ -27,22 +27,24 @@
         Shell.NavBarIsVisible="False" />
 
     <ShellContent
-        Title="Ajustes"
-        ContentTemplate="{DataTemplate settings:SettingsPage}"
-        Route="SettingsPage"
-        Shell.NavBarIsVisible="False" />
-
-    <ShellContent
-        Title="Acerca De"
-        ContentTemplate="{DataTemplate about:AboutPage}"
-        Route="AboutPage"
-        Shell.NavBarIsVisible="False" />
-
-    <ShellContent
         Title="Iconos"
         ContentTemplate="{DataTemplate icons:IconsPage}"
         Route="IconsPage"
         Shell.NavBarIsVisible="False" />
 
+    <TabBar>
+        <Tab>
+            <ShellContent
+                Title="Configuración"
+                ContentTemplate="{DataTemplate settings:SettingsPage}"
+                Route="SettingsPage"
+                Shell.NavBarIsVisible="True" />
+            <ShellContent
+                Title="Acerca De"
+                ContentTemplate="{DataTemplate about:AboutPage}"
+                Route="AboutPage"
+                Shell.NavBarIsVisible="True" />
+        </Tab>
+    </TabBar>
 
 </Shell>

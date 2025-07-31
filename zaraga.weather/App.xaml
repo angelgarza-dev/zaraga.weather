@@ -85,7 +85,7 @@
                                 </VisualState>
                                 <VisualState x:Name="Unchecked">
                                     <VisualState.Setters>
-                                        <Setter Property="Stroke" Value="{AppThemeBinding Light='#F3F2F1', Dark='#355C74'}" />
+                                        <Setter Property="Stroke" Value="{AppThemeBinding Light='#F3F2F1', Dark='#9E9E9E'}" />
                                         <Setter TargetName="check" Property="Opacity" Value="0" />
                                     </VisualState.Setters>
                                 </VisualState>

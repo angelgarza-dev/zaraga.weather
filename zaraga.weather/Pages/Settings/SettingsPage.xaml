@@ -10,91 +10,109 @@
     x:Name="page"
     ShowLoadingBar="{Binding Source={x:Reference page}, Path=BindingContext.IsLoading}">
 
+    <Shell.TitleView>
+        <HorizontalStackLayout>
+            <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+                <ImageButton
+                    Margin="0,0,5,0"
+                    Padding="0"
+                    Command="{Binding BindingContext.GoBackCommand, Source={x:Reference page}}"
+                    HeightRequest="20"
+                    Source="{AppThemeBinding Light=ic_back_black.png,
+                                             Dark=ic_back_white.png}"
+                    WidthRequest="20" />
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    Text="Configuración"
+                    TextColor="{AppThemeBinding Light={DynamicResource Primary},
+                                                Dark={DynamicResource White}}" />
+            </HorizontalStackLayout>
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
     <layouts:LoadingContentPage.BindingContext>
         <local:SettingsViewModel />
     </layouts:LoadingContentPage.BindingContext>
 
-    <Grid
-        Padding="2"
-        ColumnDefinitions="*"
-        RowDefinitions="Auto,*"
-        RowSpacing="5">
-        <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
-            <ImageButton Command="{Binding GoBackCommand}" Source="{AppThemeBinding Light=ic_back_black.png, Dark=ic_back_white.png}" />
+    <ScrollView
+        Grid.Row="1"
+        Grid.Column="0"
+        Margin="5"
+        Padding="5">
+        <VerticalStackLayout x:Name="AccordionLayout" Spacing="6">
+            <!--  estilo de iconos  -->
             <Label
-                Grid.Column="1"
-                Style="{StaticResource Headline}"
-                Text="Configuración" />
-        </HorizontalStackLayout>
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                Style="{DynamicResource Headline}"
+                Text="Estilo de iconos"
+                VerticalTextAlignment="Center" />
 
-        <ScrollView Grid.Row="1" Grid.Column="0">
-            <VerticalStackLayout x:Name="AccordionLayout" Spacing="6">
-                <!--  estilo de iconos  -->
-                <Label
-                    HorizontalOptions="Start"
-                    HorizontalTextAlignment="Start"
-                    Style="{DynamicResource Headline}"
-                    Text="Estilo de iconos"
-                    VerticalTextAlignment="Center" />
+            <Grid
+                Padding="5,0"
+                ColumnDefinitions="*,*"
+                ColumnSpacing="2"
+                RadioButtonGroup.GroupName="IconType"
+                RadioButtonGroup.SelectedValue="{Binding SelectedIConStyle}"
+                RowDefinitions="Auto">
 
-                <Grid
-                    Padding="5,0"
-                    ColumnDefinitions="*,*"
-                    ColumnSpacing="2"
-                    RadioButtonGroup.GroupName="IconType"
-                    RadioButtonGroup.SelectedValue="{Binding SelectedIConStyle}"
-                    RowDefinitions="Auto">
+                <RadioButton
+                    x:Name="btnAnimated"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                    HorizontalOptions="Center"
+                    Value="0">
+                    <RadioButton.Content>
+                        <skia:SKLottieView
+                            HeightRequest="100"
+                            RepeatCount="-1"
+                            Source="dynamic_fill_clear_day.json"
+                            WidthRequest="100" />
+                    </RadioButton.Content>
+                </RadioButton>
 
-                    <RadioButton
-                        x:Name="btnAnimated"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                        HorizontalOptions="Center"
-                        Value="0">
-                        <RadioButton.Content>
-                            <skia:SKLottieView
-                                HeightRequest="100"
-                                RepeatCount="-1"
-                                Source="dynamic_fill_clear_day.json"
-                                WidthRequest="100" />
-                        </RadioButton.Content>
-                    </RadioButton>
+                <RadioButton
+                    x:Name="btnSolid"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                    HorizontalOptions="Center"
+                    Value="1">
+                    <RadioButton.Content>
+                        <Image
+                            HeightRequest="100"
+                            Source="static_fill_clear_day.png"
+                            WidthRequest="100" />
+                    </RadioButton.Content>
+                </RadioButton>
 
-                    <RadioButton
-                        x:Name="btnSolid"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                        HorizontalOptions="Center"
-                        Value="1">
-                        <RadioButton.Content>
-                            <Image
-                                HeightRequest="100"
-                                Source="static_fill_clear_day.png"
-                                WidthRequest="100" />
-                        </RadioButton.Content>
-                    </RadioButton>
+                <!--  button not visible  -->
+                <RadioButton
+                    x:Name="btnLine"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    ControlTemplate="{DynamicResource RadioButtonTemplate}"
+                    IsVisible="False"
+                    Value="2">
+                    <RadioButton.Content>
+                        <Image
+                            HeightRequest="100"
+                            Source="static_line_clear_day.png"
+                            WidthRequest="100" />
+                    </RadioButton.Content>
+                </RadioButton>
 
-                    <!--  button not visible  -->
-                    <RadioButton
-                        x:Name="btnLine"
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        ControlTemplate="{DynamicResource RadioButtonTemplate}"
-                        IsVisible="False"
-                        Value="2">
-                        <RadioButton.Content>
-                            <Image
-                                HeightRequest="100"
-                                Source="static_line_clear_day.png"
-                                WidthRequest="100" />
-                        </RadioButton.Content>
-                    </RadioButton>
+            </Grid>
 
-                </Grid>
+            <!--  medidas  -->
 
-                <!--  medidas  -->
+            <VerticalStackLayout
+                Padding="5"
+                IsVisible="False"
+                Spacing="5">
+
                 <Label
                     HorizontalOptions="Start"
                     HorizontalTextAlignment="Start"
@@ -102,46 +120,44 @@
                     Text="Medidas"
                     VerticalTextAlignment="Center" />
 
-                <VerticalStackLayout Padding="5" Spacing="5">
-                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
-                        <VerticalStackLayout>
-                            <Label Style="{DynamicResource SubHeadline}" Text="Temperatura" />
-                            <BoxView />
-                            <RadioButton Content="Celcius" />
-                            <RadioButton Content="Farenheig" />
-                        </VerticalStackLayout>
-                    </Border>
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
+                    <VerticalStackLayout>
+                        <Label Style="{DynamicResource SubHeadline}" Text="Temperatura" />
+                        <BoxView />
+                        <RadioButton Content="Celcius" />
+                        <RadioButton Content="Farenheig" />
+                    </VerticalStackLayout>
+                </Border>
 
-                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
-                        <VerticalStackLayout>
-                            <Label Style="{DynamicResource SubHeadline}" Text="Velocidad" />
-                            <BoxView />
-                            <RadioButton Content="Kilometro / Hora" />
-                            <RadioButton Content="Millas / Hora" />
-                        </VerticalStackLayout>
-                    </Border>
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
+                    <VerticalStackLayout>
+                        <Label Style="{DynamicResource SubHeadline}" Text="Velocidad" />
+                        <BoxView />
+                        <RadioButton Content="Kilometro / Hora" />
+                        <RadioButton Content="Millas / Hora" />
+                    </VerticalStackLayout>
+                </Border>
 
-                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
-                        <VerticalStackLayout>
-                            <Label Style="{DynamicResource SubHeadline}" Text="Liquidos" />
-                            <BoxView />
-                            <RadioButton Content="Mililitros" />
-                            <RadioButton Content="Pulgadas" />
-                        </VerticalStackLayout>
-                    </Border>
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
+                    <VerticalStackLayout>
+                        <Label Style="{DynamicResource SubHeadline}" Text="Liquidos" />
+                        <BoxView />
+                        <RadioButton Content="Mililitros" />
+                        <RadioButton Content="Pulgadas" />
+                    </VerticalStackLayout>
+                </Border>
 
-                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
-                        <VerticalStackLayout>
-                            <Label Style="{DynamicResource SubHeadline}" Text="Presion atmosferica" />
-                            <BoxView />
-                            <RadioButton Content="Milibares" />
-                            <RadioButton Content="Pulgadas" />
-                        </VerticalStackLayout>
-                    </Border>
-                </VerticalStackLayout>
-
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource Gray800}}">
+                    <VerticalStackLayout>
+                        <Label Style="{DynamicResource SubHeadline}" Text="Presion atmosferica" />
+                        <BoxView />
+                        <RadioButton Content="Milibares" />
+                        <RadioButton Content="Pulgadas" />
+                    </VerticalStackLayout>
+                </Border>
             </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </layouts:LoadingContentPage>
