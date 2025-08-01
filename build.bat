@@ -13,7 +13,6 @@ echo(
 @REM region MX
 set today=%date:~6,4%-%date:~3,2%-%date:~0,2% %time:~0,2%:%time:~3,2%
 set versionOfDay=%date:~8,2%%date:~3,2%%date:~0,2%
-set versionOfDay=250423
 
 echo Current Date: %today%
 echo Version to Generate: %versionOfDay%
@@ -56,8 +55,7 @@ echo ======================================================================
 set SIGN=-p:AndroidKeyStore="true" -p:AndroidSigningKeyStore="%ROOT%\Keystore\upload.jks" -p:AndroidSigningKeyAlias="upload" -p:AndroidSigningKeyPass="123qwe" -p:AndroidSigningStorePass="123qwe"
 REM verbosity can be: Quiet | Normal | Minimal | Diagnostic | Detailed
 set BUILD_OPTS=--verbosity:Normal
-@REM set VERSION_OPS=-p:ApplicationDisplayVersion=2.0.5.4 -p:ApplicationVersion=%versionOfDay% -p:WeatherApiKey="LlaveDesdeMSBuild"
-set VERSION_OPS=-p:WeatherApiKey="LlaveDesdeMSBuild"
+set VERSION_OPS=-p:ApplicationDisplayVersion=1.0.0.0 -p:ApplicationVersion=%versionOfDay%  -p:WeatherApiKey="7d848ee5e8d34b84bf1211825250205"
 
 dotnet publish zaraga.weather.sln -f net8.0-android -c Release %SIGN% %SDK% %BUILD_OPTS% %VERSION_OPS%
 
