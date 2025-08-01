@@ -55,7 +55,7 @@ echo ======================================================================
 set SIGN=-p:AndroidKeyStore="true" -p:AndroidSigningKeyStore="%ROOT%\Keystore\upload.jks" -p:AndroidSigningKeyAlias="upload" -p:AndroidSigningKeyPass="123qwe" -p:AndroidSigningStorePass="123qwe"
 REM verbosity can be: Quiet | Normal | Minimal | Diagnostic | Detailed
 set BUILD_OPTS=--verbosity:Normal
-set VERSION_OPS=-p:ApplicationDisplayVersion=1.0.0.0 -p:ApplicationVersion=%versionOfDay%  -p:WeatherApiKey="7d848ee5e8d34b84bf1211825250205"
+set VERSION_OPS=-p:ApplicationDisplayVersion=1.0.0.0 -p:ApplicationVersion=%versionOfDay%  -p:WeatherApiKey="Aqui Va Tu apikey"
 
 dotnet publish zaraga.weather.sln -f net8.0-android -c Release %SIGN% %SDK% %BUILD_OPTS% %VERSION_OPS%
 
