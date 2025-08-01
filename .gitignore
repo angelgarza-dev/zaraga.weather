@@ -394,3 +394,6 @@ FodyWeavers.xsd
 *.sln.iml
 .idea/
 .editorconfig
+
+#Local Files to sign the app
+Keystore/
